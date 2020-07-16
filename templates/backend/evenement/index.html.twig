@@ -1,0 +1,231 @@
+{# templates/backend/evenement/index.html.twig #}
+
+{% extends 'backend/layout.html.twig' %}
+
+{% block titre %}NeosysCMS - Admin - Evenement{% endblock %}
+
+{% block main_content %}
+
+<div class="container">
+    <!-- Title -->  
+    <div class="row heading-bg">
+        <div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
+          <h5 class="txt-dark">Evenements</h5>
+        </div>
+        <!-- Breadcrumb -->
+        <div class="col-lg-9 col-sm-8 col-md-8 col-xs-12">
+          <ol class="breadcrumb">
+            <li><a href="{{ path('admin_dashboard') }}">Tableau de bord</a></li>
+            <li class="active"><span>Evènements</span></li>
+          </ol>
+        </div>
+        <!-- /Breadcrumb -->
+    </div>
+    <!-- /Title -->
+
+    <!-- Row -->
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="panel panel-default card-view">
+                <div class="panel-wrapper collapse in">
+                    <div class="panel-body">
+                        <div class="add-event-wrap">
+                            <a href="{{ path('admin_evenement_new') }}">
+                                <button class="btn btn-primary btn-xs btn-icon left-icon"> 
+                                    <i class="fa fa-plus"></i> <span>Ajouter un evenement</span>
+                                </button>
+                            </a>
+
+                            {#<div class="calendar-event btn btn-success">My Event One <a href="javascript:void(0);" class="remove-calendar-event"><i class="fa fa-times fa-fw"></i></a></div>
+                            <div class="calendar-event btn btn-info">My Event Two <a href="javascript:void(0);" class="remove-calendar-event"><i class="fa fa-times fa-fw"></i></a></div>
+                            <div class="calendar-event btn btn-warning">My Event Three <a href="javascript:void(0);" class="remove-calendar-event"><i class="fa fa-times fa-fw"></i></a></div>
+                            <div class="calendar-event btn btn-primary">My Event Four <a href="javascript:void(0);" class="remove-calendar-event"><i class="fa fa-times fa-fw"></i></a></div>
+                            <input type="text" placeholder="Add Event and hit enter" class="form-control add-event mt-30">#}
+                            <!-- <button class="btn btn-primary btn-xs btn-icon left-icon" data-toggle="modal" data-target="#modalAjoutEvenement" data-backdrop="static"> <i class="fa fa-plus"></i> <span>Ajouter un evenement</span></button> -->
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6 col-lg-6 col-xs-12 col-sm-12 col-md-offset-3 col-lg-offset-3">
+                                {% for message in app.flashes('succes') %}
+                                <div class="alert alert-success alert-dismissable">
+                                    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                                    <i class="zmdi zmdi-check pr-15 pull-left"></i><p class="pull-left">{{ message }}.</p>
+                                    <div class="clearfix"></div>
+                                </div>
+                                {% endfor %}
+                            </div>
+                        </div>
+                        <div class="calendar-wrap mt-40">
+                          <div id="calendar"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>  
+        </div>  
+    </div>  
+    <!-- /Row -->
+</div>
+
+<!-- Details evenement -->
+<div id="modalDetail" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                <h5 class="modal-title" id="myModalLabel">Details evenement [<span id="ID"></span>]</h5>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div>
+                            <h6>Titre</h6>
+                            <span id="titre" class="information"></span>
+                        </div>
+                        <div>
+                            <h6>Lieu</h6>
+                            <span id="lieu" class="information"></span>
+                        </div>
+                        <div>
+                            <h6>Debut</h6>
+                            <span id="debut" class="information"></span>
+                        </div>
+                        <div>
+                            <h6>Fin</h6>
+                            <span id="fin" class="information"></span>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+            <div class="modal-footer">
+                <span class="custom-loader"><i class="fa fa-spin fa-gear text-warning"></i></span>
+                <button type="button" class="btn btn-warning waves-effect" id="modifier">Modifier</button>
+                <button type="button" class="btn btn-danger waves-effect" id="supprimer-evenement">Supprimer</button>
+                <button type="button" class="btn btn-default waves-effect" data-dismiss="modal" id="fermer-detail">Annuler</button>
+            </div>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
+<!-- /. Details evenement -->
+{% endblock %}
+
+{% block javascript %}
+{{ parent() }}
+
+<script src="{{ asset('theme/zapily/ltr/dist/js/fullcalendar-data.js') }}"></script>
+<script type="text/javascript">
+    $(function() {
+        "use strict";
+
+        $('.custom-loader').hide();
+
+        $('#datetimepicker1').datetimepicker({
+                useCurrent: false,
+                format: 'YYYY-MM-DD H:mm',
+                icons: {
+                        time: "fa fa-clock-o",
+                        date: "fa fa-calendar",
+                        up: "fa fa-arrow-up",
+                        down: "fa fa-arrow-down"
+                    },
+            }).on('dp.show', function() {
+            if($(this).data("DateTimePicker").date() === null)
+                $(this).data("DateTimePicker").date(moment());
+        }); 
+
+        $('#datetimepicker2').datetimepicker({
+                useCurrent: false,
+                format: 'YYYY-MM-DD H:mm',
+                icons: {
+                        time: "fa fa-clock-o",
+                        date: "fa fa-calendar",
+                        up: "fa fa-arrow-up",
+                        down: "fa fa-arrow-down"
+                    },
+            }).on('dp.show', function() {
+            if($(this).data("DateTimePicker").date() === null)
+                $(this).data("DateTimePicker").date(moment());
+        });
+
+        $("#modifier").click(function(){
+            var id = $("#ID").text();
+            window.location = "/admin/evenement/"+id+"/edit";
+        });
+        
+        $( "#supprimer-evenement" ).click(function() {
+
+            swal({   
+                title: "Etes-vous sur?",   
+                text: "Vous ne pourrez plus recuperer cet evenement!",   
+                type: "warning",   
+                showCancelButton: true,   
+                confirmButtonColor: "#f8b32d",   
+                confirmButtonText: "Oui, le supprimer!",
+                cancelButtonText: "Annuler",   
+                closeOnConfirm: true 
+            }, function(){   
+                //swal("Deleted!", "Your imaginary file has been deleted.", "success"); 
+                $(".custom-loader").show();
+                $( "button#supprimer-evenement" ).toggleClass( "disabled" );
+                $( "button#supprimer-evenement" ).attr( "disabled", "disabled" );
+                $( "button#fermer-detail" ).toggleClass( "disabled" );
+                $( "button#fermer-detail" ).attr( "disabled", "disabled" );
+
+                var id = $("#ID").text();
+                event.preventDefault(); //prevent default action
+
+                setTimeout(function(){
+                
+                    $.ajax({
+                        url : '/api/evenements/delete/'+id,
+                        type: 'DELETE'
+                    }).done(function(response){ 
+                        $(".custom-loader").hide();
+                        $( "button#supprimer-evenement" ).toggleClass( "disabled" );
+                        $( "button#fermer-detail" ).toggleClass( "disabled" );
+                        $( "button#supprimer-evenement" ).removeAttr("disabled");
+                        $( "button#fermer-detail" ).removeAttr("disabled");
+
+                        if(response.success){
+                            swal("Supprime!", "Votre evenement a ete supprime.", "success"); 
+                            location.reload();
+                        }else{
+                            $.toast().reset('all');
+                            $("body").removeAttr('class');
+                            $.toast({
+                                heading: 'Oops! Une erreur s\'est produite',
+                                text: 'Votre evenement n\'a pas ete supprime.',
+                                position: 'top-right',
+                                loaderBg:'#fec107',
+                                icon: 'error',
+                                hideAfter: 3500
+                            });
+                        }
+
+                    }).fail(function(xhr, status, error){
+                        $(".custom-loader").hide();
+                        $( "button#supprimer-evenement" ).removeClass( "disabled" );
+                        $( "button#fermer-detail" ).removeClass( "disabled" );
+                        $( "button#supprimer-evenement" ).removeAttr("disabled");
+                        $( "button#fermer-detail" ).removeAttr("disabled");
+                        $.toast().reset('all');
+                        $("body").removeAttr('class');
+                        $.toast({
+                            heading: 'Oops! Une erreur s\'est produite',
+                            text: 'Vos informations n\'ont pas ete mises a jour.',
+                            position: 'top-right',
+                            loaderBg:'#fec107',
+                            icon: 'error',
+                            hideAfter: 3500
+                        });
+                        console.log(error);
+                    });
+
+                }, 500);
+            });
+
+        });
+    });
+</script>
+{% endblock %}

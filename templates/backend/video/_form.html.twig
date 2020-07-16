@@ -1,0 +1,32 @@
+{{ form_start(form) }}
+	<div class="form-body">			
+		<div class="row">
+			<div class="col-md-12">
+				<div class="form-group {% if form_errors(form.titre)|default(null) %} has-error {% endif %}">
+        			{{ form_help(form.titre) }}
+					<label class="control-label mb-10">Titre</label>
+					{{ form_widget(form.titre, {'attr': {'class': 'form-control'}}) }}
+					<span class="help-block"> {{ form_errors(form.titre) }}</span> 
+				</div>
+			</div>
+			<div class="col-md-12">
+				<div class="form-group {% if form_errors(form.rubrique)|default(null) %} has-error {% endif %}">
+					<label class="control-label mb-10">Rubrique</label>
+					{{ form_widget(form.rubrique, {'attr': {'class': 'form-control'}}) }}
+					<span class="help-block"> {{ form_errors(form.rubrique) }} </span> 
+				</div>
+			</div>
+			<div class="col-md-12">
+				<div class="form-group {% if form_errors(form.url)|default(null) %} has-error {% endif %}">
+					<label class="control-label mb-10">URL</label>
+					{{ form_widget(form.url, {'attr': {'class': 'form-control'}}) }}
+					<span class="help-block"> {{ form_errors(form.url) }} </span> 
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="form-actions mt-10">
+		<button type="submit" class="btn {{button_type}}  btn-icon left-iocn mr-10"><i class="fa fa-save"></i>{{ button_label|default('Creer') }}</button>
+		{# <button type="button" class="btn btn-default">Cancel</button> #}
+	</div>
+{{ form_end(form) }}

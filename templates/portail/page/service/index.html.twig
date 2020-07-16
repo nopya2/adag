@@ -1,0 +1,238 @@
+{# templates/portail/service/index.html.twig #}
+
+{% extends 'portail/layout.html.twig' %}
+
+{% block titre %}NeoSys Technologie | Nos Services{% endblock %}
+
+{% block page_content %}
+  <section id="rs-breadcrumbs" class="sppb-section  rs-breadcrumbs" >
+    <div class="sppb-row-container">
+      <div class="sppb-section-title sppb-text-left">
+        <h2 class="sppb-title-heading">Services</h2>
+      </div>
+      <div class="sppb-row">
+        <div class="sppb-col-md-12" id="column-wrap-id-1542802526275">
+          <div id="column-id-1542802526275" class="sppb-column" >
+            <div class="sppb-column-addons">
+              <div id="sppb-addon-1542802526276" class="clearfix" >
+                <div class="sppb-addon sppb-addon-module breadcrumbs-path">
+                  <div class="sppb-addon-content">
+                    <ol itemscope itemtype="https://schema.org/BreadcrumbList" class="breadcrumb">
+                      <li class="float-left"><span class="divider fa fa-location" aria-hidden="true"></span></li>
+                      <li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem" class="breadcrumb-item">
+                        <a itemprop="item" href="{{ asset('home') }}" class="pathway"><span itemprop="name">Accueil</span></a>				<meta itemprop="position" content="1">
+                      </li>
+                      <li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem" class="breadcrumb-item active">
+                        <span itemprop="name">Services</span>
+                        <meta itemprop="position" content="3">
+                      </li>
+                    </ol>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  
+  <section id="section-id-1542802526261" class="sppb-section  rs-services sec-title-bottom after-center" >
+    {# <div class="sppb-row-overlay"></div> #}
+    <div class="sppb-row-container">
+      <div class="sppb-row">
+        <div class="sppb-col-md-12" id="column-wrap-id-1542802526278">
+          <div id="column-id-1542802526278" class="sppb-column" >
+            <div class="sppb-column-addons">
+              <div id="section-id-1542802526279" class="sppb-section " >
+                <div class="sppb-row-overlay"></div>
+                <div class="sppb-container-inner">
+                  <div class="sppb-row">
+                    {% for service in services %}
+                    <div class="sppb-col-md-4" id="column-wrap-id-1542802526280" style="margin-bottom:20px;">
+                      <div id="column-id-1542802526280" class="sppb-column" >
+                        <div class="sppb-column-addons">
+                          <div id="sppb-addon-1542802526282" class="clearfix" >
+                            <div class="sppb-addon sppb-addon-feature sppb-text-left common-part">
+                              <div class="sppb-addon-content sppb-text-left">
+                                <div class="sppb-media">
+                                  <div class="pull-left">
+                                    <div class="sppb-icon">
+                                      <span class="sppb-icon-container">
+                                        <i aria-hidden="true" aria-label="Risk Management" class="{{service.icone}}"></i>
+                                      </span>
+                                    </div>
+                                  </div>
+                                  <div class="sppb-media-body">
+                                    <div class="sppb-media-content">
+                                      <h4 class="sppb-addon-title sppb-feature-box-title sppb-media-heading">
+                                        <a href="{{path('service_details', {'id': service.id})}}" title="{{service.titre}}">{{service.titre|truncate(20)}}</a>
+                                      </h4>
+                                      <div class="sppb-addon-text">
+                                        <p>
+                                          {% set description = (service.description|raw) %}
+                                          {{ service.description|striptags|truncate(200, true)|raw }}
+                                        </p>
+                                      </div>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    {% endfor %}
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  
+  <section id="section-id-1542802526267" class="sppb-section  rs-customer-area" >
+    <div class="sppb-row-overlay"></div>
+    <div class="sppb-row-container">
+      <div class="sppb-row">
+        <div class="sppb-col-md-6" id="column-wrap-id-1542802526294">
+          <div id="column-id-1542802526294" class="sppb-column rs-contact" >
+            <div class="sppb-column-addons">
+              <div id="sppb-addon-1542802526295" class="clearfix" >
+                <div class="sppb-addon sppb-addon-header contact-title sppb-text-left">
+                  <h2 class="sppb-addon-title">Besoin d'un Devis</h2>
+                </div>
+              </div>
+              <div id="sppb-addon-1542802526296" class="clearfix" >
+                <div class="sppb-addon sppb-addon-ajax-contact contact-form">
+                  <div class="sppb-ajax-contact-content">
+                    <form class="sppb-ajaxt-contact-form">
+                      <div class="sppb-row">
+                        <div class="sppb-form-group  sppb-col-sm-12">
+                          <input type="text" name="nom" class="sppb-form-control" placeholder="Nom" required="required">
+                        </div>
+                        <div class="sppb-form-group  sppb-col-sm-12">
+                          <input type="email" name="email" class="sppb-form-control" placeholder="Email" required="required">
+                        </div>
+                        <div class="sppb-form-group  sppb-col-sm-12">
+                          <input type="text" name="objet" class="sppb-form-control" placeholder="Objet" required="required">
+                        </div>
+                        <div class="sppb-form-group  sppb-col-sm-12">
+                          <textarea name="message" rows="5" class="sppb-form-control" placeholder="Message" required="required"></textarea>
+                        </div>
+                      </div>
+                      <input type="hidden" name="recipient" value="c3VwcG9ydEByc3RoZW1lLmNvbQ==">
+                      <input type="hidden" name="from_email" value="">
+                      <input type="hidden" name="from_name" value="">
+                      <input type="hidden" name="captcha_type" value="default">
+                      <div class="sppb-text-left">
+                        <button type="submit" id="btn-1542802526296" class="sppb-btn sppb-btn-success"><i class="fa"></i> Envoyez Message</button>
+                      </div>
+                    </form>
+                    <div style="display:none;margin-top:10px;" class="sppb-ajax-contact-status"></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="sppb-col-md-6" id="column-wrap-id-1542802526297">
+          <div id="column-id-1542802526297" class="sppb-column" >
+            <div class="sppb-column-addons">
+              <div id="section-id-1542802526274" class="sppb-section  counter-top-area" >
+                <div class="sppb-row-overlay"></div>
+                <div class="sppb-container-inner">
+                  <div class="sppb-row">
+                    <div class="sppb-col-md-6" id="column-wrap-id-1542802526300">
+                      <div id="column-id-1542802526300" class="sppb-column rs-counter-list" >
+                        <div class="sppb-column-addons">
+                          <div id="sppb-addon-1542802526301" class="clearfix" >
+                            <div class="sppb-icon  sppb-text-center sppb-icon-hover-effect-zoom-in">
+                              <a  href="#">
+                                <span class="sppb-icon-inner">
+                                  <i class="fa fa-odnoklassniki"></i>
+                                </span>
+                              </a>
+                            </div>
+                          </div>
+                          <div id="sppb-addon-1542802526302" class="clearfix" >
+                            <div class="sppb-addon sppb-addon-animated-number sppb-text-center ">
+                              <div class="sppb-addon-content">
+                                <div class="sppb-animated-number" data-digit="21" data-duration="1000">0</div>
+                                <div class="sppb-animated-number-title">Clients Heureux</div>
+                              </div>
+                            </div>
+                          </div>
+                          <div id="sppb-addon-1542802526304" class="clearfix" >
+                            <div class="sppb-icon  sppb-text-center sppb-icon-hover-effect-zoom-in">
+                              <a  href="#">
+                                <span class="sppb-icon-inner"><i class="fa fa-asl-interpreting"></i></span>
+                              </a>
+                            </div>
+                          </div>
+                          <div id="sppb-addon-1542802526305" class="clearfix" >
+                            <div class="sppb-addon sppb-addon-animated-number sppb-text-center ">
+                              <div class="sppb-addon-content">
+                                <div class="sppb-animated-number" data-digit="5" data-duration="1000">0</div>
+                                <div class="sppb-animated-number-title">Projets Réalisés </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="sppb-col-md-6" id="column-wrap-id-1542802526303">
+                      <div id="column-id-1542802526303" class="sppb-column rs-counter-list" >
+                        <div class="sppb-column-addons">
+                          <div id="sppb-addon-1542802526307" class="clearfix" >
+                            <div class="sppb-icon  sppb-text-center sppb-icon-hover-effect-zoom-in">
+                              <a  href="#">
+                                <span class="sppb-icon-inner"><i class="fa fa-diamond"></i></span>
+                              </a>
+                            </div>
+                          </div>
+                          <div id="sppb-addon-1542802526308" class="clearfix" >
+                            <div class="sppb-addon sppb-addon-animated-number sppb-text-center ">
+                              <div class="sppb-addon-content">
+                                <div class="sppb-animated-number" data-digit="0" data-duration="1000">0</div>
+                                <div class="sppb-animated-number-title">Prix Gagné</div>
+                              </div>
+                            </div>
+                          </div>
+                          <div id="sppb-addon-1542802526310" class="clearfix" >
+                            <div class="sppb-icon  sppb-text-center sppb-icon-hover-effect-zoom-in">
+                              <a  href="#">
+                                <span class="sppb-icon-inner"><i class="fa fa-paper-plane-o"></i></span>
+                              </a>
+                            </div>
+                          </div>
+                          <div id="sppb-addon-1542802526311" class="clearfix" >
+                            <div class="sppb-addon sppb-addon-animated-number sppb-text-center ">
+                              <div class="sppb-addon-content">
+                                <div class="sppb-animated-number" data-digit="6" data-duration="1000">0</div>
+                                <div class="sppb-animated-number-title">Années d'Expérience</div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PARTENAIRES -->
+  {{ render(controller(
+    'App\\Controller\\PortailController::partenaires'
+  )) }}
+  <!-- ./PARTENAIRES-->
+{% endblock %}

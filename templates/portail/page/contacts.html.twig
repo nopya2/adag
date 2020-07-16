@@ -1,0 +1,83 @@
+{% extends 'portail/layout.html.twig' %}
+
+{% block title %}Prestations{% endblock %}
+
+{% block main_content %}
+    <!--Subheader Start-->
+    <section class="wf100 subheader">
+        <div class="container">
+            <h2>Ecrivez nous </h2>
+            <ul>
+                <li> <a href="{{ path('home') }}">Accueil</a> </li>
+                <li> Ecrivez nous</li>
+            </ul>
+        </div>
+    </section>
+    <!--Subheader End-->
+
+    <!--Main Content Start-->
+    <div class="main-content">
+        <!--Contact Us Start-->
+        <div class="contact-details  p80 pagebg2">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12">
+                        <h3 class="stitle">Information</h3>
+                    </div>
+                    <div class="col-md-4 col-sm-4">
+                        <div class="add-box">
+                            <h5>Siège</h5>
+                            <ul>
+                                <li><i class="fas fa-phone"></i> <strong>Téléphone:</strong> {{ configuration.telephone }}</li>
+                                <li><i class="fas fa-building"></i> <strong>Addresse:</strong> <br>
+                                    {{ configuration.adresse }}
+                                </li>
+                                <li><i class="far fa-envelope"></i><strong> Email:</strong> {{ configuration.email }}</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--Contact Us Start-->
+        <!-- Google Map with Contact Form -->
+        <div class="map-form p80">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-4 col-sm-5">
+                        <h3 class="stitle">Ecrivez nous</h3>
+                        <div class="contact-form">
+                            <form>
+                                <ul>
+                                    <li>
+                                        <input type="text" placeholder="Nom & Prénom" required="">
+                                    </li>
+                                    <li>
+                                        <input type="text" placeholder="E-mail" required="">
+                                    </li>
+                                    <li>
+                                        <input type="text" placeholder="Objet">
+                                    </li>
+                                    <li>
+                                        <textarea placeholder="Saisissez votre message"></textarea>
+                                    </li>
+                                    <li>
+                                        <input type="submit" value="Envoyez le message">
+                                    </li>
+                                </ul>
+                            </form>
+                        </div>
+                    </div>
+                    <div class="col-md-8 col-sm-7">
+                        <div class="map">
+                            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3989.66186258187!2d9.382076314093965!3d0.507412363845687!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMMKwMzAnMjYuNyJOIDnCsDIzJzAzLjQiRQ!5e0!3m2!1sfr!2sga!4v1593754692002!5m2!1sfr!2sga" width="600" height="450" frameborder="0" style="border:0;" allowfullscreen="" aria-hidden="false" tabindex="0"></iframe>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Google Map with Contact Form End -->
+    </div>
+    <!--Main Content End-->
+
+{% endblock %}

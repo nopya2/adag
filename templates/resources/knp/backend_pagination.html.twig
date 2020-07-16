@@ -1,0 +1,58 @@
+{#
+/**
+ * @file
+ * Twitter Bootstrap v3 Sliding pagination control implementation.
+ *
+ * View that can be used with the pagination module
+ * from the Twitter Bootstrap CSS Toolkit
+ * http://getbootstrap.com/components/#pagination
+ *
+ * @author Pablo Díez <pablodip@gmail.com>
+ * @author Jan Sorgalla <jsorgalla@gmail.com>
+ * @author Artem Ponomarenko <imenem@inbox.ru>
+ * @author Artem Zabelin <artjomzabelin@gmail.com>
+ */
+#}
+
+{% if pageCount > 1 %}
+    <nav aria-label="..." class="float-right" style="float: right">
+        <ul class="pagination">
+            {% if previous is defined %}
+                <li>
+                    <a href="{{ path(route, query|merge({(pageParameterName): previous})) }}" aria-label="Previous">
+                        <span aria-hidden="true">«</span>
+                    </a>
+                </li>
+            {% else %}
+                <li class="disabled">
+                    <a href="#" aria-label="Previous">
+                        <span aria-hidden="true">«</span>
+                    </a>
+                </li>
+            {% endif %}
+
+
+            {% for page in pagesInRange %}
+                {% if page != current %}
+                    <li>
+                        <a href="{{ path(route, query|merge({(pageParameterName): page})) }}">{{ page }}<span class="sr-only">(current)</span></a>
+                    </li>
+                {% else %}
+                    <li class="active">
+                        <a href="#">{{ page }}<span class="sr-only">(current)</span></a>
+                    </li>
+                {% endif %}
+            {% endfor %}
+
+            {% if next is defined %}
+                <li>
+                    <a href="{{ path(route, query|merge({(pageParameterName): next})) }}" aria-label="Next"><span aria-hidden="true">»</span></a>
+                </li>
+            {% else %}
+                <li class="disabled">
+                    <a href="#" aria-label="Next"><span aria-hidden="true">»</span></a>
+                </li>
+            {% endif %}
+        </ul>
+    </nav>
+{% endif %}

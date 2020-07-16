@@ -1,0 +1,110 @@
+{# templates/portail/blog/details.html.twig #}
+
+{% extends 'portail/layout.html.twig' %}
+
+{% block titre %}NeoSys Technologie | Actualités - {{blog.titre}}{% endblock %}
+
+{% block page_content %}		
+
+
+<section id="sp-main-body" style="margin-top: 10px; margin-bottom: 10px">
+  <div class="container">
+    <div class="container-inner">
+      <div class="row">
+        <main id="sp-component" class="col-md-8 " role="main">
+          <div class="sp-column ">
+            <div id="system-message-container"></div>
+            <div class="article-details " itemscope itemtype="https://schema.org/Article">
+              <meta itemprop="inLanguage" content="en-GB">
+              <div class="article-full-image">
+                <img src="{{ asset('images/uploads/'~blog.image.imageName|default('default.png')) }}" alt="{{blog.titre}}" itemprop="image">
+              </div>
+              <div class="article-header">
+                <h1 itemprop="headline">{{blog.titre}}</h1>
+              </div>
+              <div class="article-info">
+                <span class="createdby" itemprop="author" itemscope itemtype="https://schema.org/Person" title="Ecrit par {{blog.createdBy.nom}} {{blog.createdBy.prenom}}">
+                  <span itemprop="name">{{blog.createdBy.nom}} {{blog.createdBy.prenom}}</span>
+                </span>
+                {# <span class="category-name" title="Category: Business">
+                  <a href="../../category/19-business49bc.html?Itemid=101">Business</a>
+                </span> #}
+                <span class="published" title="Publié le: {{blog.createdAt|date('d M Y')}}">
+                  <time datetime="2018-11-08T11:20:52+00:00" itemprop="datePublished">{{blog.createdAt|date('d M Y')}}</time>
+                </span>
+                <span class="hits">
+                  <span class="fa fa-eye-o" aria-hidden="true"></span>
+                  <meta itemprop="interactionCount" content="UserPageVisits:54">Hits: 54</span>
+                </div>
+                <div itemprop="articleBody">
+                  {{blog.contenu|raw}}
+                </div>
+                <hr>
+                <div class="article-print-email mt-3">
+                  <a href="{{ path('actualite_details', {'id': blog.id}) }}" title="Imprimer article < {{blog.titre}} >" onclick="window.open(this.href,'win2','status=no,toolbar=no,scrollbars=yes,titlebar=no,menubar=no,resizable=yes,width=640,height=480,directories=no,location=no'); return false;" rel="nofollow">
+                    <span class="btn btn-outline-secondary btn-sm">
+                      <span class="fa fa-print" aria-hidden="true"></span> Imprimer
+                    </span>
+                  </a>
+                  &nbsp;
+                </div>
+                <ul class="pager pagenav">
+                  {% if previousBlog is defined and previousBlog is not null %}
+                  <li class="previous">
+                    <a class="hasTooltip" title="{{previousBlog.titre}}" aria-label="Article précédent: {{previousBlog.titre}}" href="{{ path('actualite_details', {'id': previousBlog.id}) }}" rel="prev">
+                      <span class="icon-chevron-left" aria-hidden="true"></span>
+                      <span aria-hidden="true">Précédent</span>
+                    </a>
+                  </li>
+                  {% endif %}
+                  {% if nextBlog is defined and nextBlog is not null %}
+                  <li class="next">
+                    <a class="hasTooltip" title="{{nextBlog.titre}}" aria-label="Article suivant: {{nextBlog.titre}}" href="{{ path('actualite_details', {'id': nextBlog.id}) }}" rel="next">
+                      <span aria-hidden="true">Suivant</span>
+                      <span class="icon-chevron-right" aria-hidden="true"></span>
+                    </a>
+                  </li>
+                  {% endif %}
+                </ul>
+              </div>
+            </div>
+          </main>
+          <div class="col-md-4">
+            <div class="row">
+              <div class="col-md-12">
+                <div id="actualites-right">
+                  <div class="container-actualites">
+                    <h5 class="sppb-title-heading">Actualités <a href="{{ path('actualites') }} " title="Tous les projets"><i class="fa fa-plus"></i></a></h5>
+                    <ul class="list-unstyled">
+                      {% for blog in blogs %}
+                      <li class="media mt-1">
+                        <img src="{{ asset('images/uploads/'~blog.image.imageName|default('default.png')) }}" class="mr-3" alt="{{blog.titre}}" width="32px" height="32px" >
+                        <div class="media-body">
+                          <p class="mt-0 mb-0"><b><a href="{{ path('actualite_details', {'id': blog.id}) }}">{{blog.titre|truncate(35)}}</a></b></p>
+                          <span><i class="fa fa-calendar"></i> {{blog.createdAt|date('d/m/Y h:i')}}</span>
+                        </div>
+                      </li>
+                      {% endfor %}
+                    </ul>
+                    <h5 class="sppb-title-heading">Récents projets <a href="{{ path('projets') }} " title="Tous les projets"><i class="fa fa-plus"></i></a></h5>
+                    <ul class="list-unstyled">
+                      {% for projet in projets %}
+                      <li class="media mt-1">
+                        <img src="{{ asset('images/projets/'~projet.imageName|default('default.png')) }}" class="mr-3" alt="{{projet.titre}}" width="32px" height="32px" >
+                        <div class="media-body">
+                          <p class="mt-0 mb-0"><b><a href="{{ path('projet_details', {'id': projet.id}) }}">{{projet.titre|truncate(35)}}</a></b></p>
+                          <span><i class="fa fa-calendar"></i> {{projet.realizedAt}}</span>
+                        </div>
+                      </li>
+                      {% endfor %}
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+{% endblock %}

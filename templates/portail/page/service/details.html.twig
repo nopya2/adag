@@ -1,0 +1,265 @@
+{# templates/portail/page/service/details.html.twig #}
+
+{% extends 'portail/layout.html.twig' %}
+
+{% block titre %}NeoSys Technologie | Service - {{service.titre}}{% endblock %}
+
+{% block page_content %}
+<section id="rs-breadcrumbs" class="sppb-section  rs-breadcrumbs" >
+  <div class="sppb-row-container">
+    <div class="sppb-section-title sppb-text-left">
+      <h2 class="sppb-title-heading">{{service.titre}}</h2>
+    </div>
+    <div class="sppb-row">
+      <div class="sppb-col-md-12" id="column-wrap-id-1542863823993">
+        <div id="column-id-1542863823993" class="sppb-column" >
+          <div class="sppb-column-addons">
+            <div id="sppb-addon-1542863823994" class="clearfix" >
+              <div class="sppb-addon sppb-addon-module breadcrumbs-path">
+                <div class="sppb-addon-content">
+                  <ol itemscope itemtype="https://schema.org/BreadcrumbList" class="breadcrumb">
+                    <li class="float-left">
+                      <span class="divider fa fa-location" aria-hidden="true"></span>
+                    </li>
+                    <li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem" class="breadcrumb-item">
+                      <a itemprop="item" href="{{ path('home') }}" class="pathway">
+                        <span itemprop="name">Accueil</span>
+                      </a>
+                      <meta itemprop="position" content="1">
+                    </li>
+                    <li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem" class="breadcrumb-item">
+                      <a itemprop="item" href="{{ path('services') }}" class="pathway">
+                        <span itemprop="name">Services</span>
+                      </a>
+                      <meta itemprop="position" content="2">
+                    </li>
+                    <li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem" class="breadcrumb-item active">
+                      <span itemprop="name">{{service.titre}}</span>
+                      <meta itemprop="position" content="3">
+                    </li>
+                  </ol>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<section id="section-id-1542863823938" class="sppb-section  service-single-part" >
+  <div class="sppb-row-overlay"></div>
+  <div class="sppb-row-container">
+    <div class="sppb-row">
+      <div class="sppb-col-md-4" id="column-wrap-id-1542863823937">
+        <div id="column-id-1542863823937" class="sppb-column" >
+          <div class="sppb-column-addons">
+            <div id="section-id-1542863823940" class="sppb-section  services-button" >
+              <div class="sppb-row-overlay"></div>
+              <div class="sppb-container-inner">
+                <div class="sppb-container">
+                  <div class="sppb-section-title sppb-text-left">
+                    <h3 class="sppb-title-heading">Services</h3>
+                  </div>
+                </div>
+                <div class="sppb-row">
+                  <div class="sppb-col-md-12" id="column-wrap-id-1542863823941">
+                    <div id="column-id-1542863823941" class="sppb-column" >
+                      <div class="sppb-column-addons">
+                        <div id="sppb-addon-1542863823948" class="clearfix" >
+                          <div class="sppb-addon sppb-addon-button-group services-menu sppb-text-left">
+                            <div class="sppb-addon-content">
+                              {% for service in services %}
+                              <a href="{{ path('service_details', {'id': service.id}) }}" id="btn-1542863823948" class="sppb-btn  sppb-btn-primary sppb-btn-block sppb-btn-square sppb-btn-flat">{{service.titre}}</a>
+                              {% endfor %}
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            {# <div id="section-id-1542863823992" class="sppb-section  download-button" >
+              <div class="sppb-row-overlay"></div>
+              <div class="sppb-container-inner">
+                <div class="sppb-row">
+                  <div class="sppb-col-md-12" id="column-wrap-id-1542863823993">
+                    <div id="column-id-1542863823993" class="sppb-column" >
+                      <div class="sppb-column-addons">
+                        <div id="sppb-addon-1542863823983" class="clearfix" >
+                          <div class="sppb-addon sppb-addon-button-group download-btn sppb-text-left">
+                            <div class="sppb-addon-content">
+                              <a href="#" id="btn-1542863823983" class="sppb-btn  sppb-btn-primary sppb-btn-block sppb-btn-rounded sppb-btn-flat">
+                                <i class="fa fa-file-pdf-o"></i>  Download . Pdf
+                              </a>
+                              <a href="#" id="btn-1542863823984" class="sppb-btn  sppb-btn-primary sppb-btn-block sppb-btn-rounded sppb-btn-flat">
+                                <i class="fa fa-file-word-o"></i>  Download . doc
+                              </a>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div> #}
+            <div id="section-id-1542863824022" class="sppb-section  services-contact" >
+              <div class="sppb-row-overlay"></div>
+              <div class="sppb-container-inner">
+                <div class="sppb-container">
+                  <div class="sppb-section-title sppb-text-left">
+                    <h3 class="sppb-title-heading">Contact Info</h3>
+                  </div>
+                </div>
+                <div class="sppb-row">
+                  <div class="sppb-col-md-12" id="column-wrap-id-1542863824023">
+                    <div id="column-id-1542863824023" class="sppb-column" >
+                      <div class="sppb-column-addons">
+                        <div id="sppb-addon-1542863824036" class="clearfix" >
+                          <div class="sppb-addon sppb-addon-feature sppb-text-left single-icon">
+                            <div class="sppb-addon-content sppb-text-left">
+                              <div class="sppb-media">
+                                <div class="pull-left">
+                                  <div class="sppb-icon">
+                                    <span class="sppb-icon-container">
+                                      <i aria-hidden="true" aria-label="Call Us" class="fa fa-phone"></i>
+                                    </span>
+                                  </div>
+                                </div>
+                                <div class="sppb-media-body">
+                                  <div class="sppb-media-content">
+                                    <h3 class="sppb-addon-title sppb-feature-box-title sppb-media-heading"> Nous Appeler</h3>
+                                    <div class="sppb-addon-text">
+                                      <a href="tel:+(+088)589-8745">{{configuration.telephone|phone}}</a>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        <div id="sppb-addon-1542863824071" class="clearfix" >
+                          <div class="sppb-addon sppb-addon-feature sppb-text-left single-icon">
+                            <div class="sppb-addon-content sppb-text-left">
+                              <div class="sppb-media">
+                                <div class="pull-left">
+                                  <div class="sppb-icon">
+                                    <span class="sppb-icon-container">
+                                      <i aria-hidden="true" aria-label=" Mail Us" class="fa fa-envelope-o"></i>
+                                    </span>
+                                  </div>
+                                </div>
+                                <div class="sppb-media-body">
+                                  <div class="sppb-media-content">
+                                    <h3 class="sppb-addon-title sppb-feature-box-title sppb-media-heading"> Nous Ecrire</h3>
+                                    <div class="sppb-addon-text">
+                                      <a href="mailto:support@rstheme.com">{{configuration.email}}</a>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        <div id="sppb-addon-1542863824104" class="clearfix" >
+                          <div class="sppb-addon sppb-addon-feature sppb-text-left single-icon">
+                            <div class="sppb-addon-content sppb-text-left">
+                              <div class="sppb-media">
+                                <div class="pull-left">
+                                  <div class="sppb-icon">
+                                    <span class="sppb-icon-container">
+                                      <i aria-hidden="true" aria-label="Address" class="fa fa-map-marker"></i>
+                                    </span>
+                                  </div>
+                                </div>
+                                <div class="sppb-media-body">
+                                  <div class="sppb-media-content">
+                                    <h3 class="sppb-addon-title sppb-feature-box-title sppb-media-heading">Adresse</h3>
+                                    <div class="sppb-addon-text">{{configuration.adresse}}</div>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="sppb-col-md-8" id="column-wrap-id-1542863823939">
+        <div id="column-id-1542863823939" class="sppb-column" >
+          <div class="sppb-column-addons">
+            <div id="section-id-1542872747647" class="sppb-section  rs-slider" >
+              <div class="sppb-row-overlay"></div>
+              <div class="sppb-container-inner">
+                <div class="sppb-row sppb-no-gutter">
+                  <div class="sppb-col-md-12" id="column-wrap-id-1542872747648">
+                    <div id="column-id-1542872747648" class="sppb-column" >
+                      <div class="sppb-column-addons">
+                        <div id="sppb-addon-1542873441759" class="clearfix" >
+                          <div id="sppb-carousel-1542873441759" data-interval="5000" class="sppb-carousel sppb-slide services-slider" data-sppb-ride="sppb-carousel">
+                            <ol class="sppb-carousel-indicators">
+                              <li data-sppb-target="#sppb-carousel-1542873441759"  class="active"  data-sppb-slide-to="0"></li>
+                              <li data-sppb-target="#sppb-carousel-1542873441759"   data-sppb-slide-to="1"></li>
+                              <li data-sppb-target="#sppb-carousel-1542873441759"   data-sppb-slide-to="2"></li>
+                              <li data-sppb-target="#sppb-carousel-1542873441759"   data-sppb-slide-to="3"></li>
+                            </ol>
+                            <div class="sppb-carousel-inner sppb-text-center">
+                              <div class="sppb-item sppb-item-15428734417590  sppb-item-has-bg active">
+                                <img src="{{ asset('images/services/'~service.imageName|default('default.png')) }}" alt="" width="auto" height="200px">
+                                <div class="sppb-carousel-item-inner">
+                                  <div class="sppb-carousel-caption">
+                                    <div class="sppb-carousel-text"></div>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                            <a href="#sppb-carousel-1542873441759" class="sppb-carousel-arrow left sppb-carousel-control" data-slide="prev">
+                              <i aria-hidden="true" aria-label="Previous" class="fa fa-chevron-left"></i>
+                            </a>
+                            <a href="#sppb-carousel-1542873441759" class="sppb-carousel-arrow right sppb-carousel-control" data-slide="next">
+                              <i aria-hidden="true" aria-label="Next" class="fa fa-chevron-right"></i>
+                            </a>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div id="section-id-1542873441772" class="sppb-section  services-text" >
+              <div class="sppb-row-overlay"></div>
+              <div class="sppb-container-inner">
+                <div class="sppb-row">
+                  <div class="sppb-col-md-12" id="column-wrap-id-1542873441773">
+                    <div id="column-id-1542873441773" class="sppb-column" >
+                      <div class="sppb-column-addons">
+                        <div id="sppb-addon-1542873441778" class="clearfix" >
+                          <div class="sppb-addon sppb-addon-text-block 0  service-text">
+                            <div class="sppb-addon-content">
+                              {{service.description|raw}}
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+{% endblock %}

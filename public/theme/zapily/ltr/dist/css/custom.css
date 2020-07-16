@@ -1,0 +1,29 @@
+.custom-loader{
+	font-size: 22px;
+}
+
+.information{
+	display: block;
+	width: 100%;
+	height: auto;
+	padding: 5px;
+	background-color: #f7f7f9;
+	border-radius: 4px;
+}
+
+.commentaire-message, .commentaire-message:hover{
+	color: blue;
+	text-decoration: underline;
+}
+
+.commentaire_selected{
+	background-color: grey;
+}
+
+.input-recherche {
+	height: 30px;
+}
+
+#btn-recherche {
+	height: 30px;
+}

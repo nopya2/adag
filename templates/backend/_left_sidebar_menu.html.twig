@@ -1,0 +1,190 @@
+<div class="fixed-sidebar-left">
+	<ul class="nav navbar-nav side-nav nicescroll-bar">
+		<li class="navigation-header">
+			<span>General</span> 
+			<i class="zmdi zmdi-more"></i>
+		</li>
+		<li>
+			<a class="{% if page=='dashboard' %} active {% endif %}" href="{{ path('admin_dashboard') }}"><div class="pull-left"><i class="fa fa-dashboard mr-20"></i><span class="right-nav-text">Tableau de bord</span></div><div class="clearfix"></div></a>
+		</li>
+
+		<!-- Articles -->
+		<li>
+			<a class="{% if page=='article' %} active {% endif %}" href="javascript:void(0);" data-toggle="collapse" data-target="#article_dr"><div class="pull-left"><i class="zmdi zmdi-collection-item mr-20"></i><span class="right-nav-text">Articles</span></div><div class="pull-right"><i class="zmdi zmdi-caret-down"></i></div><div class="clearfix"></div></a>
+			<ul id="article_dr" class="collapse collapse-level-1">
+				<li>
+					<a class="{% if activePage=='article_liste' %} active-page {% endif %}" href="{{ path('admin_article_index') }}">Liste</a>
+				</li>
+				<li>
+					<a class="{% if activePage=='article_nouveau' %} active-page {% endif %}" href="{{ path('admin_article_new') }}">Ajouter</a>
+				</li>
+				<li>
+					<a class="{% if activePage=='commentaire_liste' %} active-page {% endif %}" href="{{ path('admin_commentaire_index') }}">Commentaires</a>
+				</li>
+			</ul>
+		</li>
+
+		<!-- Flash -->
+		<li>
+			<a class="{% if page=='flash' %} active {% endif %}" href="javascript:void(0);" data-toggle="collapse" data-target="#flash_dr"><div class="pull-left"><i class="fa fa-fa mr-20"></i><span class="right-nav-text">Flash Info</span></div><div class="pull-right"><i class="zmdi zmdi-caret-down"></i></div><div class="clearfix"></div></a>
+			<ul id="flash_dr" class="collapse collapse-level-1">
+				<li>
+					<a class="{% if activePage=='flash_liste' %} active-page {% endif %}" href="{{ path('admin_flash_index') }}">Liste</a>
+				</li>
+				<li>
+					<a class="{% if activePage=='flash_nouveau' %} active-page {% endif %}" href="{{ path('admin_flash_new') }}">Ajouter</a>
+				</li>
+			</ul>
+		</li>
+
+		<!-- Rubriques -->
+		<li>
+			<a class="{% if page=='rubrique' %} active {% endif %}" href="javascript:void(0);" data-toggle="collapse" data-target="#rubrique_dr"><div class="pull-left"><i class="zmdi zmdi-filter-list mr-20"></i><span class="right-nav-text">Rubriques</span></div><div class="pull-right"><i class="zmdi zmdi-caret-down"></i></div><div class="clearfix"></div></a>
+			<ul id="rubrique_dr" class="collapse collapse-level-1">
+				<li>
+					<a class="{% if activePage=='rubrique_liste' %} active-page {% endif %}" href="{{ path('admin_rubrique_index') }}">Liste</a>
+				</li>
+				<li>
+					<a class="{% if activePage=='rubrique_nouveau' %} active-page {% endif %}" href="{{ path('admin_rubrique_new') }}">Ajouter</a>
+				</li>
+			</ul>
+		</li>
+
+		<!-- Services -->
+		<li>
+			<a class="{% if page=='service' %} active {% endif %}" href="javascript:void(0);" data-toggle="collapse" data-target="#service_dr"><div class="pull-left"><i class="zmdi zmdi-washing-machine mr-20"></i><span class="right-nav-text">Services</span></div><div class="pull-right"><i class="zmdi zmdi-caret-down"></i></div><div class="clearfix"></div></a>
+			<ul id="service_dr" class="collapse collapse-level-1">
+				<li>
+					<a class="{% if activePage=='service_liste' %} active-page {% endif %}" href="{{ path('admin_service_index') }}">Liste</a>
+				</li>
+				<li>
+					<a class="{% if activePage=='service_nouveau' %} active-page {% endif %}" href="{{ path('admin_service_new') }}">Ajouter</a>
+				</li>
+			</ul>
+		</li>
+
+		{# <!-- Projets -->
+		<li>
+			<a class="{% if page=='projet' %} active {% endif %}" href="javascript:void(0);" data-toggle="collapse" data-target="#projet_dr"><div class="pull-left"><i class="zmdi zmdi-assignment mr-20"></i><span class="right-nav-text">Projets</span></div><div class="pull-right"><i class="zmdi zmdi-caret-down"></i></div><div class="clearfix"></div></a>
+			<ul id="projet_dr" class="collapse collapse-level-1">
+				<li>
+					<a class="{% if activePage=='projet_liste' %} active-page {% endif %}" href="{{ path('admin_projet_index') }}">Liste</a>
+				</li>
+				<li>
+					<a class="{% if activePage=='projet_nouveau' %} active-page {% endif %}" href="{{ path('admin_projet_new') }}">Ajouter</a>
+				</li>
+			</ul>
+		</li> #}
+
+		<!-- Blogs -->
+		<li>
+			<a class="{% if page=='blog' %} active {% endif %}" href="javascript:void(0);" data-toggle="collapse" data-target="#blog_dr"><div class="pull-left"><i class="zmdi zmdi-blogger mr-20"></i><span class="right-nav-text">Blogs</span></div><div class="pull-right"><i class="zmdi zmdi-caret-down"></i></div><div class="clearfix"></div></a>
+			<ul id="blog_dr" class="collapse collapse-level-1">
+				<li>
+					<a class="{% if activePage=='blog_liste' %} active-page {% endif %}" href="{{ path('admin_blog_index') }}">Liste</a>
+				</li>
+				<li>
+					<a class="{% if activePage=='blog_nouveau' %} active-page {% endif %}" href="{{ path('admin_blog_new') }}">Ajouter</a>
+				</li>
+			</ul>
+		</li>
+
+		<!-- Vidéos -->
+		<li>
+			<a class="{% if page=='video' %} active {% endif %}" href="javascript:void(0);" data-toggle="collapse" data-target="#video_dr"><div class="pull-left"><i class="fa fa-caret-square-o-right mr-20"></i><span class="right-nav-text">Vidéos</span></div><div class="pull-right"><i class="zmdi zmdi-caret-down"></i></div><div class="clearfix"></div></a>
+			<ul id="video_dr" class="collapse collapse-level-1">
+				<li>
+					<a class="{% if activePage=='video_liste' %} active-page {% endif %}" href="{{ path('admin_video_index') }}">Liste</a>
+				</li>
+				<li>
+					<a class="{% if activePage=='video_nouveau' %} active-page {% endif %}" href="{{ path('admin_video_new') }}">Importer</a>
+				</li>
+			</ul>
+		</li>
+
+		{# <!-- Evenements -->
+		<li>
+			<a class="{% if page=='evenement' %} active {% endif %}" href="javascript:void(0);" data-toggle="collapse" data-target="#evenement_dr"><div class="pull-left"><i class="zmdi zmdi-calendar mr-20"></i><span class="right-nav-text">Evènements</span></div><div class="pull-right"><i class="zmdi zmdi-caret-down"></i></div><div class="clearfix"></div></a>
+			<ul id="evenement_dr" class="collapse collapse-level-1">
+				<li>
+					<a class="{% if activePage=='evenement_liste' %} active-page {% endif %}" href="{{ path('admin_evenement_index') }}">Liste</a>
+				</li>
+				<li>
+					<a class="{% if activePage=='evenement_nouveau' %} active-page {% endif %}" href="{{ path('admin_evenement_new') }}">Ajouter</a>
+				</li>
+			</ul>
+		</li> #}
+
+		<!-- Partenaires -->
+		<li>
+			<a class="{% if page=='partenaire' %} active {% endif %}" href="javascript:void(0);" data-toggle="collapse" data-target="#partenaire_dr"><div class="pull-left"><i class="fa fa-group mr-20"></i><span class="right-nav-text">Partenaires</span></div><div class="pull-right"><i class="zmdi zmdi-caret-down"></i></div><div class="clearfix"></div></a>
+			<ul id="partenaire_dr" class="collapse collapse-level-1">
+				<li>
+					<a class="{% if activePage=='partenaire_liste' %} active-page {% endif %}" href="{{ path('admin_partenaire_index') }}">Liste</a>
+				</li>
+				<li>
+					<a class="{% if activePage=='partenaire_nouveau' %} active-page {% endif %}" href="{{ path('admin_partenaire_new') }}">Ajouter</a>
+				</li>
+			</ul>
+		</li>
+
+		{# <!-- Sliders -->
+		<li>
+			<a class="{% if page=='slider' %} active {% endif %}" href="javascript:void(0);" data-toggle="collapse" data-target="#slider_dr"><div class="pull-left"><i class="zmdi zmdi-slideshare mr-20"></i><span class="right-nav-text">Sliders</span></div><div class="pull-right"><i class="zmdi zmdi-caret-down"></i></div><div class="clearfix"></div></a>
+			<ul id="slider_dr" class="collapse collapse-level-1">
+				<li>
+					<a class="{% if activePage=='slider_liste' %} active-page {% endif %}" href="{{ path('admin_slider_index') }}">Liste</a>
+				</li>
+				<li>
+					<a class="{% if activePage=='slider_nouveau' %} active-page {% endif %}" href="{{ path('admin_slider_new') }}">Ajouter</a>
+				</li>
+			</ul>
+		</li> #}
+
+		<!-- Documents -->
+		<li>
+			<a class="{% if page=='document' %} active {% endif %}" href="javascript:void(0);" data-toggle="collapse" data-target="#document_dr">
+				<div class="pull-left">
+					<i class="fa fa-file-pdf-o mr-20"></i><span class="right-nav-text">Documents</span>
+				</div>
+				<div class="pull-right"><i class="zmdi zmdi-caret-down"></i></div>
+				<div class="clearfix"></div>
+			</a>
+			<ul id="document_dr" class="collapse collapse-level-1">
+				<li>
+					<a class="{% if activePage=='document_liste' %} active-page {% endif %}" href="{{ path('admin_document_index') }}">Liste</a>
+				</li>
+				<li>
+					<a class="{% if activePage=='document_importer' %} active-page {% endif %}" href="{{ path('admin_document_new') }}">Importer</a>
+				</li>
+			</ul>
+		</li>
+
+
+		<!-- Administration -->
+		{% if is_granted('ROLE_ADMIN') %}
+		<li><hr class="light-grey-hr mb-10"/></li>
+
+		<li class="navigation-header">
+			<span>administration</span> 
+			<i class="zmdi zmdi-more"></i>
+		</li>
+		<!-- Utilisateurs -->
+		<li>
+			<a class="{% if page=='utilisateur' %} active {% endif %}" href="javascript:void(0);" data-toggle="collapse" data-target="#utilisateur_dr"><div class="pull-left"><i class="zmdi zmdi-accounts mr-20"></i><span class="right-nav-text">Utilisateurs</span></div><div class="pull-right"><i class="zmdi zmdi-caret-down"></i></div><div class="clearfix"></div></a>
+			<ul id="utilisateur_dr" class="collapse collapse-level-1">
+				<li>
+					<a class="{% if activePage=='utilisateur_liste' %} active-page {% endif %}" href="{{ path('admin_user_index') }}">Liste</a>
+				</li>
+				<li>
+					<a class="{% if activePage=='utilisateur_nouveau' %} active-page {% endif %}" href="{{ path('admin_user_new') }}">Ajouter</a>
+				</li>
+			</ul>
+		</li>
+		<li>
+			<a class="{% if page=='configuration' %} active {% endif %}" href="{{ path('admin_configuration_index') }}"><div class="pull-left"><i class="zmdi zmdi-settings mr-20"></i><span class="right-nav-text">Configuration</span></div><div class="clearfix"></div></a>
+		</li>
+		{% endif %}
+		<!-- ./Administration -->
+	</ul>
+</div>

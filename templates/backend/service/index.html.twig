@@ -1,0 +1,142 @@
+{# templates/backend/service/index.html.twig #}
+
+{% extends 'backend/layout.html.twig' %}
+
+{% block titre %}NeosysCMS - Admin - Services{% endblock %}
+
+{% block main_content %}
+
+<div class="container">
+    <!-- Title -->  
+    <div class="row heading-bg">
+        <div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
+          <h5 class="txt-dark">Services</h5>
+        </div>
+        <!-- Breadcrumb -->
+        <div class="col-lg-9 col-sm-8 col-md-8 col-xs-12">
+          <ol class="breadcrumb">
+            <li><a href="{{ path('admin_dashboard') }}">Tableau de bord</a></li>
+            <li class="active"><span>Services</span></li>
+          </ol>
+        </div>
+        <!-- /Breadcrumb -->
+    </div>
+    <!-- /Title -->
+    
+    <!-- Row -->
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="panel panel-default card-view">
+                <div class="panel-heading">
+                    <div class="pull-left">
+                        <h6 class="panel-title txt-dark"><a href="{{ path('admin_service_new') }}" class="btn btn-success btn-sm btn-icon left-icon"><i class="fa fa-plus"></i>Ajouter un nouveau</a></h6>
+                    </div>
+                    <div class="clearfix"></div>
+                </div>
+                <div class="panel-wrapper collapse in">
+                    <div class="panel-body">
+                        {% for message in app.flashes('succes') %}
+                            <div class="alert alert-success alert-dismissable">
+                                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                                <i class="zmdi zmdi-check pr-15 pull-left"></i><p class="pull-left">{{ message }}.</p>
+                                <div class="clearfix"></div>
+                            </div>
+                        {% endfor %}
+                        {% for message in app.flashes('modification') %}
+                            <div class="alert alert-warning alert-dismissable">
+                                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                                <i class="zmdi zmdi-check pr-15 pull-left"></i><p class="pull-left">{{ message }}.</p>
+                                <div class="clearfix"></div>
+                            </div>
+                        {% endfor %}
+                        {% for message in app.flashes('suppression') %}
+                            <div class="alert alert-danger alert-dismissable">
+                                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                                <i class="fa fa-trash pr-15 pull-left"></i><p class="pull-left">{{ message }}.</p>
+                                <div class="clearfix"></div>
+                            </div>
+                        {% endfor %}
+                        <div class="table-responsive">
+                            <table id="myTable1" class="table table-hover display  pb-30" >
+                                <thead>
+                                    <tr>
+                                        <th>ID</th>
+                                        <th>Titre</th>
+                                        <th>Icone</th>
+                                        <th>Image</th>
+                                        <th>Visibilité</th>
+                                        <th>Créé le</th>
+                                        <th class="text-center">Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                {% for service in services %}
+                                    <tr>
+                                        <td>{{ service.id }}</td>
+                                        <td>{{ service.titre }}</td>
+                                        <td><i class="{{ service.icone }}"></i></td>
+                                        <td>
+                                            {% if service.imageSize <= 0 %}
+                                            <img src="{{ asset('images/services/default.png') }}" width=40 height=40>
+                                            {% else %}
+                                            <img src="{{ asset('images/services/') }}{{ service.imageName }}" width=40 height=40>
+                                            {% endif %}
+                                        </td>
+                                        <td>
+                                            {% if service.visible == true %}
+                                            <a href="?a=hide&i={{service.id}}" title="Masquer" class="txt-primary"><i class="fa fa-eye"></i></a>
+                                            {% else %}
+                                            <a href="?a=show&i={{service.id}}" title="Afficher" class="txt-muted"><i class="fa fa-eye-slash"></i></a>
+                                            {% endif %}
+                                        </td>
+                                        <td>{{ service.createdAt ? service.createdAt|date('d/m/Y H:i:s') : '' }}</td>
+                                        <td class="text-center">
+                                            {# <a href="{{ path('admin_service_show', {'id': service.id}) }}" class="btn btn-primary btn-sm btn-icon left-icon"><i class="fa fa-eye"></i>Voir</a> #}
+                                            
+                                            <form method="post" action="{{ path('admin_service_delete', {'id': service.id}) }}" onsubmit="return confirm('Etes-vous sur de vouloir supprimer ce service?');">
+                                                <input type="hidden" name="_method" value="DELETE">
+                                                <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ service.id) }}">
+                                                <a href="{{ path('admin_service_edit', {'id': service.id}) }}" class="btn btn-warning btn-xs btn-icon left-icon"><i class="fa fa-edit"></i></a>
+                                                <button class="btn btn-danger btn-xs btn-icon left-icon"><i class="fa fa-trash"></i></button>
+                                            </form>
+                                        </td>
+                                    </tr>
+                                {% else %}
+                                    <tr>
+                                        <td colspan="7">Aucun service trouve</td>
+                                    </tr>
+                                {% endfor %}
+                                </tbody>
+                                <tfoot>
+                                    <tr>
+                                        <th>ID</th>
+                                        <th>Titre</th>
+                                        <th>Icone</th>
+                                        <th>Image</th>
+                                        <th>Visibilité</th>
+                                        <th>Créé le</th>
+                                        <th class="text-center">Actions</th>
+                                    </tr>
+                                </tfoot>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>  
+        </div>
+    </div>
+    <!-- /Row -->
+</div>
+{% endblock %}
+
+{% block javascript %}
+    {{ parent() }}
+
+    <!-- Data table JavaScript -->
+    <script src="{{ asset('theme/vendors/bower_components/datatables/media/js/jquery.dataTables.min.js') }}"></script>
+    <script src="{{ asset('theme/vendors/bower_components/datatables.net-buttons/js/dataTables.buttons.min.js') }}"></script>
+    <script src="{{ asset('theme/vendors/bower_components/datatables.net-responsive/js/dataTables.responsive.min.js') }}"></script>
+    <script src="{{ asset('theme/zapily/ltr/dist/js/responsive-datatable-data.js') }}"></script>
+
+    
+{% endblock %}

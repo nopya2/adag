@@ -1,0 +1,64 @@
+<section id="rs-partner" class="sppb-section  rs-partner" >
+  <div class="sppb-row-overlay"></div>
+  <div class="sppb-row-container">
+    <div class="sppb-row">
+      <div class="sppb-col-md-12" id="column-wrap-id-1541752970792">
+        <div id="column-id-1541752970792" class="sppb-column" >
+          <div class="sppb-column-addons">
+            <div id="sppb-addon-1541752970793" class="clearfix" >
+              <div class="sppb-addon sppb-addon-module ">
+                <div class="sppb-addon-content">
+                  <div class="">
+                    <div class="partner-carousel owl-carousel owl-theme">
+                      {% for partenaire in partenaires %}
+                      <div class="partner-item left item">
+                        <a href="{{partenaire.siteweb|default('#')}}" target="_blank" title="{{partenaire.nom}}">
+                          {% if partenaire.imageName is not null %}
+                          <img src="{{ asset('images/partenaires/'~partenaire.imageName|default('default.png')) }}" alt=""
+                            style="max-height: 100px; width: auto"
+                          />
+                          {% else %}
+                            {{partenaire.nom}}
+                          {% endif %}
+                        </a>
+                      </div>
+                      {% endfor %}
+                    </div>
+                  </div>
+                  <script>
+                      // partner init
+                      jQuery.noConflict();
+                      jQuery(".partner-carousel").owlCarousel({
+                          margin:30,
+                          loop:true,
+                          items:3,
+                          autoplay:true,
+                          autoplayTimeout:2000,
+                          autoplayHoverPause:true,
+                          responsiveClass:true,
+                          responsive:{
+                              0:{
+                                  items:1
+                              },
+                              400:{
+                                  items:3
+                              },
+                              750:{
+                                  items:4
+                              },
+                              1120:{
+                                  items:5
+                              }
+                          }
+                      });
+
+                  </script>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

@@ -1,0 +1,34 @@
+# Read the documentation: https://symfony.com/doc/master/bundles/FOSRestBundle/index.html
+#fos_rest: ~
+#    param_fetcher_listener:  true
+#    allowed_methods_listener:  true
+#    routing_loader: true
+#    view:
+#        view_response_listener:  true
+#    exception:
+#        codes:
+#            App\Exception\MyException: 403
+#        messages:
+#            App\Exception\MyException: Forbidden area.
+#    format_listener:
+#        rules:
+#            - { path: ^/api, prefer_extension: true, fallback_format: json, priorities: [ json, html ] }
+fos_rest:
+    param_fetcher_listener: true
+    serializer:
+        serialize_null: true
+    view:
+        view_response_listener:  true
+    format_listener:
+        enabled: true
+        rules:
+            # setting fallback_format to json means that instead of considering the next rule in case of a priority mismatch, json will be used
+            #- { path: '^/', host: 'api.%domain%', priorities: ['json', 'xml'], fallback_format: json, prefer_extension: false }
+            # setting fallback_format to false means that instead of considering the next rule in case of a priority mismatch, a 406 will be caused
+            #- { path: '^/image', priorities: ['jpeg', 'gif'], fallback_format: false, prefer_extension: true }
+            # setting fallback_format to null means that in case of a priority mismatch the next rule will be considered
+            - { path: '^/admin', stop: true }
+            # you can specifically target the exception controller
+            - { path: ^/api, prefer_extension: true, fallback_format: json, priorities: [ json ] }
+            # setting a priority to */* basically means any format will be matched
+            - { path: '^/', stop: true }

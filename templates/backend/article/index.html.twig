@@ -1,0 +1,158 @@
+{# templates/backend/article/index.html.twig #}
+
+{% extends 'backend/layout.html.twig' %}
+
+{% block titre %}NeosysCMS - Admin - Article{% endblock %}
+
+{% block main_content %}
+
+<div class="container">
+    <!-- Title -->  
+    <div class="row heading-bg">
+        <div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
+          <h5 class="txt-dark">Articles</h5>
+        </div>
+        <!-- Breadcrumb -->
+        <div class="col-lg-9 col-sm-8 col-md-8 col-xs-12">
+          <ol class="breadcrumb">
+            <li><a href="{{ path('admin_dashboard') }}">Tableau de bord</a></li>
+            <li class="active"><span>Articles</span></li>
+          </ol>
+        </div>
+        <!-- /Breadcrumb -->
+    </div>
+    <!-- /Title -->
+    
+    <!-- Row -->
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="panel panel-default card-view">
+                <div class="panel-heading">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="pull-left">
+                                <h6 class="panel-title txt-dark"><a href="{{ path('admin_article_new') }}" class="btn btn-success btn-sm btn-icon left-icon"><i class="fa fa-plus"></i>Ajouter un nouveau</a></h6>
+                            </div>
+                        </div>
+                        <div class="col-md-3 col-md-offset-3">
+                            <form method="GET">
+                                <div class="input-group">
+                                    <span class="input-group-btn">
+                                        <button type="submit" class="btn  btn-primary"><i class="fa fa-search"></i></button>
+                                    </span>
+                                    <input type="text" id="search" class="form-control" placeholder="Tapez votre recherche..." name="search" value="{{ search }}">
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                    {#<div class="clearfix"></div>#}
+                </div>
+                <div class="panel-wrapper collapse in">
+                    <div class="panel-body">
+                        {% for message in app.flashes('succes') %}
+                            <div class="alert alert-danger alert-dismissable">
+                                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                                <i class="zmdi zmdi-check pr-15 pull-left"></i><p class="pull-left">{{ message }}.</p>
+                                <div class="clearfix"></div>
+                            </div>
+                        {% endfor %}
+                        {% for message in app.flashes('suppression') %}
+                            <div class="alert alert-danger alert-dismissable">
+                                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                                <i class="fa fa-trash pr-15 pull-left"></i><p class="pull-left">{{ message }}.</p>
+                                <div class="clearfix"></div>
+                            </div>
+                        {% endfor %}
+                        <div class="table-responsive">
+                            <table class="table table-hover display  pb-30" >
+                                <thead>
+                                    <tr>
+                                        <th>ID</th>
+                                        <th>Titre</th>
+                                        <th>Sous-titre</th>
+                                        <th>Rubrique</th>
+                                        <th>Pays</th>
+                                        <th>Image</th>
+                                        <th>Commentaires</th>
+                                        <th>Vues</th>
+                                        <th>Publié le</th>
+                                        <th>Publié par</th>
+                                        <th class="text-center">Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                {% for article in articles %}
+                                    <tr>
+                                        <td>{{ article.id }}</td>
+                                        <td>{{ article.titre }}</td>
+                                        <td>{{ article.sousTitre }}</td>
+                                        <td>{{ article.rubrique.titre }}</td>
+                                        <td>{{ article.pays }}</td>
+                                        <td>
+                                            {% if article.image|default(null) %}
+                                            <img src="{{ asset('images/uploads/') }}{{ article.image.imageName }}" width=40 height=40>
+                                            {% else %}
+                                            <img src="{{ asset('images/default.png') }}" width=40 height=40>
+                                            {% endif %}
+                                        </td>
+                                        <td class="text-center"><i class="fa fa-comment"></i> {{article.commentaires|length}}</td>
+                                        <td class="text-center">
+                                            <i class="fa fa-eye"></i> {{article.vues|length}}
+                                        </td>
+                                        <td>{{ article.createdAt ? article.createdAt|date('d/m/Y H:i:s') : '' }}</td>
+                                        <td>{{ article.auteur.nom }} {{ article.auteur.prenom }}</td>
+                                        <td class="text-center">
+                                            {# <a href="{{ path('article_show', {'id': article.id}) }}" class="btn btn-primary btn-sm btn-icon left-icon"><i class="fa fa-eye"></i>Voir</a> #}
+                                            
+                                            <form method="post" action="{{ path('admin_article_delete', {'id': article.id}) }}" onsubmit="return confirm('Etes-vous sur de vouloir supprimer ce article?');">
+                                                <input type="hidden" name="_method" value="DELETE">
+                                                <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ article.id) }}">
+                                                <a href="{{ path('admin_article_edit', {'id': article.id}) }}" class="btn btn-warning btn-xs btn-icon left-icon"><i class="fa fa-edit"></i></a>
+                                                <button class="btn btn-danger btn-xs btn-icon left-icon"><i class="fa fa-trash"></i></button>
+                                            </form>
+                                        </td>
+                                    </tr>
+                                {% else %}
+                                    <tr>
+                                        <td colspan="11">Aucun article trouve</td>
+                                    </tr>
+                                {% endfor %}
+                                </tbody>
+                                <tfoot>
+                                    <tr>
+                                        <th>ID</th>
+                                        <th>Titre</th>
+                                        <th>Sous-titre</th>
+                                        <th>Rubrique</th>
+                                        <th>Pays</th>
+                                        <th>Image</th>
+                                        <th>Commentaires</th>
+                                        <th>Vues</th>
+                                        <th>Publié le</th>
+                                        <th>Publié par</th>
+                                        <th class="text-center">Actions</th>
+                                    </tr>
+                                </tfoot>
+                            </table>
+
+                            {{ knp_pagination_render(articles, 'resources/knp/backend_pagination.html.twig') }}
+                        </div>
+                    </div>
+                </div>
+            </div>  
+        </div>
+    </div>
+    <!-- /Row -->
+</div>
+{% endblock %}
+
+{% block javascript %}
+    {{ parent() }}
+
+    <!-- Data table JavaScript -->
+    <script src="{{ asset('theme/vendors/bower_components/datatables/media/js/jquery.dataTables.min.js') }}"></script>
+    <script src="{{ asset('theme/vendors/bower_components/datatables.net-buttons/js/dataTables.buttons.min.js') }}"></script>
+    <script src="{{ asset('theme/vendors/bower_components/datatables.net-responsive/js/dataTables.responsive.min.js') }}"></script>
+    <script src="{{ asset('theme/zapily/ltr/dist/js/responsive-datatable-data.js') }}"></script>
+    
+{% endblock %}

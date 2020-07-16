@@ -1,0 +1,11 @@
+App\Entity\Evenement:
+    exclusion_policy: none
+    attributes:
+        id:
+            groups: ['evenement']
+        # name:
+        #     groups: ['place', 'price']
+        # address:
+        #     groups: ['place', 'price']
+        # prices:
+        #     groups: ['place']

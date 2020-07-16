@@ -1,0 +1,112 @@
+{# templates/backend/document/new.html.twig #}
+
+{% extends 'backend/layout.html.twig' %}
+
+{% block titre %}NeosysCMS - Admin - Importer document{% endblock %}
+
+{% block main_content %}
+
+<div class="container">
+    <!-- Title -->  
+    <div class="row heading-bg">
+        <div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
+          <h5 class="txt-dark">Importer un document</h5>
+        </div>
+        <!-- Breadcrumb -->
+        <div class="col-lg-9 col-sm-8 col-md-8 col-xs-12">
+          <ol class="breadcrumb">
+            <li><a href="{{ path('admin_dashboard') }}">Tableau de bord</a></li>
+            <li><a href="{{ path('admin_document_index') }}">Documents</a></li>
+            <li class="active"><span>Importer</span></li>
+          </ol>
+        </div>
+        <!-- /Breadcrumb -->
+    </div>
+    <!-- /Title -->
+
+    <!-- Row -->
+    <div class="row">
+    	<div class="col-md-12">
+    		<div class="well well-sm card-view">
+				<a href="{{ path('admin_document_index') }}" class="btn btn-xs btn-icon left-icon btn-primary"><i class="fa fa-arrow-left"></i>Retour a la liste</a>
+			</div>
+    	</div>
+    </div>
+    <div class="row">
+    	<div class="col-sm-12 col-xs-12 col-lg-6 col-md-6 col-md-offset-3">
+    		{% for message in app.flashes('succes') %}
+		    	<div class="alert alert-warning alert-dismissable">
+					<button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+					<i class="zmdi zmdi-alert-circle-o pr-15 pull-left"></i><p class="pull-left">{{ message }}.</p>
+					<div class="clearfix"></div>
+				</div>
+			{% endfor %}
+
+    		<div class="well well-sm card-view">
+				<div class="form-wrap">
+					{{ include('backend/document/_form.html.twig', {'button_label': 'Importer'}) }}		
+				</div>
+			</div>
+    	</div>
+    </div>
+	<!-- /Row -->
+</div>
+{% endblock %}
+
+{% block javascript %}
+    {{ parent() }}
+    <script type="text/javascript">
+	    $(function() {
+            "use strict";
+            $('#document_document').removeAttr('class');
+            $('#document_document_documentFile').attr('class', 'dropify');
+
+            /* Basic Init*/
+            $('.dropify').dropify({
+                messages: {
+                    default: 'Glissez-déposez un fichier ici ou cliquez',
+                    replace: 'Glissez-déposez un fichier ou cliquez pour remplacer',
+                    remove:  'Supprimer',
+                    error:   'Désolé, le fichier trop volumineux'
+                }
+            });
+
+            /* Translated Init*/
+            $('.dropify-fr').dropify({
+                messages: {
+                    default: 'Glissez-déposez un fichier ici ou cliquez',
+                    replace: 'Glissez-déposez un fichier ou cliquez pour remplacer',
+                    remove:  'Supprimer',
+                    error:   'Désolé, le fichier trop volumineux'
+                }
+            });
+
+            /* Used events */
+            // 
+            var drEvent = $('#input-file-events').dropify();
+
+            drEvent.on('dropify.beforeClear', function(event, element){
+                return confirm("Do you really want to delete \"" + element.file.name + "\" ?");
+            });
+
+            drEvent.on('dropify.afterClear', function(event, element){
+                alert('File deleted');
+            });
+
+            drEvent.on('dropify.errors', function(event, element){
+                console.log('Has Errors');
+            });
+
+            var drDestroy = $('#input-file-to-destroy').dropify();
+            drDestroy = drDestroy.data('dropify')
+            $('#toggleDropify').on('click', function(e){
+                e.preventDefault();
+                if (drDestroy.isDropified()) {
+                    drDestroy.destroy();
+                } else {
+                    drDestroy.init();
+                }
+            });
+	    });
+	</script>
+{% endblock %}

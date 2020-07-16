@@ -1,0 +1,121 @@
+{# templates/backend/etudiant/index.html.twig #}
+
+{% extends 'backend/layout.html.twig' %}
+
+{% block titre %}NeosysCMS - Admin - Etudiant{% endblock %}
+
+{% block main_content %}
+
+<div class="container">
+    <!-- Title -->  
+    <div class="row heading-bg">
+        <div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
+          <h5 class="txt-dark">Etudiants</h5>
+        </div>
+        <!-- Breadcrumb -->
+        <div class="col-lg-9 col-sm-8 col-md-8 col-xs-12">
+          <ol class="breadcrumb">
+            <li><a href="{{ path('admin_dashboard') }}">Tableau de bord</a></li>
+            <li class="active"><span>Etudiants</span></li>
+          </ol>
+        </div>
+        <!-- /Breadcrumb -->
+    </div>
+    <!-- /Title -->
+    
+    <!-- Row -->
+    <div class="row">
+        <div class="col-lg-8 col-md-12 col-sm-12 col-xs-12 col-lg-offset-2">
+            <div class="panel panel-default card-view">
+                <div class="panel-wrapper collapse in">
+                    {# <div class="panel-heading">
+                        <div class="pull-left">
+                            <h6 class="panel-title txt-dark"><a href="{{ path('admin_document_new') }}" class="btn btn-success btn-sm btn-icon left-icon"><i class="fa fa-upload"></i>Importer</a></h6>
+                        </div>
+                        <div class="clearfix"></div>
+                    </div> #}
+                    <div class="panel-body">
+                        {% for message in app.flashes('succes') %}
+                        <div class="alert alert-success alert-dismissable">
+                            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                            <i class="zmdi zmdi-check pr-15 pull-left"></i><p class="pull-left">{{ message }}.</p>
+                            <div class="clearfix"></div>
+                        </div>
+                        {% endfor %}
+                        {% for message in app.flashes('suppression') %}
+                            <div class="alert alert-danger alert-dismissable">
+                                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                                <i class="fa fa-trash pr-15 pull-left"></i><p class="pull-left">{{ message }}.</p>
+                                <div class="clearfix"></div>
+                            </div>
+                        {% endfor %}
+                        <div class="row">
+                            <div class="col-md-12 text-right">
+                                <a href="{{ path('admin_etudiant_importer') }}">
+                                    <button class="btn btn-primary btn-icon left-icon btn-xs" id="importer">
+                                        <i class="fa fa-mail-reply"></i>
+                                        <span>Importer</span>
+                                    </button>
+                                </a>
+                                
+                                <button class="btn btn-warning btn-icon left-icon btn-xs" id="exporter">
+                                    <i class="fa fa-mail-forward"></i>
+                                    <span>Exporter</span>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="table-responsive">
+                            <table id="myTable1" class="table table-hover table-striped display mb-0" >
+                                <thead>
+                                    <tr>
+                                        <th>Numero Bourse</th>
+                                        <th>Noms et Prénoms</th>
+                                        <th>Pays d'étude</th>
+                                        <th>Cat. Bourse</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                {% for etudiant in etudiants %}
+                                    <tr>
+                                        <td>{{ etudiant.numBourse }}</td>
+                                        <td>{{ etudiant.nomPrenom }}</td>
+                                        <td>{{ etudiant.pays }}</td>
+                                        <td>{{ etudiant.catBourse }}</td>
+                                    </tr>
+                                {% else %}
+                                    <tr>
+                                        <td colspan="4">Aucun étudiant trouvé</td>
+                                    </tr>
+                                {% endfor %}
+                                </tbody>
+                                <tfoot>
+                                    <tr>
+                                        <th>Numero Mourse</th>
+                                        <th>Noms et Prénoms</th>
+                                        <th>Pays d'étude</th>
+                                        <th>Cat. Bourse</th>
+                                    </tr>
+                                </tfoot>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>  
+        </div>
+    </div>
+    <!-- /Row -->
+</div>
+
+{% endblock %}
+
+{% block javascript %}
+    {{ parent() }}
+
+    <!-- Data table JavaScript -->
+    <script src="{{ asset('theme/vendors/bower_components/datatables/media/js/jquery.dataTables.min.js') }}"></script>
+    <script src="{{ asset('theme/vendors/bower_components/datatables.net-buttons/js/dataTables.buttons.min.js') }}"></script>
+    <script src="{{ asset('theme/vendors/bower_components/datatables.net-responsive/js/dataTables.responsive.min.js') }}"></script>
+    <script src="{{ asset('theme/zapily/ltr/dist/js/responsive-datatable-data.js') }}"></script>
+    
+{% endblock %}
+

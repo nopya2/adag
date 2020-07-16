@@ -1,0 +1,48 @@
+{{ form_start(form) }}
+	<div class="form-body">
+		<div class="form-group">
+			<label class="control-label mb-10">Priorité (0 à 10000)<span class="txt-danger">(*)</span></label>
+			<div class="row">
+				<div class="col-md-6">
+					{{ form_widget(form.priorite, {'attr': {'class': 'form-control'}}) }}
+				</div>
+			</div>
+			<span class="help-block"> {{ form_errors(form.priorite) }}</span> 
+		</div>
+		<div class="form-group {% if form_errors(form.titre)|default(null) %} has-error {% endif %}">
+			<label class="control-label mb-10">Titre <span class="txt-danger">(*)</span></label>
+			{{ form_widget(form.titre, {'attr': {'class': 'form-control'}}) }}
+			<span class="help-block"> {{ form_errors(form.titre) }}</span> 
+		</div>
+		<div class="form-group">
+			<label class="control-label mb-10">Sous Titre</label>
+			{{ form_widget(form.sousTitre, {'attr': {'class': 'form-control'}}) }}
+			<span class="help-block"> {{ form_errors(form.sousTitre) }} </span> 
+		</div>
+		<div class="form-group">
+			<label class="control-label mb-10">Lien vers page</label>
+			{{ form_widget(form.url, {'attr': {'class': 'form-control'}}) }}
+			<span class="help-block"> {{ form_errors(form.url) }} </span> 
+		</div>
+		<div class="form-group">
+			<div class="checkbox checkbox-success">
+				<input id="checkbox3" type="checkbox">
+				{{ form_widget(form.visible, {'attr': {'class': ''}}) }}
+				<label for="checkbox3">
+					Visible ?
+				</label>
+			</div>
+		</div>
+		<div class="form-group {% if form_errors(form.imageFile)|default(null) %} has-error {% endif %}">
+			<label class="control-label mb-10">Image <span class="txt-danger">(*)</span></label>
+			{{ form_widget(form.imageFile, {'attr': {'class': 'dropify', 'required': true}}) }}
+			<span class="help-block"> {{ form_errors(form.imageFile) }} </span>
+		</div>
+	</div>
+	<div class="form-actions mt-10">
+		<button type="submit" class="btn btn-success  btn-icon left-iocn mr-10"><i class="fa fa-save"></i>{{ button_label|default('Creer') }}</button>
+		{# <button type="button" class="btn btn-default">Cancel</button> #}
+	</div>
+	<p class="block txt-danger text-right">(*) Champs obligatoires</p>
+{{ form_end(form) }}
+

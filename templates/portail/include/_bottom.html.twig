@@ -1,0 +1,112 @@
+<section id="sp-bottom">
+  <div class="container">
+    <div class="container-inner">
+      <div class="row">
+        <div id="sp-bottom1" class="col-sm-col-sm-6 col-lg-4 ">
+          <div class="sp-column ">
+            <div class="sp-module ">
+              <div class="sp-module-content">
+                <div class="contact-address ">
+                  <div class="foot-logo">
+                    <img src="{{ asset('theme/hepta/images/logo-white.png') }}" alt="">
+                  </div>
+                  <div class="contact-intro">
+                    Neosys Technologie, une équipe compétente et dynamique pour répondre efficacment aux besoins des clients.
+                  </div>
+                  <div class="address-item">
+                    <div class="address-icon">
+                      <i class="fa fa-phone"></i>
+                    </div>
+                    <div class="phone-text">{{configuration.telephone|phone}}</div>
+                  </div>
+                  <div class="address-item">
+                    <div class="address-icon">
+                      <i class="fa fa-envelope-open-o"></i>
+                    </div>
+                    <div class="email-text">
+                      {{configuration.email}}<br/>
+                      {{configuration.siteweb}}
+                    </div>
+                  </div>
+                  <div class="address-item">
+                    <div class="address-icon">
+                      <i class="fa fa-map-marker"></i>
+                    </div>
+                    <div class="address-text">{{configuration.adresse}}</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div id="sp-bottom2" class="col-sm-col-sm-6 col-lg-4 ">
+          <div class="sp-column ">
+            <div class="sp-module ">
+              <h3 class="sp-module-title">Récentes Actualités</h3>
+              <div class="sp-module-content">
+                {% for blog in blogs %}
+                <div class="post-item" itemscope itemtype="http://schema.org/Article">
+                  <div class="post-img">
+                    <a href="{{ path('actualite_details', {'id': blog.id}) }}" class="post-img">
+                      {% if blog.image|default(null) %}
+                      <img src="{{ asset('images/uploads/'~blog.image.imageName) }}" alt="" itemprop="image"/>
+                      {% else %}
+                      <img src="{{ asset('images/no_picture.png') }}" alt="" itemprop="image"/>
+                      {% endif %}
+                    </a>
+                  </div>
+                  <div class="post-desc">
+                    <a class="title" href="{{ path('actualite_details', {'id': blog.id}) }}" itemprop="url">{{blog.titre}}</a>
+                    <span>{{ blog.createdAt ? blog.createdAt|date('d M Y') : '' }}</span>
+                  </div>
+                </div>
+                {% endfor %}
+              </div>
+            </div>
+          </div>
+        </div>
+        <div id="sp-bottom4" class="col-lg-4 ">
+          <div class="sp-column ">
+            <div class="sp-module ">
+              <h3 class="sp-module-title">Newsletter</h3>
+              <div class="sp-module-content">
+                <div class="acymailing_module" id="acymailing_module_formAcymailing24271">
+                  <div class="acymailing_fulldiv" id="acymailing_fulldiv_formAcymailing24271"  >
+                    <form id="formAcymailing24271" action="http://rstheme.com/products/joomla/hepta/index.php/home/home-business-2" onsubmit="return submitacymailingform('optin','formAcymailing24271')" method="post" name="formAcymailing24271"  >
+                      <div class="acymailing_module_form" >
+                        <div class="acymailing_introtext">
+                          Recevez les dernières offres en vous inscrivant à notre newsletter.
+                        </div>
+                        <table class="acymailing_form">
+                          <tr>
+                            <td class="acyfield_email acy_requiredField">
+                              <input id="user_email_formAcymailing24271"  class="inputbox" type="text" name="user[email]" style="width:100%" value="" placeholder="Entrez votre Email" title="Entrez votre Email"/>
+                            </td>
+                          </tr>
+                          <tr>
+                            <td  class="acysubbuttons">
+                              <input class="button subbutton btn btn-primary" type="submit" value="S'inscrire" name="Submit" />
+                            </td>
+                          </tr>
+                        </table>
+                        <input type="hidden" name="ajax" value="0" />
+                        <input type="hidden" name="acy_source" value="module_108" />
+                        <input type="hidden" name="ctrl" value="sub"/>
+                        <input type="hidden" name="task" value="notask"/>
+                        <input type="hidden" name="redirect" value="http%3A%2F%2Frstheme.com%2Fproducts%2Fjoomla%2Fhepta%2Findex.php%2Fhome%2Fhome-business-2"/>
+                        <input type="hidden" name="redirectunsub" value="http%3A%2F%2Frstheme.com%2Fproducts%2Fjoomla%2Fhepta%2Findex.php%2Fhome%2Fhome-business-2"/>
+                        <input type="hidden" name="option" value="com_acymailing"/>
+                        <input type="hidden" name="hiddenlists" value="1"/>
+                        <input type="hidden" name="acyformname" value="formAcymailing24271" />
+                      </div>
+                    </form>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

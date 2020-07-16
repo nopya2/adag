@@ -1,0 +1,277 @@
+{# templates/backend/partenaire/edit.html.twig #}
+
+{% extends 'backend/layout.html.twig' %}
+
+{% block titre %}NeosysCMS - Admin - Details Partenaire{% endblock %}
+
+{% block main_content %}
+
+<div class="container">
+    <!-- Title -->  
+    <div class="row heading-bg">
+        <div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
+          <h5 class="txt-dark">Details partenaire[{{partenaire.id}}]</h5>
+        </div>
+        <!-- Breadcrumb -->
+        <div class="col-lg-9 col-sm-8 col-md-8 col-xs-12">
+          <ol class="breadcrumb">
+            <li><a href="{{ path('admin_dashboard') }}">Tableau de bord</a></li>
+            <li><a href="{{ path('admin_partenaire_index') }}">Partenaires</a></li>
+            <li class="active"><span>Details Partenaire[{{partenaire.id}}]</span></li>
+          </ol>
+        </div>
+        <!-- /Breadcrumb -->
+    </div>
+    <!-- /Title -->
+
+    <!-- Row -->
+    <div class="row">
+        <div class="col-md-12">
+            <div class="well well-sm card-view">
+                <a href="{{ path('admin_partenaire_index') }}" class="btn btn-xs btn-icon left-icon btn-primary"><i class="fa fa-arrow-left"></i>Retour a la liste</a>
+            </div>
+        </div>
+    </div>
+    <!-- /Row -->
+
+    <!-- Row -->
+    <div class="row">
+        <div class="col-md-12">
+            <div class="panel panel-default card-view">
+                {#<div class="panel-heading">
+                    <div class="pull-left">
+                        <h6 class="panel-title txt-dark">Read only</h6>
+                    </div>
+                    <div class="clearfix"></div>
+                </div>#}
+                <div class="panel-wrapper collapse in">
+                    <div class="panel-body">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <p class="text-center">
+                                    {% if partenaire.imageSize <= 0 %}
+                                    <img src="{{ asset('images/default.png') }}" class="img-circle" width="80" height="80">
+                                    {% else %}
+                                    <img src="{{ asset('images/partenaires/') }}{{ partenaire.imageName }}" class="img-circle" width="80" height="80">
+                                    {% endif %}
+                                </p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-wrap">
+                                    <form class="form-horizontal" role="form"  method="post" action="{{ path('partenaire_delete', {'id': partenaire.id}) }}" onsubmit="return confirm('Etes-vous sur de vouloir supprimer ce partenaire?');">
+                                        <div class="form-body">
+                                            <h6 class="txt-dark capitalize-font"><i class="zmdi zmdi-account mr-10"></i>Informations Personnelles</h6>
+                                            <hr class="light-grey-hr"/>
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                    <div class="form-group">
+                                                        <label class="control-label col-md-3">Organisation:</label>
+                                                        <div class="col-md-9">
+                                                            <p class="form-control-static"> {{partenaire.organisation}} </p>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <!--/span-->
+                                                <div class="col-md-6">
+                                                    <div class="form-group">
+                                                        <label class="control-label col-md-3">Login:</label>
+                                                        <div class="col-md-9">
+                                                            <p class="form-control-static"> {{partenaire.login}} </p>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <!--/span-->
+                                            </div>
+                                            <!-- /Row -->
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                    <div class="form-group">
+                                                        <label class="control-label col-md-3">Email:</label>
+                                                        <div class="col-md-9">
+                                                            <p class="form-control-static"> {{partenaire.email}} </p>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <!--/span-->
+                                                <div class="col-md-6">
+                                                    <div class="form-group">
+                                                        <label class="control-label col-md-3">Site web:</label>
+                                                        <div class="col-md-9">
+                                                            <p class="form-control-static"> {{partenaire.siteweb}} </p>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <!--/span-->
+                                            </div>
+                                            <!-- /Row -->
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                    <div class="form-group">
+                                                        <label class="control-label col-md-3">Ajoute le:</label>
+                                                        <div class="col-md-9">
+                                                            <p class="form-control-static"> {{ partenaire.createdAt ? partenaire.updatedAt|date('d/m/Y H:i:s') : '' }} </p>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <!--/span-->
+                                                <div class="col-md-6">
+                                                    <div class="form-group">
+                                                        <label class="control-label col-md-3">Modifie le:</label>
+                                                        <div class="col-md-9">
+                                                            <p class="form-control-static"> {{ partenaire.updatedAt ? partenaire.updatedAt|date('d/m/Y H:i:s') : '' }} </p>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <!--/span-->
+                                            </div>
+                                            <!-- /Row -->
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                    <div class="form-group">
+                                                        <label class="control-label col-md-3">Ajoute par:</label>
+                                                        <div class="col-md-9">
+                                                            <p class="form-control-static"> {{ partenaire.utilisateur.nom }} {{ partenaire.utilisateur.prenom }}</p>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <!--/span-->
+                                                <div class="col-md-6">
+                                                    <div class="form-group">
+                                                        <label class="control-label col-md-3">Statut:</label>
+                                                        <div class="col-md-9">
+                                                            <p class="form-control-static">
+                                                                {% if partenaire.statut == true %}
+                                                                    <span class="label label-success">Active</span>
+                                                                {% else %}
+                                                                    <span class="label label-default">desactive</span>
+                                                                {% endif %}
+                                                            </p>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <!--/span-->
+                                            </div>
+                                            <!-- /Row -->
+
+                                            
+                                            <div class="seprator-block"></div>
+                                            
+                                            <h6 class="txt-dark capitalize-font"><i class="zmdi zmdi-account-box mr-10"></i>Adresse</h6>
+                                            <hr class="light-grey-hr"/>
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                    <div class="form-group">
+                                                        <label class="control-label col-md-3">Addresse:</label>
+                                                        <div class="col-md-9">
+                                                            <p class="form-control-static"> {{ partenaire.adresse }}</p>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                    <div class="form-group">
+                                                        <label class="control-label col-md-3">Telephone:</label>
+                                                        <div class="col-md-9">
+                                                            <p class="form-control-static"> {{ partenaire.telephone }} </p>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <!--/span-->
+                                                <div class="col-md-6">
+                                                    <div class="form-group">
+                                                        <label class="control-label col-md-3">Boite Postale:</label>
+                                                        <div class="col-md-9">
+                                                            <p class="form-control-static"> {{ partenaire.bp }}</p>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <!--/span-->
+                                            </div>
+                                            <!-- /Row -->
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                    <div class="form-group">
+                                                        <label class="control-label col-md-3">Ville:</label>
+                                                        <div class="col-md-9">
+                                                            <p class="form-control-static"> {{ partenaire.ville }} </p>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <!--/span-->
+                                                <div class="col-md-6">
+                                                    <div class="form-group">
+                                                        <label class="control-label col-md-3">Pays:</label>
+                                                        <div class="col-md-9">
+                                                            <p class="form-control-static"> {{ partenaire.pays }} </p>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <!--/span-->
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                    <div class="form-group">
+                                                        <label class="control-label col-md-3">Latitude:</label>
+                                                        <div class="col-md-9">
+                                                            <p class="form-control-static"> {{ partenaire.latitude }} </p>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <!--/span-->
+                                                <div class="col-md-6">
+                                                    <div class="form-group">
+                                                        <label class="control-label col-md-3">Longitude:</label>
+                                                        <div class="col-md-9">
+                                                            <p class="form-control-static"> {{ partenaire.longitude }} </p>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <!--/span-->
+                                            </div>
+                                        </div>
+                                        <div class="form-actions mt-10">
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                    <div class="row">
+                                                        <div class="col-md-offset-3 col-md-9">
+                                                            <a href="{{ path('admin_partenaire_edit', {'id': partenaire.id}) }}">
+                                                                <button type="button" class="btn btn-warning btn-icon left-icon  mr-10"> <i class="zmdi zmdi-edit"></i> <span>Modifier</span></button>
+                                                            </a>
+
+                                                            <input type="hidden" name="_method" value="DELETE">
+                                                            <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ partenaire.id) }}">
+                                                            <button type="submit" class="btn btn-danger btn-icon left-icon"><i class="fa fa-trash"></i> Supprimer</button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6"> </div>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>    
+        </div>
+    </div>
+    <!-- /Row -->
+
+
+</div>
+{% endblock %}
+
+{% block javascript %}
+    {{ parent() }}
+    <script type="text/javascript">
+        $(function() {
+            "use strict";
+            $('textarea.ckeditor').ckeditor();
+        });
+    </script>
+{% endblock %}
+

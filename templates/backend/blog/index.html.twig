@@ -1,0 +1,144 @@
+{# templates/backend/blog/index.html.twig #}
+
+{% extends 'backend/layout.html.twig' %}
+
+{% block titre %}NeosysCMS - Admin - Blog{% endblock %}
+
+{% block main_content %}
+
+<div class="container">
+    <!-- Title -->  
+    <div class="row heading-bg">
+        <div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
+          <h5 class="txt-dark">Blogs</h5>
+        </div>
+        <!-- Breadcrumb -->
+        <div class="col-lg-9 col-sm-8 col-md-8 col-xs-12">
+          <ol class="breadcrumb">
+            <li><a href="{{ path('admin_dashboard') }}">Tableau de bord</a></li>
+            <li class="active"><span>Blogs</span></li>
+          </ol>
+        </div>
+        <!-- /Breadcrumb -->
+    </div>
+    <!-- /Title -->
+    
+    <!-- Row -->
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="panel panel-default card-view">
+                <div class="panel-heading">
+                    <div class="pull-left">
+                        <h6 class="panel-title txt-dark"><a href="{{ path('admin_blog_new') }}" class="btn btn-success btn-sm btn-icon left-icon"><i class="fa fa-plus"></i>Ajouter un nouveau</a></h6>
+                    </div>
+                    <div class="clearfix"></div>
+                </div>
+                <div class="panel-wrapper collapse in">
+                    <div class="panel-body">
+                        {% for message in app.flashes('succes') %}
+                            <div class="alert alert-success alert-dismissable">
+                                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                                <i class="zmdi zmdi-check pr-15 pull-left"></i><p class="pull-left">{{ message }}.</p>
+                                <div class="clearfix"></div>
+                            </div>
+                        {% endfor %}
+                        {% for message in app.flashes('suppression') %}
+                            <div class="alert alert-danger alert-dismissable">
+                                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                                <i class="fa fa-trash pr-15 pull-left"></i><p class="pull-left">{{ message }}.</p>
+                                <div class="clearfix"></div>
+                            </div>
+                        {% endfor %}
+                        <div class="table-responsive">
+                            <table id="myTable1" class="table table-hover display  pb-30" >
+                                <thead>
+                                    <tr>
+                                        <th>ID</th>
+                                        <th>Titre</th>
+                                        <th>Categories</th>
+                                        <th>Visiblité</th>
+                                        <th>Commentaires</th>
+                                        <th>Image</th>
+                                        <th>Publie le</th>
+                                        <th>Mis a jour le</th>
+                                        <th class="text-center">Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                {% for blog in blogs %}
+                                    <tr>
+                                        <td>{{ blog.id }}</td>
+                                        <td>{{ blog.titre }}</td>
+                                        <td>
+                                        {% for categorie in blog.categories %}
+                                            {{categorie.titre|join(', ')}}
+                                        {% endfor %}
+                                        </td>
+                                        <td>
+                                            {% if blog.visible == true %}
+                                            <a href="?a=hide&i={{blog.id}}" title="Masquer" class="txt-primary"><i class="fa fa-eye"></i></a>
+                                            {% else %}
+                                            <a href="?a=show&i={{blog.id}}" title="Afficher" class="txt-muted"><i class="fa fa-eye-slash"></i></a>
+                                            {% endif %}
+                                        </td>
+                                        <td><i class="fa fa-comment"></i> {{blog.commentaires|length}}</td>
+                                        <td>
+                                            {% if blog.image|default(null) %}
+                                            <img src="{{ asset('images/uploads/') }}{{ blog.image.imageName }}" width=40 height=40>
+                                            {% else %}
+                                            <img src="{{ asset('images/default.png') }}" width=40 height=40>
+                                            {% endif %}
+                                        </td>
+                                        <td>{{ blog.createdAt ? blog.createdAt|date('d/m/Y H:i:s') : '' }}</td>
+                                        <td>{{ blog.updatedAt ? blog.updatedAt|date('d/m/Y H:i:s') : '' }}</td>
+                                        <td class="text-center">
+                                            {# <a href="{{ path('blog_show', {'id': blog.id}) }}" class="btn btn-primary btn-sm btn-icon left-icon"><i class="fa fa-eye"></i>Voir</a> #}
+                                            
+                                            <form method="post" action="{{ path('admin_blog_delete', {'id': blog.id}) }}" onsubmit="return confirm('Etes-vous sur de vouloir supprimer ce blog?');">
+                                                <input type="hidden" name="_method" value="DELETE">
+                                                <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ blog.id) }}">
+                                                <a href="{{ path('admin_blog_edit', {'id': blog.id}) }}" class="btn btn-warning btn-xs btn-icon left-icon"><i class="fa fa-edit"></i></a>
+                                                <button class="btn btn-danger btn-xs btn-icon left-icon"><i class="fa fa-trash"></i></button>
+                                            </form>
+                                        </td>
+                                    </tr>
+                                {% else %}
+                                    <tr>
+                                        <td colspan="9">Aucun blog trouve</td>
+                                    </tr>
+                                {% endfor %}
+                                </tbody>
+                                <tfoot>
+                                    <tr>
+                                        <th>ID</th>
+                                        <th>Titre</th>
+                                        <th>Categories</th>
+                                        <th>Visiblité</th>
+                                        <th>Commentaires</th>
+                                        <th>Image</th>
+                                        <th>Publie le</th>
+                                        <th>Mis a jour le</th>
+                                        <th class="text-center">Actions</th>
+                                    </tr>
+                                </tfoot>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>  
+        </div>
+    </div>
+    <!-- /Row -->
+</div>
+{% endblock %}
+
+{% block javascript %}
+    {{ parent() }}
+
+    <!-- Data table JavaScript -->
+    <script src="{{ asset('theme/vendors/bower_components/datatables/media/js/jquery.dataTables.min.js') }}"></script>
+    <script src="{{ asset('theme/vendors/bower_components/datatables.net-buttons/js/dataTables.buttons.min.js') }}"></script>
+    <script src="{{ asset('theme/vendors/bower_components/datatables.net-responsive/js/dataTables.responsive.min.js') }}"></script>
+    <script src="{{ asset('theme/zapily/ltr/dist/js/responsive-datatable-data.js') }}"></script>
+    
+{% endblock %}

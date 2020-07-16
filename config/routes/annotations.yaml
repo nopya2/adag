@@ -1,0 +1,21 @@
+# controllers:
+#     resource: ../../src/Controller/
+#     type: annotation
+
+admin_controller:
+    resource: ../../src/Controller/
+    type: annotation
+
+portail_controller:
+    resource: ../../src/Controller/Portail/
+    type: annotation
+
+# portail_controller:
+#     resource: ../../src/Controller/Portail/
+#     type: annotation
+#     prefix: /
+
+rest_controller:
+    resource: ../../src/Controller/Rest/
+    type: annotation
+    prefix: /api

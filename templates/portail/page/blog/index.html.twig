@@ -1,0 +1,99 @@
+{# templates/portail/blog/index.html.twig #}
+
+{% extends 'portail/layout.html.twig' %}
+
+{% block titre %}NeoSys Technologie | Actualités{% endblock %}
+
+{% block page_content %}
+<section id="rs-breadcrumbs" class="sppb-section  rs-breadcrumbs" >
+  <div class="sppb-row-container">
+    <div class="sppb-section-title sppb-text-left">
+      <h2 class="sppb-title-heading">Actualités</h2>
+    </div>
+    <div class="sppb-row">
+      <div class="sppb-col-md-12" id="column-wrap-id-1543314590924">
+        <div id="column-id-1543314590924" class="sppb-column" >
+          <div class="sppb-column-addons">
+            <div id="sppb-addon-1543314590925" class="clearfix" >
+              <div class="sppb-addon sppb-addon-module breadcrumbs-path">
+                <div class="sppb-addon-content">
+                  <ol itemscope itemtype="https://schema.org/BreadcrumbList" class="breadcrumb">
+                    <li class="float-left">
+                      <span class="divider fa fa-location" aria-hidden="true"></span>
+                    </li>
+                    <li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem" class="breadcrumb-item">
+                      <a itemprop="item" href="{{ path('home') }}" class="pathway"><span itemprop="name">Accueil</span></a>
+                      <meta itemprop="position" content="1">
+                    </li>
+                    <li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem" class="breadcrumb-item active">
+                      <span itemprop="name">Actualités</span>
+                      <meta itemprop="position" content="3">
+                    </li>
+                  </ol>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="rs-portfolio" class="sppb-section  rs-portfolio" >
+  <div class="sppb-row-overlay"></div>
+  <div class="sppb-row-container">
+    <div class="sppb-row">
+      <div class="sppb-col-md-12" id="column-wrap-id-1543314590927">
+        <div id="column-id-1543314590927" class="sppb-column" >
+          <div class="sppb-column-addons">
+            <div id="sppb-addon-1543314590928" class="clearfix" >
+              <div class="sppb-addon sppb-addon-module rs-portfolio-isotop filter-center">
+                <div class="sppb-addon-content">
+                  <div id="mod-sp-simpleportfolio" class="sp-simpleportfolio sp-simpleportfolio-view-items layout-default ">
+                    {# <div class="sp-simpleportfolio-filter">
+                      <ul>
+                        <li class="active" data-group="all"><a href="#">Tout</a></li>
+                        {% for service in services %}
+                        <li data-group="{{service.titre}}"><a href="#" title="{{service.titre}}">{{service.titre|truncate(18)|raw}}</a></li>
+                        {% endfor %}
+                      </ul>
+                    </div> #}
+                    <div class="sp-simpleportfolio-items sp-simpleportfolio-columns-4">
+                      {% for blog in blogs %}
+                      <div class="sp-simpleportfolio-item">
+                        <div class="sp-simpleportfolio-overlay-wrapper clearfix">
+                          <img class="sp-simpleportfolio-img" src="{{ asset('images/uploads/'~blog.image.imageName|default('default.png')) }}" alt="Speaker Block">
+                          <div class="sp-simpleportfolio-overlay">
+                            <div class="sp-vertical-middle">
+                              <div>
+                                <div class="sp-simpleportfolio-btns">
+                                  <a class="btn-zoom" href="{{ asset('images/uploads/'~blog.image.imageName|default('default.png')) }}" data-featherlight="image">Zoom</a>
+                                  <a class="btn-view" href="{{ path('actualite_details', {'id': blog.id})}}">View</a>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="sp-simpleportfolio-info">
+                          <div class="sp-simpleportfolio-tags" style="margin-bottom: 10px"><i class="fa fa-calendar"></i> {{ blog.createdAt|date('d M Y')}}</div>
+                          <h3 class="sp-simpleportfolio-title">
+                            <a href="{{ path('actualite_details', {'id': blog.id})}}">
+                              {{blog.titre}}
+                            </a>
+                          </h3>
+                        </div>
+                      </div>
+                      {% endfor %}
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>			
+{% endblock %}

@@ -1,0 +1,80 @@
+{# templates/pdf/layout.html.twig #}
+<!DOCTYPE html>
+<html lang="fr">
+
+<!-- Mirrored from hencework.com/theme/zapily/ltr/inbox.html by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 28 Sep 2018 17:36:12 GMT -->
+<head>
+    <meta charset="UTF-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+	{# <title>{% block titre %}{% endblock %}</title> #}
+	
+	<!-- Bootstrap Wysihtml5 css -->
+	<link rel="stylesheet" href="http://localhost/theme/vendors/bower_components/bootstrap3-wysihtml5-bower/dist/bootstrap3-wysihtml5.css" />
+
+	<!-- Data table CSS -->
+	<link href="{{ asset('theme/vendors/bower_components/datatables/media/css/jquery.dataTables.min.css') }}" rel="stylesheet" type="text/css">
+	<link href="{{ asset('theme/vendors/bower_components/datatables.net-responsive/css/responsive.dataTables.min.css') }}" rel="stylesheet" type="text/css">
+
+	<!-- Jasny-bootstrap CSS -->
+	<link href="{{ asset('theme/vendors/bower_components/jasny-bootstrap/dist/css/jasny-bootstrap.min.css') }}" rel="stylesheet" type="text/css">
+
+	<!-- jquery-steps css -->
+	<link rel="stylesheet" href="{{ asset('theme/vendors/bower_components/jquery.steps/demo/css/jquery.steps.css') }}">
+
+	<!-- Custom Fonts -->
+    <link href="{{ asset('theme/zapily/ltr/dist/css/font-awesome.min.css') }}" rel="stylesheet" type="text/css">
+		
+	<!-- Custom CSS -->
+	<link href="{{ asset('theme/zapily/ltr/dist/css/style.css') }}" rel="stylesheet" type="text/css">
+	<link href="{{ asset('theme/zapily/ltr/dist/css/custom.css') }}" rel="stylesheet" type="text/css">
+	
+</head>
+
+<body>
+	{% block main_content %}
+	{% endblock %}
+	
+	{% block javascript %}
+	<!-- JavaScript -->
+	
+    <!-- jQuery -->
+    <script src="{{ asset('theme/vendors/bower_components/jquery/dist/jquery.min.js') }}"></script>
+
+    <!-- Bootstrap Core JavaScript -->
+    <script src="{{ asset('theme/vendors/bower_components/bootstrap/dist/js/bootstrap.min.js') }}"></script>
+
+    <script src="{{ asset('theme/vendors/bower_components/jasny-bootstrap/dist/js/jasny-bootstrap.min.js') }}"></script>
+	
+	<!-- wysuhtml5 Plugin JavaScript -->
+	<script src="{{ asset('theme/vendors/bower_components/wysihtml5x/dist/wysihtml5x.min.js') }}"></script>
+	
+	<script src="{{ asset('theme/vendors/bower_components/bootstrap3-wysihtml5-bower/dist/bootstrap3-wysihtml5.all.js') }}"></script>
+	
+	<!-- Fancy Dropdown JS -->
+	<script src="{{ asset('theme/zapily/ltr/dist/js/dropdown-bootstrap-extended.js') }}"></script>
+	
+	<!-- Bootstrap Wysuhtml5 Init JavaScript -->
+	<script src="{{ asset('theme/zapily/ltr/dist/js/bootstrap-wysuhtml5-data.js') }}"></script>
+	
+	<!-- Slimscroll JavaScript -->
+	<script src="{{ asset('theme/zapily/ltr/dist/js/jquery.slimscroll.js') }}"></script>
+	
+	<!-- Owl JavaScript -->
+	<script src="{{ asset('theme/vendors/bower_components/owl.carousel/dist/owl.carousel.min.js') }}"></script>
+	
+	<!-- Switchery JavaScript -->
+	<script src="{{ asset('theme/vendors/bower_components/switchery/dist/switchery.min.js') }}"></script>
+
+	<!-- Bootstrap Tagsinput JavaScript -->
+	<script src="{{ asset('theme/vendors/bower_components/bootstrap-tagsinput/dist/bootstrap-tagsinput.min.js') }}"></script>
+
+	<!-- Form Wizard JavaScript -->
+	<script src="{{ asset('theme/vendors/bower_components/jquery.steps/build/jquery.steps.min.js') }}"></script>
+
+	<!-- Init JavaScript -->
+	<script src="{{ asset('theme/zapily/ltr/dist/js/init.js') }}"></script>
+
+	{% endblock %}
+	
+</body>
+</html>

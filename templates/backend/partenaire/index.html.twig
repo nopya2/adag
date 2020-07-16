@@ -1,0 +1,120 @@
+{# templates/backend/partenaire/index.html.twig #}
+
+{% extends 'backend/layout.html.twig' %}
+
+{% block titre %}NeosysCMS - Admin - Partenaire{% endblock %}
+
+{% block main_content %}
+
+<div class="container">
+    <!-- Title -->  
+    <div class="row heading-bg">
+        <div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
+          <h5 class="txt-dark">Partenaires</h5>
+        </div>
+        <!-- Breadcrumb -->
+        <div class="col-lg-9 col-sm-8 col-md-8 col-xs-12">
+          <ol class="breadcrumb">
+            <li><a href="{{ path('admin_dashboard') }}">Tableau de bord</a></li>
+            <li class="active"><span>Partenaires</span></li>
+          </ol>
+        </div>
+        <!-- /Breadcrumb -->
+    </div>
+    <!-- /Title -->
+    
+    <!-- Row -->
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="panel panel-default card-view">
+                <div class="panel-heading">
+                    <div class="pull-left">
+                        <h6 class="panel-title txt-dark"><a href="{{ path('admin_partenaire_new') }}" class="btn btn-success btn-sm btn-icon left-icon"><i class="fa fa-plus"></i>Ajouter un partenaire</a></h6>
+                    </div>
+                    <div class="clearfix"></div>
+                </div>
+                <div class="panel-wrapper collapse in">
+                    <div class="panel-body">
+                        {% for message in app.flashes('succes') %}
+                            <div class="alert alert-success alert-dismissable">
+                                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                                <i class="zmdi zmdi-check pr-15 pull-left"></i><p class="pull-left">{{ message }}.</p>
+                                <div class="clearfix"></div>
+                            </div>
+                        {% endfor %}
+                        {% for message in app.flashes('suppression') %}
+                            <div class="alert alert-danger alert-dismissable">
+                                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                                <i class="fa fa-trash pr-15 pull-left"></i><p class="pull-left">{{ message }}.</p>
+                                <div class="clearfix"></div>
+                            </div>
+                        {% endfor %}
+                        <div class="table-responsive">
+                            <table id="myTable1" class="table table-hover display table-striped pb-30" >
+                                <thead>
+                                    <tr>
+                                        <th>Logo</th>
+                                        <th>Nom</th>
+                                        <th>Adresse</th>
+                                        <th>BP</th>
+                                        <th>E-mail</th>
+                                        <th>Site web</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                {% for partenaire in partenaires %}
+                                    <tr>
+                                        <td>
+                                            {% if partenaire.imageSize <= 0 %}
+                                            <img src="{{ asset('images/default.png') }}" width="60px" height="auto">
+                                            {% else %}
+                                            <img src="{{ asset('images/partenaires/') }}{{ partenaire.imageName }}" width="60px" height="auto">
+                                            {% endif %}
+                                        </td>
+                                        <td>{{ partenaire.nom }}</td>
+                                        <td>{{ partenaire.adresse }}</td>
+                                        <td>{{ partenaire.bp }}</td>
+                                        <td>{{ partenaire.email }}</td>
+                                        <td>{{ partenaire.siteweb }}</td>
+                                        <td>
+                                            <form method="post" action="{{ path('admin_partenaire_delete', {'id': partenaire.id}) }}" onsubmit="return confirm('Etes-vous sur de vouloir supprimer ce partenaire?');">
+                                                <input type="hidden" name="_method" value="DELETE">
+                                                <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ partenaire.id) }}">
+                                                <a href="{{ path('admin_partenaire_edit', {'id': partenaire.id}) }}" class="btn btn-warning btn-xs btn-icon left-icon"><i class="fa fa-edit"></i></a>
+                                                <button class="btn btn-danger btn-xs btn-icon left-icon"><i class="fa fa-trash"></i></button>
+                                            </form>
+                                        </td>
+                                    </tr>
+                                {% else %}
+                                    <tr>
+                                        <td colspan="7">Aucun partenaire trouvé</td>
+                                    </tr>
+                                {% endfor %}
+                                </tbody>
+                                <tfoot>
+                                    <tr>
+                                        <th>Logo</th>
+                                        <th>Nom</th>
+                                        <th>Adresse</th>
+                                        <th>BP</th>
+                                        <th>E-mail</th>
+                                        <th>Site web</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                </tfoot>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>  
+        </div>
+    </div>
+    <!-- /Row -->
+</div>
+{% endblock %}
+
+{% block javascript %}
+    {{ parent() }}
+    
+{% endblock %}

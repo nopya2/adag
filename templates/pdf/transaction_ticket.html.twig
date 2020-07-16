@@ -1,0 +1,74 @@
+{# templates/pdf/layout.html.twig #}
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    
+<style type="text/css">
+    body{
+        font-family: "Times New Roman", Times, serif;
+        font-size: 11px;
+    }
+    .entete{
+        width: 100%;
+        height: auto;
+        text-align: center;
+    }
+    .contenu{
+        width: 100%;
+        height: auto;
+        margin-top: 30px;
+    }
+    .contenu table{
+        border-collapse:collapse;
+        width: 100%;
+        margin: auto;
+    }
+    .contenu table tr td{
+        height: 25px;
+        border-bottom: 0.5px dashed black;
+        vertical-align: middle;
+    }
+    .footer{
+        position: fixed;
+        bottom: 0px;
+        margin-right: auto;
+        margin-left: auto;
+        text-align: center;
+    }
+</style>
+</head>
+
+<body>
+    <div class="entete">
+        <img src="{{image_src}}" width="50px" height="auto"><br>
+        {{configuration.nomSite}}<br>
+        {{configuration.adresse}}<br>
+        {{configuration.telephone}} - BP: {{configuration.bp}}
+    </div>
+    <div class="contenu">
+        <table>
+            <tr>
+                <td>TRANSACTION</td><td style="text-align: right">{{transaction.numero}}</td>
+            </tr>
+            <tr>
+                <td>TYPE</td><td style="text-align: right">{{transaction.type|upper}}</td>
+            </tr>
+            <tr>
+                <td>COMPTE</td><td style="text-align: right">{{transaction.compte.numero}}</td>
+            </tr>
+            <tr>
+                <td>MONTANT</td><td style="text-align: right">{{transaction.montant}} FCFA</td>
+            </tr>
+            <tr>
+                <td>DATE</td><td style="text-align: right">{{ transaction.createdAt ? transaction.createdAt|date('d/m/Y H:i') : '' }}</td>
+            </tr>
+            <tr>
+                <td>OPERATEUR</td><td style="text-align: right">{{transaction.utilisateur.prenom}}</td>
+            </tr>
+        </table>
+    </div>
+    <div class="footer">
+        Merci et A bientot!
+    </div>
+</body>
+</html>

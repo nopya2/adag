@@ -1,0 +1,133 @@
+{# templates/portail/projet/details.html.twig #}
+
+{% extends 'portail/layout.html.twig' %}
+
+{% block titre %}NeoSys Technologie | Evènements - {{evenement.titre}}{% endblock %}
+
+{% block page_content %}
+<section id="rs-breadcrumbs" class="sppb-section  rs-breadcrumbs" >
+  <div class="sppb-row-container">
+    <div class="sppb-section-title sppb-text-left">
+      <h2 class="sppb-title-heading">{{evenement.titre}}</h2>
+    </div><div class="sppb-row">
+      <div class="sppb-col-md-12" id="column-wrap-id-1543384386716">
+        <div id="column-id-1543384386716" class="sppb-column" >
+          <div class="sppb-column-addons">
+            <div id="sppb-addon-1543384386717" class="clearfix" >
+              <div class="sppb-addon sppb-addon-module breadcrumbs-path">
+                <div class="sppb-addon-content">
+                  <ol itemscope itemtype="https://schema.org/BreadcrumbList" class="breadcrumb">
+                    <li class="float-left"><span class="divider fa fa-location" aria-hidden="true"></span></li>
+                    <li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem" class="breadcrumb-item">
+                      <a itemprop="item" href="{{ path('home') }}" class="pathway"><span itemprop="name">Accueil</span></a>
+                      <meta itemprop="position" content="1">
+                    </li>
+                    <li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem" class="breadcrumb-item">
+                      <a itemprop="item" href="{{ path('evenements') }}" class="pathway"><span itemprop="name">Evènements</span></a>
+                      <meta itemprop="position" content="2">
+                    </li>
+                    <li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem" class="breadcrumb-item active">
+                      <span itemprop="name">{{evenement.titre}}</span>
+                      <meta itemprop="position" content="4">
+                    </li>
+                  </ol>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<section id="section-id-1543384386701" class="sppb-section  project-gallery" >
+  <div class="sppb-row-overlay"></div>
+  <div class="sppb-row-container">
+    <div class="sppb-row">
+      <div class="sppb-col-md-7" id="column-wrap-id-1543384386719">
+        <div id="column-id-1543384386719" class="sppb-column" >
+          <div class="sppb-column-addons">
+            <div id="section-id-1543384386720" class="sppb-section  project-desc sec-title no-padding" >
+              <div class="sppb-row-overlay"></div>
+              <div class="sppb-container-inner">
+                <div class="sppb-container">
+                  <div class="sppb-section-title sppb-text-left">
+                    <h2 class="sppb-title-heading">DESCRIPTION DE L'EVENEMENT</h2>
+                  </div>
+                </div>
+                <div class="sppb-row">
+                  <div class="sppb-col-md-12" id="column-wrap-id-1543384386721">
+                    <div id="column-id-1543384386721" class="sppb-column" >
+                      <div class="sppb-column-addons">
+                        <div id="sppb-addon-1543384386722" class="clearfix" >
+                          <div class="sppb-addon sppb-addon-text-block 0  project-txt">
+                            <div class="sppb-addon-content">
+                              {{evenement.description|raw}}
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="sppb-col-md-5" id="column-wrap-id-1543384386725">
+        <div id="column-id-1543384386725" class="sppb-column" >
+          <div class="sppb-column-addons">
+            <div id="section-id-1543384386726" class="sppb-section  project-info" >
+              <div class="sppb-row-overlay"></div>
+              <div class="sppb-container-inner">
+                <div class="sppb-row">
+                  <div class="sppb-col-md-12" id="column-wrap-id-1543384386727">
+                    <div id="column-id-1543384386727" class="sppb-column" >
+                      <div class="sppb-column-addons">
+                        <div id="sppb-addon-1543384386728" class="clearfix" >
+                          <div class="sppb-addon sppb-addon-single-image sppb-text-center ">
+                            <div class="sppb-addon-content">
+                              <div class="sppb-addon-single-image-container">
+                                <img class="sppb-img-responsive" src="{{ asset('images/uploads/'~evenement.images[0].imageName|default('default.png')) }}" alt="Image" title="">
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        <div id="sppb-addon-1543384386729" class="clearfix" >
+                          <div class="sppb-addon sppb-addon-raw-html project-information">
+                            <div class="sppb-addon-content">
+                              <h4 class="info-title">INFORMATION DE L'EVENEMENT</h4>
+                              <ul class="project-info">
+                                <li>
+                                  <div class="row">
+                                    <div class="col-md-4"><span><i class="fa fa-map-marker"></i> Lieu:</span></div>
+                                    <div class="col-md-8">
+                                      {{evenement.place}}
+                                    </div>
+                                  </div>
+                                </li>
+                                <li>
+                                  <div class="row">
+                                    <div class="col-md-4"><span><i class="fa fa-calendar"></i> Date:</span></div>
+                                    <div class="col-md-8">Du {{evenement.dateDebut|date('d/m/Y')}} au {{evenement.dateFin|date('d/m/Y')}}</div>
+                                  </div>                                  
+                                </li>
+                                {# <li><span>Architect:</span>James Doe</li> #}
+                              </ul>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+{% endblock %}

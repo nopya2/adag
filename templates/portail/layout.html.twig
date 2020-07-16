@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% block meta %}
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+    {% endblock %}
+    <title>ADAG - Agence du Développement Agricole du Gabon | {% block title %}{% endblock %}</title>
+    {# css files #}
+    {{ include('portail/include/_css.html.twig') }}
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+      <![endif]-->
+</head>
+<body>
+<!--Wrapper Start-->
+<div class="wrapper">
+    <!--Header Start-->
+    {{ include('portail/include/_header.html.twig') }}
+    <!--Header End-->
+    <!--Slider Start-->
+    {% block slider %}{% endblock %}
+    <!--Slider End-->
+    <!--Main Content Start-->
+    {% block main_content %}{% endblock %}
+
+    <!--Main Content End-->
+    <!--Footer Start-->
+    <footer class="home3 main-footer wf100">
+        <div class="container">
+            <div class="row">
+                <!--Footer Widget Start-->
+                <div class="col-md-3 col-sm-6">
+                    <div class="textwidget"> <img src="images\footer-logo2.png" alt="">
+                        <address>
+                            <ul>
+                                <li> <i class="fas fa-university"></i> <strong>Adresse:</strong>
+                                    Avorbam, Route du Cap (Ancien CATH)<br>
+                                    BP: 551 Libreville
+                                </li>
+                                <li> <i class="fas fa-envelope"></i> <strong>Email:</strong> adag.agence@gmail.com</li>
+                                <li> <i class="fas fa-phone"></i> <strong>Appelez nous:</strong> (+241) 11 45 64 42 </li>
+                            </ul>
+                        </address>
+                    </div>
+                </div>
+                <!--Footer Widget End-->
+                <!--Footer Widget Start-->
+                <div class="col-md-3 col-sm-6">
+                    <div class="footer-widget">
+                        <h6>Liens utiles</h6>
+                        <ul>
+                            <li><a href="#"><i class="fas fa-star"></i> Recrutement</a></li>
+                            <li><a href="#"><i class="fas fa-star"></i> Facebook</a></li>
+                            <li><a href="#"><i class="fas fa-star"></i> Infos</a></li>
+                            <li><a href="#"><i class="fas fa-star"></i> Téléchargement</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <!--Footer Widget End-->
+                <!--Footer Widget Start-->
+                <div class="col-md-3 col-sm-6">
+                    <div class="footer-widget">
+                        <h6>Autres informations</h6>
+                        <ul>
+                            <li><a href="#"><i class="fas fa-star"></i> Décrets</a></li>
+                            <li><a href="#"><i class="fas fa-star"></i> Cahiers des charges</a></li>
+                            <li><a href="#"><i class="fas fa-star"></i> Annuaire agricole</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <!--Footer Start-->
+    <!--Footer Start-->
+    <footer class="home3 footer wf100">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-7 col-sm-7">
+                    <p class="copyr">ADAG  Rights Reserved © 2020, By: <a href="#">Neosys Technologie</a></p>
+                </div>
+                <div class="col-md-5 col-sm-5">
+                    <ul class="footer-social">
+                        <li><a href="#" class="fb"><i class="fab fa-facebook-f"></i></a></li>
+                        <li><a href="#" class="tw"><i class="fab fa-twitter"></i></a></li>
+                        <li><a href="#" class="insta"><i class="fab fa-instagram"></i></a></li>
+                        <li><a href="#" class="linken"><i class="fab fa-linkedin-in"></i></a></li>
+                        <li><a href="#" class="yt"><i class="fab fa-youtube"></i></a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <!--Footer End-->
+</div>
+<!--Wrapper End-->
+
+<nav id="sidebar">
+    <div id="dismiss"> <i class="fas fa-arrow-right"></i> </div>
+    <div class="sidebar-header"> <img src="images\footer-logo2.png" alt=""> </div>
+    <ul class="list-unstyled components">
+        <li class="active"> <a href="#" data-toggle="collapse" aria-expanded="false">Home</a>
+            <ul class="collapse list-unstyled" id="homeSubmenu">
+                <li><a href="#">Default Home Page</a></li>
+                <li><a href="#">Home Page Two</a></li>
+                <li><a href="#">Home Page Three</a></li>
+            </ul>
+        </li>
+        <li> <a href="#">About Us</a> </li>
+        <li> <a href="#">Departments</a> </li>
+        <li> <a href="#">News</a> </li>
+        <li> <a href="#">Events</a> </li>
+        <li> <a href="#">Explore City</a> </li>
+        <li> <a href="#">Services</a> </li>
+        <li> <a href="#">Contact</a> </li>
+    </ul>
+</nav>
+<div class="overlay"></div>
+
+<!-- JS -->
+{{ include('portail/include/_js.html.twig') }}
+</body>
+</html>

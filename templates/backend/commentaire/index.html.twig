@@ -1,0 +1,118 @@
+{# templates/backend/commentaire/index.html.twig #}
+
+{% extends 'backend/layout.html.twig' %}
+
+{% block titre %}NeosysCMS - Admin - Commentaire{% endblock %}
+
+{% block main_content %}
+
+<div class="container">
+    <!-- Title -->  
+    <div class="row heading-bg">
+        <div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
+          <h5 class="txt-dark">Commentaires</h5>
+        </div>
+        <!-- Breadcrumb -->
+        <div class="col-lg-9 col-sm-8 col-md-8 col-xs-12">
+          <ol class="breadcrumb">
+            <li><a href="{{ path('admin_dashboard') }}">Tableau de bord</a></li>
+            <li class="active"><span>Commentaires</span></li>
+          </ol>
+        </div>
+        <!-- /Breadcrumb -->
+    </div>
+    <!-- /Title -->
+    
+    <!-- Row -->
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="panel panel-default card-view">
+                {# <div class="panel-heading">
+                    <div class="pull-left">
+                        <h6 class="panel-title txt-dark"><a href="{{ path('admin_commentaire_new') }}" class="btn btn-success btn-sm btn-icon left-icon"><i class="fa fa-plus"></i>Ajouter un nouveau</a></h6>
+                    </div>
+                    <div class="clearfix"></div>
+                </div> #}
+                <div class="panel-wrapper collapse in">
+                    <div class="panel-body">
+                        {% for message in app.flashes('succes') %}
+                            <div class="alert alert-success alert-dismissable">
+                                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                                <i class="zmdi zmdi-check pr-15 pull-left"></i><p class="pull-left">{{ message }}.</p>
+                                <div class="clearfix"></div>
+                            </div>
+                        {% endfor %}
+                        {% for message in app.flashes('suppression') %}
+                            <div class="alert alert-danger alert-dismissable">
+                                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                                <i class="fa fa-trash pr-15 pull-left"></i><p class="pull-left">{{ message }}.</p>
+                                <div class="clearfix"></div>
+                            </div>
+                        {% endfor %}
+                        <div class="table-responsive">
+                            <table id="myTable1" class="table table-hover display  pb-30" >
+                                <thead>
+                                    <tr>
+                                        <th>ID</th>
+                                        <th>Article</th>
+                                        <th>Message</th>
+                                        <th>Envoyé le</th>
+                                        <th>Envoyé par</th>
+                                        <th class="text-center">Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                {% for commentaire in commentaires %}
+                                    <tr>
+                                        <td>{{ commentaire.id }}</td>
+                                        <td><a href="{{ path('admin_article_edit', {'id': commentaire.article.id}) }}" class="text-primary">{{ commentaire.article.titre }}</a></td>
+                                        <td>{{ commentaire.contenu|raw }}</td>
+                                        <td>{{ commentaire.createdAt ? commentaire.createdAt|date('d/m/Y H:i:s') : '' }}</td>
+                                        <th>{{ commentaire.nom }}</th>
+                                        <td class="text-center">
+                                            {# <a href="{{ path('commentaire_show', {'id': commentaire.id}) }}" class="btn btn-primary btn-sm btn-icon left-icon"><i class="fa fa-eye"></i>Voir</a> #}
+                                            
+                                            <form method="post" action="{{ path('admin_commentaire_delete', {'id': commentaire.id}) }}" onsubmit="return confirm('Etes-vous sur de vouloir supprimer ce commentaire?');">
+                                                <input type="hidden" name="_method" value="DELETE">
+                                                <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ commentaire.id) }}">                                                
+                                                <button class="btn btn-danger btn-xs btn-icon left-icon"><i class="fa fa-trash"></i></button>
+                                            </form>
+                                        </td>
+                                    </tr>
+                                {% else %}
+                                    <tr>
+                                        <td colspan="6">Aucun commentaire trouve</td>
+                                    </tr>
+                                {% endfor %}
+                                </tbody>
+                                <tfoot>
+                                    <tr>
+                                        <th>ID</th>
+                                        <th>Article</th>
+                                        <th>Message</th>
+                                        <th>Envoyé le</th>
+                                        <th>Envoyé par</th>
+                                        <th class="text-center">Actions</th>
+                                    </tr>
+                                </tfoot>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>  
+        </div>
+    </div>
+    <!-- /Row -->
+</div>
+{% endblock %}
+
+{% block javascript %}
+    {{ parent() }}
+
+    <!-- Data table JavaScript -->
+    <script src="{{ asset('theme/vendors/bower_components/datatables/media/js/jquery.dataTables.min.js') }}"></script>
+    <script src="{{ asset('theme/vendors/bower_components/datatables.net-buttons/js/dataTables.buttons.min.js') }}"></script>
+    <script src="{{ asset('theme/vendors/bower_components/datatables.net-responsive/js/dataTables.responsive.min.js') }}"></script>
+    <script src="{{ asset('theme/zapily/ltr/dist/js/responsive-datatable-data.js') }}"></script>
+    
+{% endblock %}

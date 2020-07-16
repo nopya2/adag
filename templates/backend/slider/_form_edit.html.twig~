@@ -1,0 +1,39 @@
+{{ form_start(form) }}
+	<div class="form-body">
+		<div class="row">
+			<div class="col-md-6">
+				<div class="form-group">
+        			{{ form_help(form.titre) }}
+					<label class="control-label mb-10">Titre</label>
+					{{ form_widget(form.titre, {'attr': {'class': 'form-control'}}) }}
+					<span class="help-block"> {{ form_errors(form.titre) }}</span> 
+				</div>
+			</div>
+			<!--/span-->
+			<div class="col-md-6">
+				<div class="form-group">
+					<label class="control-label mb-10">Sous Titre</label>
+					{{ form_widget(form.sousTitre, {'attr': {'class': 'form-control'}}) }}
+					<span class="help-block"> {{ form_errors(form.sousTitre) }} </span> 
+				</div>
+			</div>
+			<!--/span-->
+		</div>
+		<!-- /Row -->
+		<div class="row">
+			<div class="col-md-6">
+				<div class="form-group">
+					<label class="control-label mb-10">Image</label>
+					{{ form_widget(form.imageFile, {'attr': {'class': ''}}) }}
+					<span class="help-block"> {{ form_errors(form.imageFile) }} </span>
+				</div>
+			</div>
+			<!--/span-->
+		</div>
+		<!-- /Row -->
+	</div>
+	<div class="form-actions mt-10">
+		<button type="submit" class="btn btn-success  btn-icon left-iocn mr-10"><i class="fa fa-save"></i>{{ button_label|default('Creer') }}</button>
+		{# <button type="button" class="btn btn-default">Cancel</button> #}
+	</div>
+{{ form_end(form) }}

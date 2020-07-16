@@ -1,0 +1,50 @@
+{{ form_start(form) }}
+	<div class="form-body">			
+		<div class="row">
+			<div class="col-md-6">
+				<div class="form-group {% if form_errors(form.titre)|default(null) %} has-error {% endif %}">
+        			{{ form_help(form.titre) }}
+					<label class="control-label mb-10">Titre</label>
+					{{ form_widget(form.titre, {'attr': {'class': 'form-control'}}) }}
+					<span class="help-block"> {{ form_errors(form.titre) }}</span> 
+				</div>
+			</div>
+			<div class="col-md-6">
+				<div class="form-group {% if form_errors(form.categories)|default(null) %} has-error {% endif %}">
+					<label class="control-label mb-10">Categories</label>
+					{{ form_widget(form.categories, {'attr': {'class': 'form-control'}}) }}
+					<span class="help-block"> {{ form_errors(form.categories) }} </span> 
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-md-6">
+				<div class="form-group">
+					<div class="checkbox checkbox-success">
+						<input id="checkbox3" type="checkbox">
+						{{ form_widget(form.visible, {'attr': {'class': ''}}) }}
+						<label for="checkbox3">
+							Visible ?
+						</label>
+					</div>
+				</div>
+			</div>
+			<div class="col-md-6">
+				<div class="form-group {% if form_errors(form.image)|default(null) %} has-error {% endif %}">
+					<label class="control-label mb-10">Image</label>
+					{{ form_widget(form.image, {'attr': {'class': ''}}) }}
+					<span class="help-block"> {{ form_errors(form.image) }} </span>
+				</div>
+			</div>
+		</div>
+		<div class="form-group {% if form_errors(form.contenu)|default(null) %} has-error {% endif %}">
+			<label class="control-label mb-10">Contenu</label>
+			<span class="help-block"> {{ form_errors(form.contenu) }} </span> 
+			{{ form_widget(form.contenu, {'attr': {'class': 'form-control ckeditor'}}) }}
+		</div>
+	</div>
+	<div class="form-actions mt-10">
+		<button type="submit" class="btn {{button_type}}  btn-icon left-iocn mr-10"><i class="fa fa-save"></i>{{ button_label|default('Creer') }}</button>
+		{# <button type="button" class="btn btn-default">Cancel</button> #}
+	</div>
+{{ form_end(form) }}

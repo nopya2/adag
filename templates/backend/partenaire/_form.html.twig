@@ -1,0 +1,69 @@
+{{ form_start(form) }}
+	<div class="form-body">
+		<!-- row -->
+		<div class="row">
+			<div class="col-md-6">
+				<div class="form-group {% if form_errors(form.nom)|default(null) %} has-error {% endif %}">
+					<label class="control-label mb-10">Nom <span class="txt-danger">*</span></label>
+					{{ form_widget(form.nom, {'attr': {'class': 'form-control'}}) }}
+					<span class="help-block"> {{ form_errors(form.nom) }}</span> 
+				</div>
+			</div>
+			<div class="col-md-6">
+				<div class="form-group {% if form_errors(form.email)|default(null) %} has-error {% endif %}">
+					<label class="control-label mb-10">Email <span class="txt-danger">*</span></label>
+					{{ form_widget(form.email, {'attr': {'class': 'form-control'}}) }}
+					<span class="help-block"> {{ form_errors(form.email) }}</span> 
+				</div>
+			</div>
+			<div class="col-md-6">
+				<div class="form-group {% if form_errors(form.siteweb)|default(null) %} has-error {% endif %}">
+					<label class="control-label mb-10">Site web <small>ex: http://neosystechnologie.ga</small></label>
+					{{ form_widget(form.siteweb, {'attr': {'class': 'form-control'}}) }}
+					<span class="help-block"> {{ form_errors(form.siteweb) }}</span> 
+				</div>
+			</div>
+			<div class="col-md-6">
+				<div class="form-group {% if form_errors(form.adresse)|default(null) %} has-error {% endif %}">
+					<label class="control-label mb-10">Adresse <span class="txt-danger">*</span></label>
+					{{ form_widget(form.adresse, {'attr': {'class': 'form-control'}}) }}
+					<span class="help-block"> {{ form_errors(form.adresse) }}</span> 
+				</div>
+			</div>
+			<div class="col-md-6">
+				<div class="form-group {% if form_errors(form.telephone)|default(null) %} has-error {% endif %}">
+					<label class="control-label mb-10">Telephone <span class="txt-danger">*</span></label>
+					{{ form_widget(form.telephone, {'attr': {'class': 'form-control'}}) }}
+					<span class="help-block"> {{ form_errors(form.telephone) }}</span> 
+				</div>
+			</div>
+			<div class="col-md-6">
+				<div class="form-group {% if form_errors(form.bp)|default(null) %} has-error {% endif %}">
+					<label class="control-label mb-10">Boite postale</label>
+					{{ form_widget(form.bp, {'attr': {'class': 'form-control'}}) }}
+					<span class="help-block"> {{ form_errors(form.bp) }}</span> 
+				</div>
+			</div>
+			<div class="col-md-6">
+				<div class="form-group">
+					<label class="control-label mb-10 text-left">Logo</label>
+					<div class="fileinput fileinput-new input-group" data-provides="fileinput">
+						<div class="form-control" data-trigger="fileinput"> <i class="glyphicon glyphicon-file fileinput-exists"></i> <span class="fileinput-filename"></span></div>
+						<span class="input-group-addon fileupload btn btn-info btn-anim btn-file"><i class="fa fa-upload"></i> <span class="fileinput-new btn-text">Selectionner fichier</span> <span class="fileinput-exists btn-text">Changer</span>
+						{# <input type="file" name="..."> #}
+						{{ form_widget(form.imageFile) }}
+						</span> <a href="#" class="input-group-addon btn btn-danger btn-anim fileinput-exists" data-dismiss="fileinput"><i class="fa fa-trash"></i><span class="btn-text"> Supprimer</span></a> 
+					</div> 
+					<span class="help-block"> {{ form_errors(form.imageFile) }}</span>
+				</div>
+			</div>
+		</div><!-- /row -->
+
+	</div>
+	<div class="form-actions mt-10">
+		<button type="submit" class="btn {{button_type}}  btn-icon left-iocn mr-10"><i class="fa fa-save"></i>{{ button_label|default('Creer') }}</button>
+		{# <button type="button" class="btn btn-default">Cancel</button> #}
+	</div>
+	<div class="mt-20"><span class="txt-danger">(*)</span> Champs obligatoires</div>
+{{ form_end(form) }}
+

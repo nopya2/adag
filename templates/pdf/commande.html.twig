@@ -1,0 +1,71 @@
+{# templates/pdf/layout.html.twig #}
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    
+<style type="text/css">
+    body{
+        
+    }
+    .entete{
+        
+    }
+    .contenu{
+        
+    }
+    .footer{
+        position: fixed;
+        bottom: 0px;
+        margin-right: auto;
+        margin-left: auto;
+        text-align: center;
+    }
+</style>
+</head>
+
+<body>
+    <div class="entete">
+        
+    </div>
+    <div class="contenu">
+        <table style="width: 100%; margin: auto">
+            <thead>
+                <tr>
+                    <th>REF</th>
+                    <th>Designation</th>
+                    <th>PU</th>
+                    <th>Livraison</th>
+                    <th>Quantite</th>
+                    <th>Montant</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for article in commande.elements %}
+                <tr>
+                    <td>{{article.produit.reference}}</td>
+                    <td>{{article.produit.nom}}</td>
+                    <td>{{fonctions.formatMontant(article.produit.prix)}}</td>
+                    <td>{{fonctions.formatMontant(article.produit.modeLivraison.montant)}}</td>
+                    <td>{{article.quantite}}</td>
+                    <td>{{fonctions.formatMontant(article.montant())}}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+            <tfoot>
+                <tr>
+                    <th colspan="5" style="text-align: right">MONTANT TOTAL</th>
+                    <th style="background-color: #F9BE4C">{{fonctions.formatMontant(commande.montant())}}</th>
+                </tr>
+            </tfoot>
+        </table>
+        <p>
+            <img src="data:image/png;base64,
+{{ barcode({code: 'decima;yvon;07454754', type: 'qrcode', format: 'png', width: 10, height: 10, color: [0, 177, 255]}) }}
+" />
+        </p>
+    </div>
+    <div class="footer">
+        
+    </div>
+</body>
+</html>

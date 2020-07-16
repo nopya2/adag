@@ -1,0 +1,155 @@
+{# templates/backend/evenement/new.html.twig #}
+
+{% extends 'backend/layout.html.twig' %}
+
+{% block titre %}NeosysCMS - Admin - Modifier évènement{% endblock %}
+
+{% block main_content %}
+
+<div class="container">
+	<!-- Title -->  
+	<div class="row heading-bg">
+			<div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
+				<h5 class="txt-dark">Modifier un évènement</h5>
+			</div>
+			<!-- Breadcrumb -->
+			<div class="col-lg-9 col-sm-8 col-md-8 col-xs-12">
+				<ol class="breadcrumb">
+					<li><a href="{{ path('admin_dashboard') }}">Tableau de bord</a></li>
+					<li><a href="{{ path('admin_evenement_index') }}">Evènements</a></li>
+					<li class="active"><span>Modifier</span></li>
+				</ol>
+			</div>
+			<!-- /Breadcrumb -->
+	</div>
+	<!-- /Title -->
+
+	<div class="row">
+		<div class="col-md-12">
+			<div class="well well-sm card-view">
+				<a href="{{ path('admin_evenement_index') }}" class="btn btn-xs btn-icon left-icon btn-primary"><i class="fa fa-arrow-left"></i>Retour a la liste</a>
+			</div>
+		</div>
+	</div>
+  <!-- Row -->
+	<div class="row">
+		<div class="col-sm-12 col-xs-12 col-md-9 col-lg-9">
+			{% for message in app.flashes('succes') %}
+				<div class="alert alert-warning alert-dismissable">
+					<button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+					<i class="zmdi zmdi-alert-circle-o pr-15 pull-left"></i><p class="pull-left">{{ message }}.</p>
+					<div class="clearfix"></div>
+				</div>
+			{% endfor %}
+
+			<div class="well well-sm card-view">
+				<h6 class="mb-15">Formulaire de modification</h6>
+				<div class="form-wrap">
+					{{ include('backend/evenement/_form.html.twig', {'button_label': 'Enregistrer'}) }}		
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- /Row -->
+</div>
+{% endblock %}
+
+{% block javascript %}
+    {{ parent() }}
+    <script type="text/javascript">
+        var $collectionHolder;
+
+        // setup an "add a tag" link
+        var $addImageButton = $('<button type="button" class="add_image_link btn btn-xs btn-success">Ajouter une image</button>');
+        var $newLinkLi = $('<li></li>').append($addImageButton);
+
+	    $(function() {
+	        $('textarea.ckeditor').ckeditor();
+
+            $('#datetimepicker1').datetimepicker({
+                useCurrent: false,
+                format: 'YYYY-MM-DD H:mm',
+                icons: {
+                    time: "fa fa-clock-o",
+                    date: "fa fa-calendar",
+                    up: "fa fa-arrow-up",
+                    down: "fa fa-arrow-down"
+                },
+            }).on('dp.show', function() {
+                if($(this).data("DateTimePicker").date() === null)
+                    $(this).data("DateTimePicker").date(moment());
+            }); 
+
+            $('#datetimepicker2').datetimepicker({
+                useCurrent: false,
+                format: 'YYYY-MM-DD H:mm',
+                icons: {
+                    time: "fa fa-clock-o",
+                    date: "fa fa-calendar",
+                    up: "fa fa-arrow-up",
+                    down: "fa fa-arrow-down"
+                },
+            }).on('dp.show', function() {
+                if($(this).data("DateTimePicker").date() === null)
+                    $(this).data("DateTimePicker").date(moment());
+            });
+
+            // Get the ul that holds the collection of tags
+            $collectionHolder = $('ul.images');
+
+            // add a delete link to all of the existing tag form li elements
+            $collectionHolder.find('li').each(function() {
+                addImageFormDeleteLink($(this));
+            });
+
+            // add the "add a tag" anchor and li to the tags ul
+            $collectionHolder.append($newLinkLi);
+
+            // count the current form inputs we have (e.g. 2), use that as the new
+            // index when inserting a new item (e.g. 2)
+            $collectionHolder.data('index', $collectionHolder.find(':input').length);
+
+            $addImageButton.on('click', function(e) {
+                // add a new tag form (see next code block)
+                addImageForm($collectionHolder, $newLinkLi);
+            });
+	    });
+
+        function addImageForm($collectionHolder, $newLinkLi) {
+            // Get the data-prototype explained earlier
+            var prototype = $collectionHolder.data('prototype');
+
+            // get the new index
+            var index = $collectionHolder.data('index');
+
+            var newForm = prototype;
+            // You need this only if you didn't set 'label' => false in your tags field in TaskType
+            // Replace '__name__label__' in the prototype's HTML to
+            // instead be a number based on how many items we have
+            // newForm = newForm.replace(/__name__label__/g, index);
+
+            // Replace '__name__' in the prototype's HTML to
+            // instead be a number based on how many items we have
+            newForm = newForm.replace(/__name__/g, index);
+
+            // increase the index with one for the next item
+            $collectionHolder.data('index', index + 1);
+
+            // Display the form in the page in an li, before the "Add a tag" link li
+            var $newFormLi = $('<li></li>').append(newForm);
+            $newLinkLi.before($newFormLi);
+
+            addImageFormDeleteLink($newFormLi);
+        }
+
+        function addImageFormDeleteLink($imageFormLi) {
+            var $removeFormButton = $('<a type="button" class="text-danger" style="cursor:pointer"><i class="fa fa-trash"></i></a>');
+            $imageFormLi.append($removeFormButton);
+
+            $removeFormButton.on('click', function(e) {
+                // remove the li for the tag form
+                $imageFormLi.remove();
+            });
+        }
+	</script>
+{% endblock %}

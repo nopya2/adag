@@ -1,0 +1,139 @@
+{# templates/backend/slider/index.html.twig #}
+
+{% extends 'backend/layout.html.twig' %}
+
+{% block titre %}NeosysCMS - Admin - Slider{% endblock %}
+
+{% block main_content %}
+
+<div class="container">
+    <!-- Title -->  
+    <div class="row heading-bg">
+        <div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
+          <h5 class="txt-dark">Sliders</h5>
+        </div>
+        <!-- Breadcrumb -->
+        <div class="col-lg-9 col-sm-8 col-md-8 col-xs-12">
+          <ol class="breadcrumb">
+            <li><a href="{{ path('admin_dashboard') }}">Tableau de bord</a></li>
+            <li class="active"><span>Sliders</span></li>
+          </ol>
+        </div>
+        <!-- /Breadcrumb -->
+    </div>
+    <!-- /Title -->
+    
+    <!-- Row -->
+    <div class="row">
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+            <div class="panel panel-default card-view">
+                <div class="panel-heading">
+                    <div class="pull-left">
+                        <h6 class="panel-title txt-dark"><a href="{{ path('admin_slider_new') }}" class="btn btn-success btn-sm btn-icon left-icon"><i class="fa fa-plus"></i>Ajouter un nouveau</a></h6>
+                    </div>
+                    <div class="clearfix"></div>
+                </div>
+                <div class="panel-wrapper collapse in">
+                    <div class="panel-body">
+                        {% for message in app.flashes('succes') %}
+                            <div class="alert alert-success alert-dismissable">
+                                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                                <i class="zmdi zmdi-check pr-15 pull-left"></i><p class="pull-left">{{ message }}.</p>
+                                <div class="clearfix"></div>
+                            </div>
+                        {% endfor %}
+                        {% for message in app.flashes('suppression') %}
+                            <div class="alert alert-danger alert-dismissable">
+                                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                                <i class="fa fa-trash pr-15 pull-left"></i><p class="pull-left">{{ message }}.</p>
+                                <div class="clearfix"></div>
+                            </div>
+                        {% endfor %}
+                        <div class="table-responsive">
+                            <table id="myTable1" class="table table-hover display  pb-30" >
+                                <thead>
+                                    <tr>
+                                        <th>ID</th>
+                                        <th>Titre</th>
+                                        <th>Sous-Titre</th>
+                                        <th>Lien</th>
+                                        <th>Image</th>
+                                        <th>Visibilité</th>
+                                        <th class="text-center">Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                {% for slider in sliders %}
+                                    <tr>
+                                        <td>{{ slider.id }}</td>
+                                        <td>{{ slider.titre }}</td>
+                                        <td>{{ slider.sousTitre }}</td>
+                                        <td>
+                                            {% if slider.url|default(null) %}
+                                                <a href="{{ slider.url }}" target="_blank" class="text-primary" title="{{ slider.url }}">Lien</a>
+                                            {% endif %}
+                                        </td>
+                                        <td>
+                                            {% if slider.imageSize <= 0 %}
+                                            <img src="{{ asset('images/sliders/default.png') }}" width=40 height=40>
+                                            {% else %}
+                                            <img src="{{ asset('images/sliders/') }}{{ slider.imageName }}" width=40 height=40>
+                                            {% endif %}
+                                        </td>
+                                        <td class="text-center">
+                                            {% if slider.visible == true %}
+                                            <a href="?a=hide&i={{slider.id}}" title="Masquer" class="txt-primary"><i class="fa fa-eye"></i></a>
+                                            {% else %}
+                                            <a href="?a=show&i={{slider.id}}" title="Afficher" class="txt-muted"><i class="fa fa-eye-slash"></i></a>
+                                            {% endif %}
+                                        </td>
+                                        <td class="text-center">
+                                            {# <a href="{{ path('admin_slider_show', {'id': slider.id}) }}" class="btn btn-primary btn-sm btn-icon left-icon"><i class="fa fa-eye"></i>Voir</a> #}
+                                            
+                                            <form method="post" action="{{ path('admin_slider_delete', {'id': slider.id}) }}" onsubmit="return confirm('Etes-vous sur de vouloir supprimer ce slider?');">
+                                                <input type="hidden" name="_method" value="DELETE">
+                                                <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ slider.id) }}">
+                                                <a href="{{ path('admin_slider_edit', {'id': slider.id}) }}" class="btn btn-warning btn-xs btn-icon left-icon"><i class="fa fa-edit"></i></a>
+                                                <button class="btn btn-danger btn-xs btn-icon left-icon"><i class="fa fa-trash"></i></button>
+                                            </form>
+                                        </td>
+                                    </tr>
+                                {% else %}
+                                    <tr>
+                                        <td colspan="7">Aucun slider trouve</td>
+                                    </tr>
+                                {% endfor %}
+                                </tbody>
+                                <tfoot>
+                                    <tr>
+                                        <th>ID</th>
+                                        <th>Titre</th>
+                                        <th>Sous-Titre</th>
+                                        <th>Lien</th>
+                                        <th>Image</th>
+                                        <th>Visibilité</th>
+                                        <th class="text-center">Actions</th>
+                                    </tr>
+                                </tfoot>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>  
+        </div>
+    </div>
+    <!-- /Row -->
+</div>
+{% endblock %}
+
+{% block javascript %}
+    {{ parent() }}
+
+    <!-- Data table JavaScript -->
+    <script src="{{ asset('theme/vendors/bower_components/datatables/media/js/jquery.dataTables.min.js') }}"></script>
+    <script src="{{ asset('theme/vendors/bower_components/datatables.net-buttons/js/dataTables.buttons.min.js') }}"></script>
+    <script src="{{ asset('theme/vendors/bower_components/datatables.net-responsive/js/dataTables.responsive.min.js') }}"></script>
+    <script src="{{ asset('theme/zapily/ltr/dist/js/responsive-datatable-data.js') }}"></script>
+    
+{% endblock %}
+

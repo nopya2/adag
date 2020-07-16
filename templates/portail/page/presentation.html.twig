@@ -1,0 +1,93 @@
+{% extends 'portail/layout.html.twig' %}
+
+{% block titre %}Présentation de l'ADAG{% endblock %}
+
+{% block main_content %}
+    <!--Subheader Start-->
+    <section class="wf100 subheader">
+        <div class="container">
+            <h2>Présentation de l'ADAG </h2>
+            <ul>
+                <li> <a href="{{ path('home') }}">Accueil</a> </li>
+                <li> Présentation de l'ADAG </li>
+            </ul>
+        </div>
+    </section>
+    <!--Subheader End-->
+
+    <!--Main Content Start-->
+    <div class="main-content">
+        <!--Local Boards & Services-->
+        <section class="wf100 p80-0">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-8 col-sm-7">
+                        <div class="h2-Mayor-msg">
+                            <div class="Mayor-img">
+                                <!--<span class="msig">-->
+                                <!--<img src="images\mayer-signature.png" alt="">-->
+                                <!--</span> -->
+                                <img src="{{ asset('theme/balad/images/h3mayer.jpg') }}" alt="">
+                            </div>
+                            <div class="Mayor-txt">
+                                <strong>Directeur Général</strong>
+                                <h4>M. Rolexin ADAMA</h4>
+                                <p style="font-size: 14px">Nous sommes heureux de vous accueillir sur notre site internet, disposant d'une mise en page réactive
+                                    et dynamique vous permettant une navigation simple et fonctionnelle. Vous y retrouverez l'ensemble des
+                                    actualités et événements de notre agence, les missions et activités qui nous sont dévolues.
+                                    Nous vous souhaitons une bonne navigation et restons disponibles pour développer ensemble l'agriculture
+                                    au Gabon</p>
+                                <!--<a href="#">Contact Me</a> -->
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4 col-sm-5">
+                        <!--Mayor Msg Start-->
+                        <div class="city-tour gallery">
+                            <strong> Siège social </strong>
+                            <!--<a href="http://youtu.be/VVvgm7AhFc8" data-rel="prettyPhoto" title="City Tour">-->
+                            <!--<img src="images\playicon.png" alt="">-->
+                            <!--</a> -->
+                            <img src="{{ asset('theme/balad/images/cityvideobg.jpg') }}" alt="">
+                        </div>
+                        <!--Mayor Msg End-->
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!--Local Boards & Services End-->
+        <!--Local Boards & Services Start-->
+        <section class="wf100 p80 h2-local-brands depart-info">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="section-title" style="width: 90%; margin: auto; text-align: justify">
+                            <p>Conformément aux orientations du Plan Stratégique Gabon Emergent (PSGE) et du Plan de Relance
+                                Economique (PRE), le Gouvernement de la République Gabonaise a mis en place l’Agence de
+                                Développement Agricole du Gabon (ADAG).</p>
+                            <p style="margin-top: 20px">L’ADAG est un établissement public à caractère administratif doté de la personnalité juridique
+                                et jouissant de l’autonomie administrative et financière. Sous la tutelle technique du Ministère
+                                de l’Agriculture, de l’Elevage , de la Pèche et de l’Alimentation, elle a pour mission d’appuyer
+                                le développement du secteur agricole, notamment par :</p>
+                            <ul style="margin-top: 20px">
+                                <li>la valorisation des terres agricoles ;</li>
+                                <li>la promotion de l’entrepreneuriat;</li>
+                                <li>la promotion de l’innovation technologique.</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <!--<div class="col-md-6">-->
+                    <!--<div class="section-title">-->
+                    <!--<h2>Local Boards & Services</h2>-->
+                    <!--<p>For the beginning of a new paragraph marks a change of topic or a step in the development of an<br>-->
+                    <!--argument or of a story. In writing essays or other compositions too include.-->
+                    <!--</p>-->
+                    <!--</div>-->
+                    <!--</div>-->
+                </div>
+            </div>
+        </section>
+        <!--Local Boards & Services End-->
+    </div>
+    <!--Main Content End-->
+{% endblock %}

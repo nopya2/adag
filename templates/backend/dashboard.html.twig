@@ -1,0 +1,312 @@
+{# templates/backend/dashboard.html.twig #}
+
+{% extends 'backend/layout.html.twig' %}
+
+{% block titre %}NeosysCMS - Admin - Dasboard{% endblock %}
+
+{% block main_content %}
+
+<div class="container pt-25">
+	<!-- Title -->	
+	<div class="row heading-bg">
+		<div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
+		  <h5 class="txt-dark">Tableau de bord</h5>
+		</div>
+		<!-- Breadcrumb -->
+		<div class="col-lg-9 col-sm-8 col-md-8 col-xs-12">
+		  <ol class="breadcrumb">
+			<li><a href="index-2.html">Dashboard</a></li>
+		  </ol>
+		</div>
+		<!-- /Breadcrumb -->
+	</div>
+	<!-- /Title -->
+	
+	<!-- Row -->
+	<div class="row">
+		{% if "ROLE_ADMIN" in app.user.roles %}
+		<div class="col-lg-3 col-md-6 col-sm-6 col-xs-12">
+			<div class="panel panel-default card-view pa-0 bg-gold">
+				<div class="panel-wrapper collapse in">
+					<div class="panel-body pa-0">
+						<div class="sm-data-box">
+							<div class="container-fluid">
+								<div class="row">
+									<div class="col-xs-6 text-center pl-0 pr-0 data-wrap-left">
+										<span class="txt-dark block counter"><span class="counter-anim">{{nbrUsers}}</span></span>
+										<span class="weight-500 uppercase-font block font-13">Utilisateurs</span>
+									</div>
+									<div class="col-xs-6 text-center  pl-0 pr-0 data-wrap-right">
+										<i class="icon-people data-right-rep-icon txt-light-grey"></i>
+									</div>
+								</div>	
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		{% endif %}
+
+		{# <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12">
+			<div class="panel panel-default card-view pa-0 bg-info">
+				<div class="panel-wrapper collapse in">
+					<div class="panel-body pa-0">
+						<div class="sm-data-box">
+							<div class="container-fluid">
+								<div class="row">
+									<div class="col-xs-6 text-center pl-0 pr-0 data-wrap-left">
+										<span class="txt-dark block counter"><span class="counter-anim">{{nbrServices}}</span></span>
+										<span class="weight-500 uppercase-font block">Services</span>
+									</div>
+									<div class="col-xs-6 text-center  pl-0 pr-0 pt-25  data-wrap-right">
+										<i class="fa fa-tasks data-right-rep-icon txt-light-grey"></i>
+									</div>
+								</div>	
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div> #}
+	
+		{# <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12">
+			<div class="panel panel-default card-view pa-0 bg-primary">
+				<div class="panel-wrapper collapse in">
+					<div class="panel-body pa-0">
+						<div class="sm-data-box">
+							<div class="container-fluid">
+								<div class="row">
+									<div class="col-xs-6 text-center pl-0 pr-0 data-wrap-left">
+										<span class="txt-dark block counter"><span class="counter-anim">{{nbrProjets}}</span></span>
+										<span class="weight-500 uppercase-font block">Projets</span>
+									</div>
+									<div class="col-xs-6 text-center  pl-0 pr-0 data-wrap-right">
+										<i class="fa fa-tasks data-right-rep-icon txt-light-grey"></i>
+									</div>
+								</div>	
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div> #}
+
+		<div class="col-lg-3 col-md-6 col-sm-6 col-xs-12">
+			<div class="panel panel-default card-view pa-0 bg-success">
+				<div class="panel-wrapper collapse in">
+					<div class="panel-body pa-0">
+						<div class="sm-data-box">
+							<div class="container-fluid">
+								<div class="row">
+									<div class="col-xs-6 text-center pl-0 pr-0 data-wrap-left">
+										<span class="txt-dark block counter"><span class="counter-anim">{{blogs|length}}</span></span>
+										<span class="weight-500 uppercase-font block">Blogs</span>
+									</div>
+									<div class="col-xs-6 text-center  pl-0 pr-0 data-wrap-right">
+										<i class="fa fa-comments-o data-right-rep-icon txt-light-grey"></i>
+									</div>
+								</div>	
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="col-lg-3 col-md-6 col-sm-6 col-xs-12">
+			<div class="panel panel-default card-view pa-0 bg-primary">
+				<div class="panel-wrapper collapse in">
+					<div class="panel-body pa-0">
+						<div class="sm-data-box">
+							<div class="container-fluid">
+								<div class="row">
+									<div class="col-xs-6 text-center pl-0 pr-0 data-wrap-left">
+										<span class="txt-dark block counter"><span class="counter-anim">{{rubriques|length}}</span></span>
+										<span class="weight-500 uppercase-font block">Rubriques</span>
+									</div>
+									<div class="col-xs-6 text-center  pl-0 pr-0 data-wrap-right">
+										<i class="fa fa-filter data-right-rep-icon txt-light-grey"></i>
+									</div>
+								</div>	
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="col-lg-3 col-md-6 col-sm-6 col-xs-12">
+			<div class="panel panel-default card-view pa-0 bg-warning">
+				<div class="panel-wrapper collapse in">
+					<div class="panel-body pa-0">
+						<div class="sm-data-box">
+							<div class="container-fluid">
+								<div class="row">
+									<div class="col-xs-6 text-center pl-0 pr-0 data-wrap-left">
+										<span class="txt-dark block counter"><span class="counter-anim">{{articles|length}}</span></span>
+										<span class="weight-500 uppercase-font block">Articles</span>
+									</div>
+									<div class="col-xs-6 text-center  pl-0 pr-0 data-wrap-right">
+										<i class="fa fa-folder data-right-rep-icon txt-light-grey"></i>
+									</div>
+								</div>	
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="col-lg-3 col-md-6 col-sm-6 col-xs-12">
+			<div class="panel panel-default card-view pa-0 bg-danger">
+				<div class="panel-wrapper collapse in">
+					<div class="panel-body pa-0">
+						<div class="sm-data-box">
+							<div class="container-fluid">
+								<div class="row">
+									<div class="col-xs-6 text-center pl-0 pr-0 data-wrap-left">
+										<span class="txt-dark block counter"><span class="counter-anim">{{commentaires|length}}</span></span>
+										<span class="weight-500 uppercase-font block">Commentaires</span>
+									</div>
+									<div class="col-xs-6 text-center  pl-0 pr-0 data-wrap-right">
+										<i class="fa fa-comment data-right-rep-icon txt-light-grey"></i>
+									</div>
+								</div>	
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		{# <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12">
+			<div class="panel panel-default card-view pa-0 bg-danger">
+				<div class="panel-wrapper collapse in">
+					<div class="panel-body pa-0">
+						<div class="sm-data-box">
+							<div class="container-fluid">
+								<div class="row">
+									<div class="col-xs-6 text-center pl-0 pr-0 data-wrap-left">
+										<span class="txt-dark block counter"><span class="counter-anim">{{evenements|length}}</span></span>
+										<span class="weight-500 uppercase-font block">Evenements</span>
+									</div>
+									<div class="col-xs-6 text-center  pl-0 pr-0 data-wrap-right">
+										<i class="fa fa-calendar data-right-rep-icon txt-light-grey"></i>
+									</div>
+								</div>	
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+ #}
+		{# <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12">
+			<div class="panel panel-default card-view pa-0 bg-warning">
+				<div class="panel-wrapper collapse in">
+					<div class="panel-body pa-0">
+						<div class="sm-data-box">
+							<div class="container-fluid">
+								<div class="row">
+									<div class="col-xs-6 text-center pl-0 pr-0 data-wrap-left">
+										<span class="txt-dark block counter"><span class="counter-anim">{{partenaires|length}}</span></span>
+										<span class="weight-500 uppercase-font block">Partenaires</span>
+									</div>
+									<div class="col-xs-6 text-center  pl-0 pr-0 data-wrap-right">
+										<i class="fa fa-product-hunt data-right-rep-icon txt-light-grey"></i>
+									</div>
+								</div>	
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div> #}
+
+		{# <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12">
+			<div class="panel panel-default card-view pa-0">
+				<div class="panel-wrapper collapse in">
+					<div class="panel-body pa-0">
+						<div class="sm-data-box">
+							<div class="container-fluid">
+								<div class="row">
+									<div class="col-xs-6 text-center pl-0 pr-0 data-wrap-left">
+										<span class="txt-dark block counter"><span class="counter-anim">{{sliders|length}}</span></span>
+										<span class="weight-500 uppercase-font block">Sliders</span>
+									</div>
+									<div class="col-xs-6 text-center  pl-0 pr-0 data-wrap-right">
+										<i class="fa fa-camera data-right-rep-icon txt-light-grey"></i>
+									</div>
+								</div>	
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div> #}
+	<!-- /Row -->
+
+	<!-- Row -->
+	{# <div class="row">
+		<div class="col-lg-3 col-md-6 col-sm-6 col-xs-12">
+			<div class="panel panel-default card-view pa-0">
+				<div class="panel-wrapper collapse in">
+					<div class="panel-body pa-0">
+						<div class="sm-data-box">
+							<div class="container-fluid">
+								<div class="row">
+									<div class="col-xs-6 text-center pl-0 pr-0 data-wrap-left">
+										<span class="txt-dark block counter"><span class="counter-anim">{{commandes|length}}</span></span>
+										<span class="weight-500 uppercase-font block font-13">Commandes</span>
+									</div>
+									<div class="col-xs-6 text-center  pl-0 pr-0 data-wrap-right">
+										<i class="zmdi zmdi-assignment data-right-rep-icon txt-light-grey"></i>
+									</div>
+								</div>	
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div> #}
+	<!-- /Row -->
+
+	<!-- Row -->
+	{# <div class="row">
+		<div class="col-lg-4 col-md-6 col-sm-12 col-xs-12">
+			<div class="panel panel-default card-view">
+				<div class="panel-wrapper collapse in">
+					<div class="panel-body">
+						<div class="calendar-wrap">
+						  <div id="calendar_small" class="small-calendar"></div>
+						</div>
+					</div>
+				</div>
+			</div>	
+		</div>
+	</div> #}
+	<!-- /Row -->
+</div>
+
+{% endblock %}
+
+{% block javascript %}
+    {{ parent() }}
+
+    <!-- Progressbar Animation JavaScript -->
+	<script src="{{ asset('theme/vendors/bower_components/waypoints/lib/jquery.waypoints.min.js') }}"></script>
+	<script src="{{ asset('theme/vendors/bower_components/jquery.counterup/jquery.counterup.min.js') }}"></script>
+
+	<!-- Sparkline JavaScript -->
+	<script src="{{ asset('theme/vendors/jquery.sparkline/dist/jquery.sparkline.min.js') }}"></script>
+
+	<!-- EChartJS JavaScript -->
+	<script src="{{ asset('theme/vendors/bower_components/echarts/dist/echarts-en.min.js') }}"></script>
+	<script src="{{ asset('theme/vendors/echarts-liquidfill.min.js') }}"></script>
+
+	<script src="{{ asset('theme/zapily/ltr/dist/js/dashboard-data.js') }}"></script>
+    
+{% endblock %}

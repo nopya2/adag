@@ -1,0 +1,120 @@
+{{ form_start(form) }}
+	<div class="form-body">
+		<h6 class="txt-dark capitalize-font mt-20"><i class="zmdi zmdi-print mr-10"></i>Informations Générales</h6>
+		<hr class="light-grey-hr"/>
+		<div class="row">
+			<div class="col-md-6">
+				<div class="form-group {% if form_errors(form.nom)|default(null) %} has-error {% endif %}">
+					<label class="control-label mb-10">Nom</label>
+					{{ form_widget(form.nom, {'attr': {'class': 'form-control'}}) }}
+					<span class="help-block"> {{ form_errors(form.nom) }}</span> 
+				</div>
+			</div>
+			<div class="col-md-6">
+				<div class="form-group {% if form_errors(form.prenom)|default(null) %} has-error {% endif %}">
+					<label class="control-label mb-10">Prenom</label>
+					{{ form_widget(form.prenom, {'attr': {'class': 'form-control'}}) }}
+					<span class="help-block"> {{ form_errors(form.prenom) }} </span> 
+				</div>
+			</div>
+		</div>
+		<!-- /Row -->
+		<div class="row">
+			<div class="col-md-6">
+				<div class="form-group {% if form_errors(form.username)|default(null) %} has-error {% endif %}">
+					<label class="control-label mb-10">Nom d'utilisateur</label>
+					{{ form_widget(form.username, {'attr': {'class': 'form-control'}}) }}
+					<span class="help-block"> {{ form_errors(form.username) }}</span> 
+				</div>
+			</div>
+			<div class="col-md-6">
+				<div class="form-group {% if form_errors(form.email)|default(null) %} has-error {% endif %}">
+					<label class="control-label mb-10">Email</label>
+					{{ form_widget(form.email, {'attr': {'class': 'form-control'}}) }}
+					<span class="help-block"> {{ form_errors(form.email) }} </span> 
+				</div>
+			</div>
+		</div>
+		<!-- /Row -->
+		<div class="row">
+			<div class="col-md-6">
+				<div class="form-group {% if form_errors(form.password)|default(null) %} has-error {% endif %}">
+					<label class="control-label mb-10">Mot de passe</label>
+					{{ form_widget(form.password.first, {'attr': {'class': 'form-control'}}) }}
+					<span class="help-block"> {{ form_errors(form.password.first) }} </span>
+					<label class="control-label mb-10">Retapez le mot de passe</label>
+					{{ form_widget(form.password.second, {'attr': {'class': 'form-control'}}) }}
+					<span class="help-block"> {{ form_errors(form.password.second) }} </span>
+				</div>
+			</div>
+			<div class="col-md-6">
+				<div class="form-group {% if form_errors(form.roles)|default(null) %} has-error {% endif %}">
+					<label class="control-label mb-10">Roles</label>
+					{{ form_widget(form.roles, {'attr': {'class': 'form-control'}}) }}
+					<span class="help-block"> {{ form_errors(form.roles) }} </span>
+				</div>
+			</div>
+		</div>		
+		<div class="row">
+			<div class="col-md-6">
+				<div class="form-group {% if form_errors(form.imageFile)|default(null) %} has-error {% endif %}">
+					<label class="control-label mb-10">Image</label>
+					{{ form_widget(form.imageFile, {'attr': {'class': ''}}) }}
+					<span class="help-block"> {{ form_errors(form.imageFile) }} </span>
+				</div>
+			</div>
+			<div class="col-md-6">
+				<div class="form-group {% if form_errors(form.isActive)|default(null) %} has-error {% endif %}">
+					<label class="control-label mb-10">Active ?</label>
+					{{ form_widget(form.isActive, {'attr': {'class': ''}}) }}
+					<span class="help-block"> {{ form_errors(form.isActive) }} </span>
+				</div>
+			</div>
+			<div class="col-md-6">
+				<div class="form-group {% if form_errors(form.fonction)|default(null) %} has-error {% endif %}">
+					<label class="control-label mb-10">Fonction</label>
+					{{ form_widget(form.fonction, {'attr': {'class': 'form-control'}}) }}
+					<span class="help-block"> {{ form_errors(form.fonction) }} </span>
+				</div>
+			</div>
+		</div>
+		<h6 class="txt-dark capitalize-font"><i class="zmdi zmdi-print mr-10"></i>Réseaux Sociaux</h6>
+		<hr class="light-grey-hr"/>
+		<div class="row">
+			<div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
+					<div class="form-group {% if form_errors(form.facebook)|default(null) %} has-error {% endif %}">
+						<label class="control-label mb-10">Facebook</label>
+						{{ form_widget(form.facebook, {'attr': {'class': 'form-control'}}) }}
+						<span class="help-block"> {{ form_errors(form.facebook) }} </span>
+					</div>
+			</div>
+			<div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
+				<div class="form-group {% if form_errors(form.googleplus)|default(null) %} has-error {% endif %}">
+					<label class="control-label mb-10">Google Plus</label>
+					{{ form_widget(form.googleplus, {'attr': {'class': 'form-control'}}) }}
+					<span class="help-block"> {{ form_errors(form.googleplus) }} </span>
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
+				<div class="form-group {% if form_errors(form.linkedin)|default(null) %} has-error {% endif %}">
+					<label class="control-label mb-10">Linkedin</label>
+					{{ form_widget(form.linkedin, {'attr': {'class': 'form-control'}}) }}
+					<span class="help-block"> {{ form_errors(form.linkedin) }} </span>
+				</div>
+			</div>
+			<div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
+				<div class="form-group {% if form_errors(form.twitter)|default(null) %} has-error {% endif %}">
+					<label class="control-label mb-10">Twitter</label>
+					{{ form_widget(form.twitter, {'attr': {'class': 'form-control'}}) }}
+					<span class="help-block"> {{ form_errors(form.twitter) }} </span>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="form-actions mt-10">
+		<button type="submit" class="btn btn-success  btn-icon left-iocn mr-10"><i class="fa fa-save"></i>{{ button_label|default('Creer') }}</button>
+		{# <button type="button" class="btn btn-default">Cancel</button> #}
+	</div>
+{{ form_end(form) }}

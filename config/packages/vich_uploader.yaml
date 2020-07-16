@@ -1,0 +1,128 @@
+vich_uploader:
+    db_driver: orm
+
+    #mappings:
+    #    products:
+    #        uri_prefix: /images/products
+    #        upload_destination: '%kernel.project_dir%/public/images/products'
+
+    mappings:
+        photo_user:
+            uri_prefix: /images/users
+            upload_destination: '%kernel.project_dir%/public/images/users'
+
+            inject_on_load: false
+            delete_on_update: true
+            delete_on_remove: true
+            namer:
+                service: vich_uploader.namer_uniqid
+
+        image_service:
+            uri_prefix: /images/services
+            upload_destination: '%kernel.project_dir%/public/images/services'
+
+            inject_on_load: false
+            delete_on_update: true
+            delete_on_remove: true
+            namer:
+                service: vich_uploader.namer_uniqid
+
+        image_projet:
+            uri_prefix: /images/projets
+            upload_destination: '%kernel.project_dir%/public/images/projets'
+
+            inject_on_load: false
+            delete_on_update: true
+            delete_on_remove: true
+            namer:
+                service: vich_uploader.namer_uniqid
+
+        image_slider:
+            uri_prefix: /images/sliders
+            upload_destination: '%kernel.project_dir%/public/images/sliders'
+
+            inject_on_load: false
+            delete_on_update: true
+            delete_on_remove: true
+            namer:
+                service: vich_uploader.namer_uniqid
+
+        logo_site:
+            uri_prefix: /images/logo
+            upload_destination: '%kernel.project_dir%/public/images/logo'
+
+            inject_on_load: false
+            delete_on_update: true
+            delete_on_remove: true
+            namer:
+                service: vich_uploader.namer_uniqid
+
+        image_blog:
+            uri_prefix: /images/blogs
+            upload_destination: '%kernel.project_dir%/public/images/blogs'
+
+            inject_on_load: false
+            delete_on_update: true
+            delete_on_remove: true
+            namer:
+                service: vich_uploader.namer_uniqid
+
+        image_partenaire:
+            uri_prefix: /images/partenaires
+            upload_destination: '%kernel.project_dir%/public/images/partenaires'
+
+            inject_on_load: false
+            delete_on_update: true
+            delete_on_remove: true
+            namer:
+                service: vich_uploader.namer_uniqid
+
+        uploads:
+            uri_prefix: /images/uploads
+            upload_destination: '%kernel.project_dir%/public/images/uploads'
+
+            inject_on_load: false
+            delete_on_update: true
+            delete_on_remove: true
+            namer:
+                service: vich_uploader.namer_uniqid
+
+        videos:
+            uri_prefix: /videos
+            upload_destination: '%kernel.project_dir%/public/videos'
+
+            inject_on_load: false
+            delete_on_update: true
+            delete_on_remove: true
+            namer:
+                service: vich_uploader.namer_uniqid
+        
+        document:
+            uri_prefix: /uploads/documents
+            upload_destination: '%kernel.project_dir%/public/uploads/documents'
+
+            inject_on_load: false
+            delete_on_update: true
+            delete_on_remove: true
+            namer:
+                service: vich_uploader.namer_origname
+        
+        import:
+            uri_prefix: /uploads/imports
+            upload_destination: '%kernel.project_dir%/public/uploads/imports'
+
+            inject_on_load: false
+            delete_on_update: true
+            delete_on_remove: true
+            namer:
+                service: vich_uploader.namer_origname
+
+        image_client:
+            uri_prefix: /images/clients
+            upload_destination: '%kernel.project_dir%/public/images/clients'
+
+            inject_on_load: false
+            delete_on_update: true
+            delete_on_remove: true
+            namer:
+                service: vich_uploader.namer_uniqid

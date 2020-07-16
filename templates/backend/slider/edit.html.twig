@@ -1,0 +1,111 @@
+{# templates/backend/slider/edit.html.twig #}
+
+{% extends 'backend/layout.html.twig' %}
+
+{% block titre %}NeosysCMS - Admin - Modifier Slider{% endblock %}
+
+{% block main_content %}
+
+<div class="container">
+    <!-- Title -->  
+    <div class="row heading-bg">
+        <div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
+          <h5 class="txt-dark">Modifier slider[{{slider.id}}]</h5>
+        </div>
+        <!-- Breadcrumb -->
+        <div class="col-lg-9 col-sm-8 col-md-8 col-xs-12">
+          <ol class="breadcrumb">
+            <li><a href="{{ path('admin_dashboard') }}">Tableau de bord</a></li>
+            <li><a href="{{ path('admin_slider_index') }}">Sliders</a></li>
+            <li class="active"><span>Modifier</span></li>
+          </ol>
+        </div>
+        <!-- /Breadcrumb -->
+    </div>
+    <!-- /Title -->
+
+    <!-- Row -->
+	<div class="row">
+		<div class="col-md-12">
+			<div class="panel panel-default card-view">
+				<div class="panel-heading">
+					<div class="pull-left">
+						<h6 class="txt-dark">
+							<a href="{{ path('admin_slider_index') }}" class="btn btn-xs btn-icon left-icon btn-primary"><i class="fa fa-arrow-left"></i>Retour a la liste</a>
+						</h6>
+					</div>
+					<div class="clearfix"></div>
+				</div>
+				<div class="panel-wrapper collapse in">
+					<div class="panel-body">
+						<div class="row">
+							<div class="col-sm-12 col-xs-12 col-md-6 col-md-offset-3 col-lg-6 col-lg-offset-3">
+								{% for message in app.flashes('succes') %}
+								<div class="alert alert-warning alert-dismissable">
+									<button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+									<i class="zmdi zmdi-alert-circle-o pr-15 pull-left"></i><p class="pull-left">{{ message }}.</p>
+									<div class="clearfix"></div>
+								</div>
+								{% endfor %}
+								<div class="form-wrap">
+									{{ include('backend/slider/_form_edit.html.twig') }}									
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>		
+		</div>
+	</div>
+	<!-- /Row -->
+</div>
+{% endblock %}
+
+{% block javascript %}
+    {{ parent() }}
+    <script type="text/javascript">
+	    $(function() {
+				"use strict";
+
+				/* Basic Init*/
+				$('.dropify').dropify({
+						messages: {
+								default: 'Glissez-déposez un fichier ici ou cliquez',
+								replace: 'Glissez-déposez un fichier ou cliquez pour remplacer',
+								remove:  'Supprimer',
+								error:   'Désolé, le fichier trop volumineux'
+						}
+				});
+
+				/* Used events */
+				// 
+				var drEvent = $('#input-file-events').dropify();
+
+				drEvent.on('dropify.beforeClear', function(event, element){
+						return confirm("Do you really want to delete \"" + element.file.name + "\" ?");
+				});
+
+				drEvent.on('dropify.afterClear', function(event, element){
+						alert('File deleted');
+				});
+
+				drEvent.on('dropify.errors', function(event, element){
+						console.log('Has Errors');
+				});
+
+				var drDestroy = $('#input-file-to-destroy').dropify();
+				drDestroy = drDestroy.data('dropify')
+				$('#toggleDropify').on('click', function(e){
+						e.preventDefault();
+						if (drDestroy.isDropified()) {
+								drDestroy.destroy();
+						} else {
+								drDestroy.init();
+						}
+				});
+	        
+	    });
+	</script>
+{% endblock %}
+
+

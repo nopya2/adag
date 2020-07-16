@@ -1,0 +1,468 @@
+{# templates/portail/home.html.twig #}
+
+{% extends 'portail/layout.html.twig' %}
+
+{% block meta %}
+    {{ parent() }}
+
+    <meta name="title" content="{{ article.titre }}">
+    <meta name="description" content="{{ article.sousTitre }}" />
+
+    <meta property="og:url" content="https://topinfosgabon.ga/articles/{{ article.slug }}" />
+    {# <meta property="og:image:alt" content="{{ article.titre }}" /> #}
+    <meta property="og:type" content="article" />
+    {# <meta property="og:image:width" content="712" />
+    <meta property="og:image:height" content="596" /> #}
+    <meta property="og:locale" content="fr_FR" />
+    {# <meta property="og:type" content="article" /> #}
+    <meta property="og:title" content="{{ article.titre }}" />
+    <meta property="og:description" content="{{ article.sousTitre }}" />
+    <meta property="og:image" content="https://topinfosgabon.ga{{ asset('images/uploads/') }}{{ article.image.imageName }}" />
+    <meta property="og:site_name" content="TOP INFOS GABON" />
+    <meta property="fb:app_id" content="1943029152665027" />
+
+    <meta name="twitter:title" content="{{ article.titre }}" />
+    <meta name="twitter:description" content="{{ article.sousTitre }}" />
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:site" content="@topinfosgabon" />
+    <meta name="twitter:creator" content="@topinfosgabon" />
+    <meta name="twitter:image" content="https://topinfosgabon.ga{{ asset('images/uploads/') }}{{ article.image.imageName }}">
+
+{% endblock %}
+
+{% block title %}{{ article.titre }}{% endblock %}
+
+{% block content %}
+    <!-- Breadcrumb -->
+    <div class="container">
+        <div class="headline bg0 flex-wr-sb-c p-rl-20 p-tb-8">
+            <div class="f2-s-1 p-r-30 m-tb-6">
+                <a href="{{ path('home') }}" class="breadcrumb-item f1-s-3 cl9">
+                    Accueil
+                </a>
+
+                <a href="{{ path('article', {'article': article.slug}) }}" class="breadcrumb-item f1-s-3 cl9">
+                    Article
+                </a>
+
+                <span class="breadcrumb-item f1-s-3 cl9">
+                     {{ article.titre }}
+                </span>
+            </div>
+
+            <div class="pos-relative size-a-2 bo-1-rad-22 of-hidden bocl11 m-tb-6">
+                <input class="f1-s-1 cl6 plh9 s-full p-l-25 p-r-45" type="text" name="Recherche" placeholder="Recherche">
+                <button class="flex-c-c size-a-1 ab-t-r fs-20 cl2 hov-cl10 trans-03">
+                    <i class="zmdi zmdi-search"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Content -->
+    <section class="bg0 p-b-140 p-t-10">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-md-10 col-lg-8 p-b-30">
+                    <div class="p-r-10 p-r-0-sr991">
+                        {% for message in app.flashes('succes') %}
+                            <div class="alert alert-success alert-dismissable">
+                                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                                <i class="zmdi zmdi-alert-circle-o pr-15 pull-left"></i><p class="pull-left">{{ message }}.</p>
+                                <div class="clearfix"></div>
+                            </div>
+                        {% endfor %}
+
+                        <!-- Blog Detail -->
+                        <div class="p-b-70">
+                            <a href="{{ path('rubrique', {'rubrique': article.rubrique.slug}) }}" class="f1-s-10 cl2 hov-cl10 trans-03 text-uppercase">
+                                {{ article.rubrique.titre }}
+                            </a>
+
+                            <h3 class="f1-l-3 cl2 p-b-16 p-t-33 respon2">
+                                {{ article.titre }}
+                            </h3>
+
+                            <div class="flex-wr-s-s p-b-40">
+								<span class="f1-s-3 cl8 m-r-15">
+									<a href="#" class="f1-s-4 cl8 hov-cl10 trans-03">
+										par {{ article.auteur.nom }} {{ article.auteur.prenom }}
+									</a>
+
+									<span class="m-rl-3">-</span>
+
+									<span>
+										{{ article.createdAt|date('d M Y, H:i') }}
+									</span>
+								</span>
+
+                                <span class="f1-s-3 cl8 m-r-15">
+									{{ article.vues|length }} {{ (article.vues|length > 1) ? 'Vues' : 'Vue' }}
+								</span>
+
+                                <a href="#" class="f1-s-3 cl8 hov-cl10 trans-03 m-r-15">
+                                    {{ article.commentaires|length }} {{ (article.commentaires|length > 1) ? 'Commentaires' : 'Commentaires' }}
+                                </a>
+                            </div>
+
+                            <div class="wrap-pic-max-w p-b-30">
+                                <img src="{{ asset('images/uploads/') }}{{ article.image.imageName }}" alt="IMG">
+                                <span>{{ article.legend|default('@TOPINFOSGABON') }}</span>
+                            </div>
+
+                            {% if article.sousTitre != null %}
+                            <h4 class="f1-l-3 cl2 p-b-16 p-t-33 respon2">
+                                {{ article.sousTitre|default('') }}
+                            </h4>
+                            {% endif %}
+
+                            <p class="f1-s-11 cl6 p-b-25">
+                                {{ article.contenu|raw }}
+                            </p>
+
+                            <!-- Tag -->
+                            {#<div class="flex-s-s p-t-12 p-b-15">#}
+								{#<span class="f1-s-12 cl5 m-r-8">#}
+									{#Tags:#}
+								{#</span>#}
+
+                                {#<div class="flex-wr-s-s size-w-0">#}
+                                    {#<a href="#" class="f1-s-12 cl8 hov-link1 m-r-15">#}
+                                        {#Streetstyle#}
+                                    {#</a>#}
+
+                                    {#<a href="#" class="f1-s-12 cl8 hov-link1 m-r-15">#}
+                                        {#Crafts#}
+                                    {#</a>#}
+                                {#</div>#}
+                            {#</div>#}
+
+                            <!-- Share -->
+                            <div class="flex-s-s p-t-33">
+								<span class="f1-s-12 cl5 p-t-1 m-r-15">
+									Partagez:
+								</span>
+
+                                <!-- <div class="flex-wr-s-s size-w-0">
+                                    <div class="fb-share-button" data-href="{{ url }}" data-layout="button" data-size="large"><a target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fdevelopers.facebook.com%2Fdocs%2Fplugins%2F&amp;src=sdkpreparse" class="fb-xfbml-parse-ignore">Partager</a></div>
+                                    {#<a href="#" class="dis-block f1-s-13 cl0 bg-facebook borad-3 p-tb-4 p-rl-18 hov-btn1 m-r-3 m-b-3 trans-03">#}
+                                        {#<i class="fab fa-facebook-f m-r-7"></i>#}
+                                        {#Facebook#}
+                                    {#</a>#}
+
+                                    <a href="#" class="dis-block f1-s-13 cl0 bg-twitter borad-3 p-tb-4 p-rl-18 hov-btn1 m-r-3 m-b-3 trans-03">
+                                        <i class="fab fa-twitter m-r-7"></i>
+                                        Twitter
+                                    </a>
+
+                                    <a href="#" class="dis-block f1-s-13 cl0 bg-google borad-3 p-tb-4 p-rl-18 hov-btn1 m-r-3 m-b-3 trans-03">
+                                        <i class="fab fa-google-plus-g m-r-7"></i>
+                                        Google+
+                                    </a>
+
+                                    <a href="#" class="dis-block f1-s-13 cl0 bg-pinterest borad-3 p-tb-4 p-rl-18 hov-btn1 m-r-3 m-b-3 trans-03">
+                                        <i class="fab fa-pinterest-p m-r-7"></i>
+                                        Pinterest
+                                    </a>
+                                </div> -->
+
+                                <div class="sharethis-inline-share-buttons"></div>
+                            </div>
+                        </div>
+
+                        <!-- Commentaires -->
+                        <div>
+                            <h4 class="f1-l-4 cl3 p-b-12">
+                                {{ article.commentaires|length }} Commentaires
+                            </h4>
+
+                            {% for commentaire in article.commentaires %}
+                            <div class="flex-wr-sb-s p-t-5 p-b-5">
+                                <div class="size-w-9 w-full-sr575 m-b-5">
+
+                                    <div class="cl8 p-b-5">
+                                        <a href="#" class="f1-s-4 cl8 hov-cl10 trans-03">
+                                            {{ commentaire.nom }}
+                                        </a>
+
+                                        <span class="f1-s-3 m-rl-3">
+											-
+										</span>
+
+                                        <span class="f1-s-3">
+											{{ commentaire.createdAt|date('M d, H:i') }}
+										</span>
+                                    </div>
+
+                                    <p class="f1-s-1 cl6 p-b-0">
+                                        {{ commentaire.contenu }}
+                                    </p>
+                                </div>
+                            </div>
+                            {% endfor %}
+                        </div>
+
+                        <hr>
+                        <!-- Leave a comment -->
+                        <div>
+                            <h4 class="f1-l-4 cl3 p-b-12">
+                                Postez un commentaire
+                            </h4>
+
+                            <p class="f1-s-13 cl8 p-b-40">
+                                Votre adresse email ne sera pas publiée. Les champs marqués * sont obligatoires
+                            </p>
+
+                            <form method="post" action="{{ path('article', {'article': article.slug}) }}">
+                                <textarea class="bo-1-rad-3 bocl13 size-a-15 f1-s-13 cl5 plh6 p-rl-18 p-tb-14 m-b-20" name="contenu" placeholder="Contenu" required></textarea>
+
+                                <input class="bo-1-rad-3 bocl13 size-a-16 f1-s-13 cl5 plh6 p-rl-18 m-b-20" type="text" name="nom" placeholder="Nom*" required>
+
+                                <input class="bo-1-rad-3 bocl13 size-a-16 f1-s-13 cl5 plh6 p-rl-18 m-b-20" type="text" name="email" placeholder="Email*" required>
+
+                                <input class="bo-1-rad-3 bocl13 size-a-16 f1-s-13 cl5 plh6 p-rl-18 m-b-20" type="text" name="siteweb" placeholder="Site Web">
+
+                                <button type="submit" class="size-a-17 bg2 borad-3 f1-s-12 cl0 hov-btn1 trans-03 p-rl-15 m-t-10">
+                                    Envoyer
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Sidebar -->
+                <div class="col-md-10 col-lg-4 p-b-30">
+                    <div class="flex-c-s p-t-8">
+                        <a href="https://www.facebook.com/gsez.nkok" target="_blank">
+                            <img class="max-w-full" src="{{ asset('images/publicites/olam-1.gif') }}" alt="OLAM_GSEZ">
+                        </a>
+                    </div>
+
+                    <div class="flex-c-s p-t-8">
+                        <a href="#">
+                            <img class="max-w-full" src="{{ asset('images/publicites/wami-service.jpg') }}" alt="WAMI SERVICE">
+                        </a>
+                    </div>
+
+                    <div class="p-l-10 p-rl-0-sr991 p-t-70">
+                        <!-- Category -->
+                        <div class="p-b-60">
+                            <div class="how2 how2-cl4 flex-s-c">
+                                <h3 class="f1-m-2 cl3 tab01-title">
+                                    Rubriques
+                                </h3>
+                            </div>
+
+                            <ul class="p-t-35">
+                                {% for rubrique in rubriques %}
+                                <li class="how-bor3 p-rl-4">
+                                    <a href="{{ path('rubrique', {'rubrique': rubrique.slug}) }}" class="dis-block f1-s-10 text-uppercase cl2 hov-cl10 trans-03 p-tb-13">
+                                        {{ rubrique.titre }}
+                                    </a>
+                                </li>
+                                {% endfor %}
+                            </ul>
+                        </div>
+
+                        <!-- Archive -->
+                        {#<div class="p-b-37">#}
+                            {#<div class="how2 how2-cl4 flex-s-c">#}
+                                {#<h3 class="f1-m-2 cl3 tab01-title">#}
+                                    {#Archive#}
+                                {#</h3>#}
+                            {#</div>#}
+
+                            {#<ul class="p-t-32">#}
+                                {#<li class="p-rl-4 p-b-19">#}
+                                    {#<a href="#" class="flex-wr-sb-c f1-s-10 text-uppercase cl2 hov-cl10 trans-03">#}
+										{#<span>#}
+											{#July 2018#}
+										{#</span>#}
+
+                                        {#<span>#}
+											{#(9)#}
+										{#</span>#}
+                                    {#</a>#}
+                                {#</li>#}
+
+                                {#<li class="p-rl-4 p-b-19">#}
+                                    {#<a href="#" class="flex-wr-sb-c f1-s-10 text-uppercase cl2 hov-cl10 trans-03">#}
+										{#<span>#}
+											{#June 2018#}
+										{#</span>#}
+
+                                        {#<span>#}
+											{#(39)#}
+										{#</span>#}
+                                    {#</a>#}
+                                {#</li>#}
+
+                                {#<li class="p-rl-4 p-b-19">#}
+                                    {#<a href="#" class="flex-wr-sb-c f1-s-10 text-uppercase cl2 hov-cl10 trans-03">#}
+										{#<span>#}
+											{#May 2018#}
+										{#</span>#}
+
+                                        {#<span>#}
+											{#(29)#}
+										{#</span>#}
+                                    {#</a>#}
+                                {#</li>#}
+
+                                {#<li class="p-rl-4 p-b-19">#}
+                                    {#<a href="#" class="flex-wr-sb-c f1-s-10 text-uppercase cl2 hov-cl10 trans-03">#}
+										{#<span>#}
+											{#April  2018#}
+										{#</span>#}
+
+                                        {#<span>#}
+											{#(35)#}
+										{#</span>#}
+                                    {#</a>#}
+                                {#</li>#}
+
+                                {#<li class="p-rl-4 p-b-19">#}
+                                    {#<a href="#" class="flex-wr-sb-c f1-s-10 text-uppercase cl2 hov-cl10 trans-03">#}
+										{#<span>#}
+											{#March 2018#}
+										{#</span>#}
+
+                                        {#<span>#}
+											{#(22)#}
+										{#</span>#}
+                                    {#</a>#}
+                                {#</li>#}
+
+                                {#<li class="p-rl-4 p-b-19">#}
+                                    {#<a href="#" class="flex-wr-sb-c f1-s-10 text-uppercase cl2 hov-cl10 trans-03">#}
+										{#<span>#}
+											{#February 2018#}
+										{#</span>#}
+
+                                        {#<span>#}
+											{#(32)#}
+										{#</span>#}
+                                    {#</a>#}
+                                {#</li>#}
+
+                                {#<li class="p-rl-4 p-b-19">#}
+                                    {#<a href="#" class="flex-wr-sb-c f1-s-10 text-uppercase cl2 hov-cl10 trans-03">#}
+										{#<span>#}
+											{#January 2018#}
+										{#</span>#}
+
+                                        {#<span>#}
+											{#(21)#}
+										{#</span>#}
+                                    {#</a>#}
+                                {#</li>#}
+
+                                {#<li class="p-rl-4 p-b-19">#}
+                                    {#<a href="#" class="flex-wr-sb-c f1-s-10 text-uppercase cl2 hov-cl10 trans-03">#}
+										{#<span>#}
+											{#December 2017#}
+										{#</span>#}
+
+                                        {#<span>#}
+											{#(26)#}
+										{#</span>#}
+                                    {#</a>#}
+                                {#</li>#}
+                            {#</ul>#}
+                        {#</div>#}
+
+                        <!-- Popular Posts -->
+                        <div class="p-b-30">
+                            <div class="how2 how2-cl4 flex-s-c">
+                                <h3 class="f1-m-2 cl3 tab01-title">
+                                    Les plus populaires
+                                </h3>
+                            </div>
+
+                            <ul class="p-t-35">
+                                {% for article in articles_populaires %}
+                                <li class="flex-wr-sb-s p-b-30">
+                                    <a href="{{ path('article', {'article': article['article'].slug}) }}" class="size-w-10 wrap-pic-w hov1 trans-03">
+                                        <img src="{{ asset('images/uploads/') }}{{ article['article'].image.imageName }}" alt="IMG">
+                                    </a>
+
+                                    <div class="size-w-11">
+                                        <h6 class="p-b-4">
+                                            <a href="{{ path('article', {'article': article['article'].slug}) }}" class="f1-s-5 cl3 hov-cl10 trans-03">
+                                                {{ article['article'].titre }}
+                                            </a>
+                                        </h6>
+
+                                        <span class="cl8 txt-center p-b-24">
+											<a href="{{ path('rubrique', {'rubrique': article['article'].rubrique.slug}) }}" class="f1-s-6 cl8 hov-cl10 trans-03">
+												{{ article['article'].rubrique.titre }}
+											</a>
+
+											<span class="f1-s-3 m-rl-3">
+												-
+											</span>
+
+											<span class="f1-s-3">
+												{{ article['article'].createdAt|date('M d, H:i') }}
+											</span>
+										</span>
+                                    </div>
+                                </li>
+                                {% endfor %}
+                            </ul>
+                        </div>
+
+                        <!-- Tag -->
+                        {#<div>#}
+                            {#<div class="how2 how2-cl4 flex-s-c m-b-30">#}
+                                {#<h3 class="f1-m-2 cl3 tab01-title">#}
+                                    {#Tags#}
+                                {#</h3>#}
+                            {#</div>#}
+
+                            {#<div class="flex-wr-s-s m-rl--5">#}
+                                {#<a href="#" class="flex-c-c size-h-2 bo-1-rad-20 bocl12 f1-s-1 cl8 hov-btn2 trans-03 p-rl-20 p-tb-5 m-all-5">#}
+                                    {#Fashion#}
+                                {#</a>#}
+
+                                {#<a href="#" class="flex-c-c size-h-2 bo-1-rad-20 bocl12 f1-s-1 cl8 hov-btn2 trans-03 p-rl-20 p-tb-5 m-all-5">#}
+                                    {#Lifestyle#}
+                                {#</a>#}
+
+                                {#<a href="#" class="flex-c-c size-h-2 bo-1-rad-20 bocl12 f1-s-1 cl8 hov-btn2 trans-03 p-rl-20 p-tb-5 m-all-5">#}
+                                    {#Denim#}
+                                {#</a>#}
+
+                                {#<a href="#" class="flex-c-c size-h-2 bo-1-rad-20 bocl12 f1-s-1 cl8 hov-btn2 trans-03 p-rl-20 p-tb-5 m-all-5">#}
+                                    {#Streetstyle#}
+                                {#</a>#}
+
+                                {#<a href="#" class="flex-c-c size-h-2 bo-1-rad-20 bocl12 f1-s-1 cl8 hov-btn2 trans-03 p-rl-20 p-tb-5 m-all-5">#}
+                                    {#Crafts#}
+                                {#</a>#}
+
+                                {#<a href="#" class="flex-c-c size-h-2 bo-1-rad-20 bocl12 f1-s-1 cl8 hov-btn2 trans-03 p-rl-20 p-tb-5 m-all-5">#}
+                                    {#Magazine#}
+                                {#</a>#}
+
+                                {#<a href="#" class="flex-c-c size-h-2 bo-1-rad-20 bocl12 f1-s-1 cl8 hov-btn2 trans-03 p-rl-20 p-tb-5 m-all-5">#}
+                                    {#News#}
+                                {#</a>#}
+
+                                {#<a href="#" class="flex-c-c size-h-2 bo-1-rad-20 bocl12 f1-s-1 cl8 hov-btn2 trans-03 p-rl-20 p-tb-5 m-all-5">#}
+                                    {#Blogs#}
+                                {#</a>#}
+                            {#</div>#}
+                        {#</div>#}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+{% endblock %}
+
+{% block javascript %}
+{{ parent() }}
+
+{% endblock %}

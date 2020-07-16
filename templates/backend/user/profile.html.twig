@@ -1,0 +1,378 @@
+{# templates/backend/user/profile.html.twig #}
+
+{% extends 'backend/layout.html.twig' %}
+
+{% block titre %}NeosysCMS - Admin - Mon Profile{% endblock %}
+
+{% block main_content %}
+
+<div class="container">
+    <!-- Title -->  
+    <div class="row heading-bg">
+        <div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
+          <h5 class="txt-dark">Mon Profile</h5>
+        </div>
+        <!-- Breadcrumb -->
+        <div class="col-lg-9 col-sm-8 col-md-8 col-xs-12">
+          <ol class="breadcrumb">
+            <li><a href="{{ path('admin_dashboard') }}">Tableau de bord</a></li>
+            <li class="active"><span>Mon Profile</span></li>
+          </ol>
+        </div>
+        <!-- /Breadcrumb -->
+    </div>
+    <!-- /Title -->
+
+    <!-- Row -->
+    <div class="row">
+        <div class="col-sm-12 col-xs-12">
+            {% for message in app.flashes('succes') %}
+                <div class="alert alert-warning alert-dismissable">
+                    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                    <i class="zmdi zmdi-alert-circle-o pr-15 pull-left"></i><p class="pull-left">{{ message }}.</p>
+                    <div class="clearfix"></div>
+                </div>
+            {% endfor %}
+
+            <div class="panel panel-default card-view  pa-0">
+                <div class="panel-wrapper collapse in">
+                    <div class="panel-body  pa-0">
+                        <div class="profile-box">
+                            <div class="profile-cover-pic">
+                                {#<div class="fileupload btn btn-default">
+                                    <span class="btn-text">edit</span>
+                                    <input class="upload" type="file">
+                                </div>#}
+                                <div class="profile-image-overlay"></div>
+                            </div>
+                            <div class="profile-info text-center">
+                                <div class="profile-img-wrap">
+                                    {#<img class="inline-block mb-10" src="../img/mock1.jpg" alt="user">#}
+                                    {% if user.imageSize <= 0 %}
+                                    <img src="{{ asset('images/users/default.png') }}" class="inline-block mb-10" alt="profile">
+                                    {% else %}
+                                    <img src="{{ asset('images/users/') }}{{ user.imageName }}" class="inline-block mb-10" alt="profile">
+                                    {% endif %}
+
+                                    {#<div class="fileupload btn btn-default">
+                                        <span class="btn-text">edit</span>
+                                        <input class="upload" type="file">
+                                    </div>#}
+                                </div>  
+                                <h5 class="block mt-10 mb-5 weight-500 capitalize-font txt-danger">{{user.nom}} {{user.prenom}}</h5>
+                                {#<h6 class="block capitalize-font pb-20">Developer Geek</h6>#}
+                            </div>  
+                            <div class="social-info">
+                                <div class="row">
+                                    <div class="col-xs-3 text-center">
+                                        <span class="counts block head-font">{{user.username}}</span>
+                                        <span class="counts-text block">Nom d'utilisateur</span>
+                                    </div>
+                                    <div class="col-xs-3 text-center">
+                                        <span class="counts block head-font">{{ user.roles ? user.roles|join(', ') : '' }}</span>
+                                        <span class="counts-text block">Roles</span>
+                                    </div>
+                                    <div class="col-xs-3 text-center">
+                                        <span class="counts block head-font">{{user.email}}</span>
+                                        <span class="counts-text block">E-mail</span>
+                                    </div>
+                                    <div class="col-xs-3 text-center">
+                                        <span class="counts block head-font">{% if user.isActive == 1 %} Active
+                                            {% else %}
+                                            Desactive
+                                            {% endif %}</span>
+                                        <span class="counts-text block">Statut</span>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-3 col-md-offset-3">
+                                        <button class="btn btn-warning btn-block btn-outline btn-anim mt-30" data-toggle="modal" data-target="#myModal" data-backdrop="static"><i class="fa fa-pencil"></i><span class="btn-text">Modifier le profile</span></button>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <button class="btn btn-warning btn-block btn-outline btn-anim mt-30" data-toggle="modal" data-target="#modalEditPassword" data-backdrop="static"><i class="fa fa-pencil"></i><span class="btn-text">Modifier Mot de passe</span></button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- /Row -->
+</div>
+
+
+<!-- modal window edit profile-->
+<div id="myModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                {# <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button> #}
+                <h5 class="modal-title" id="myModalLabel">Modifier le profil</h5>
+            </div>
+            <div class="modal-body">
+                <!-- Row -->
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="">
+                            <div class="panel-wrapper collapse in">
+                                <div class="panel-body pa-0">
+                                    <div class="col-sm-12 col-xs-12">
+                                        <div class="form-wrap">
+                                            {{ form_start(form, {'attr': {'id': 'userForm'}}) }}
+                                                <div class="form-body">
+                                                    <div class="col-md-6">
+                                                        <div class="form-group">
+                                                            {{ form_help(form.nom) }}
+                                                            <label class="control-label mb-10">Nom</label>
+                                                            {{ form_widget(form.nom, {'attr': {'class': 'form-control'}}) }}
+                                                            <span class="help-block"> {{ form_errors(form.nom) }}</span> 
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <div class="form-group">
+                                                            <label class="control-label mb-10">Prenom</label>
+                                                            {{ form_widget(form.prenom, {'attr': {'class': 'form-control'}}) }}
+                                                            <span class="help-block"> {{ form_errors(form.prenom) }} </span> 
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <div class="form-group">
+                                                            {{ form_help(form.username) }}
+                                                            <label class="control-label mb-10">Nom d'utilisateur</label>
+                                                            {{ form_widget(form.username, {'attr': {'class': 'form-control'}}) }}
+                                                            <span class="help-block"> {{ form_errors(form.username) }}</span> 
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <div class="form-group">
+                                                            <label class="control-label mb-10">Email</label>
+                                                            {{ form_widget(form.email, {'attr': {'class': 'form-control'}}) }}
+                                                            <span class="help-block"> {{ form_errors(form.email) }} </span> 
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <div class="form-group">
+                                                            <label class="control-label mb-10">Roles</label>
+                                                            {{ form_widget(form.roles, {'attr': {'class': 'form-control', 'disabled': 'true'}}) }}
+                                                            <span class="help-block"> {{ form_errors(form.roles) }} </span> 
+                                                        </div>
+                                                    </div>              
+                                                    <div class="col-md-6">
+                                                        <div class="form-group">
+                                                            <label class="control-label mb-10">Image</label>
+                                                            {{ form_widget(form.imageFile, {'attr': {'class': ''}}) }}
+                                                            <span class="help-block"> {{ form_errors(form.imageFile) }} </span>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <div class="form-group">
+                                                            <label class="control-label mb-10">Active ?</label>
+                                                            {{ form_widget(form.isActive, {'attr': {'class': '', 'disabled': 'true'}}) }}
+                                                            <span class="help-block"> {{ form_errors(form.isActive) }} </span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            {{ form_end(form, {'render_rest': false}) }}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <span class="custom-loader"><i class="fa fa-spin fa-gear text-warning"></i></span>
+                <button type="button" class="btn btn-success waves-effect" id="submitForm">Mettre a jour</button>
+                <button type="button" class="btn btn-default waves-effect" data-dismiss="modal" id="cancelForm">Annuler</button>
+            </div>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
+<!-- /. modal window edit profile -->
+
+<!-- modal window edit password-->
+<div id="modalEditPassword" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                {# <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button> #}
+                <h5 class="modal-title" id="myModalLabel">Modifier le mot de passe</h5>
+            </div>
+            <div class="modal-body">
+                <!-- Row -->
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="">
+                            <div class="panel-wrapper collapse in">
+                                <div class="panel-body pa-0">
+                                    <div class="col-sm-12 col-xs-12">
+                                        <div class="form-wrap">
+                                            {{ form_start(formPassword, {'attr': {'id': 'passwordForm'}}) }}
+                                                <div class="form-body">
+                                                    <div class="row">
+                                                        <div class="col-md-12">
+                                                            <div class="form-group">
+                                                                <label class="control-label mb-10">Mot de passe</label>
+                                                                {{ form_widget(formPassword.password.first, {'attr': {'class': 'form-control'}}) }}
+                                                                <span class="help-block"> {{ form_errors(formPassword.password.first) }} </span>
+                                                                <label class="control-label mb-10">Retapez le mot de passe</label>
+                                                                {{ form_widget(formPassword.password.second, {'attr': {'class': 'form-control'}}) }}
+                                                                <span class="help-block"> {{ form_errors(formPassword.password.second) }} </span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <!-- /Row -->
+                                                </div>
+                                            {{ form_end(formPassword) }}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <span class="custom-loader"><i class="fa fa-spin fa-gear text-warning"></i></span>
+                <button type="button" class="btn btn-success waves-effect" id="submitPassword">Mettre a jour</button>
+                <button type="button" class="btn btn-default waves-effect" data-dismiss="modal" id="cancelEditPassword">Annuler</button>
+            </div>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
+<!-- /. modal password -->
+{% endblock %}
+
+{% block javascript %}
+    {{ parent() }}
+    <script type="text/javascript">
+        $(function() {
+            "use strict";
+            $(".custom-loader").hide();
+
+            $( "#submitForm" ).click(function() {
+                $(".custom-loader").show();
+                $( "button#submitForm" ).toggleClass( "disabled" );
+                $( "button#submitForm" ).attr( "disabled", "disabled" );
+                $( "button#cancelForm" ).toggleClass( "disabled" );
+                $( "button#cancelForm" ).attr( "disabled", "disabled" );
+
+                event.preventDefault(); //prevent default action 
+                var form = document.getElementById("userForm");
+                var form_data = new FormData(form); //Encode form elements for submission
+                $.ajax({
+                    url : '/admin/update-profile/'+{{user.id}},
+                    type: 'POST',
+                    data : form_data,
+                            contentType: false,
+                            cache: false,
+                            processData:false
+                }).done(function(response){ //
+                    $(".custom-loader").hide();
+                    $( "button#submitForm" ).toggleClass( "disabled" );
+                    $( "button#cancelForm" ).toggleClass( "disabled" );
+                    $( "button#submitForm" ).removeAttr("disabled");
+                    $( "button#cancelForm" ).removeAttr("disabled");
+
+                    if(response.user){
+                        console.log(1);
+                        location.reload();
+                    }else{
+                        console.log(0)
+                        $.toast().reset('all');
+                        $("body").removeAttr('class');
+                        $.toast({
+                            heading: 'Oops! Une erreur s\'est produite',
+                            text: 'Vos informations n\'ont pas ete mises a jour.',
+                            position: 'top-right',
+                            loaderBg:'#fec107',
+                            icon: 'error',
+                            hideAfter: 3500
+                        });
+                    }
+
+                }).fail(function(xhr, status, error){
+                    $(".custom-loader").hide();
+                    $( "button#submitForm" ).removeClass( "disabled" );
+                    $( "button#cancelForm" ).removeClass( "disabled" );
+                    $( "button#submitForm" ).removeAttr("disabled");
+                    $( "button#cancelForm" ).removeAttr("disabled");
+                    $.toast().reset('all');
+                    $("body").removeAttr('class');
+                    $.toast({
+                        heading: 'Oops! Une erreur s\'est produite',
+                        text: 'Vos informations n\'ont pas ete mises a jour.',
+                        position: 'top-right',
+                        loaderBg:'#fec107',
+                        icon: 'error',
+                        hideAfter: 3500
+                    });
+                    console.log(error);
+                });
+            });
+
+            $( "#submitPassword" ).click(function() {
+                $(".custom-loader").show();
+                $( "button#submitPassword" ).toggleClass( "disabled" );
+                $( "button#cancelEditPassword" ).toggleClass( "disabled" );
+
+                event.preventDefault(); //prevent default action 
+                var form = document.getElementById("passwordForm");
+                var form_data = new FormData(form); //Encode form elements for submission
+                $.ajax({
+                    url : '/admin/update-profile-password/'+{{user.id}},
+                    type: 'POST',
+                    data : form_data,
+                            contentType: false,
+                            cache: false,
+                            processData:false
+                }).done(function(response){ //
+                    $(".custom-loader").hide();
+                    $( "button#submitPassword" ).toggleClass( "disabled" );
+                    $( "button#cancelEditPassword" ).toggleClass( "disabled" );
+
+                    if(response.user){
+                        console.log(1);
+                        location.reload();
+                    }else{
+                        console.log(0)
+                        $.toast().reset('all');
+                        $("body").removeAttr('class');
+                        $.toast({
+                            heading: 'Oops! Une erreur s\'est produite',
+                            text: 'Votre mot de passe n\'a pas ete mises a jour.',
+                            position: 'top-right',
+                            loaderBg:'#fec107',
+                            icon: 'error',
+                            hideAfter: 3500
+                        });
+                    }
+
+                }).fail(function(xhr, status, error){
+                    $(".custom-loader").hide();
+                    $( "button#submitPassword" ).removeClass( "disabled" );
+                    $( "button#cancelEditPassword" ).removeClass( "disabled" );
+                    $.toast().reset('all');
+                    $("body").removeAttr('class');
+                    $.toast({
+                        heading: 'Oops! Une erreur s\'est produite',
+                        text: 'Votre mot de passe n\'a pas ete mises a jour.',
+                        position: 'top-right',
+                        loaderBg:'#fec107',
+                        icon: 'error',
+                        hideAfter: 3500
+                    });
+                    console.log(error);
+                });
+            });
+        });
+    </script>
+{% endblock %}
+

@@ -1,0 +1,109 @@
+<div class="bg2 p-t-40 p-b-25">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-4 p-b-20">
+                <div class="size-h-3 flex-s-c">
+                    <a href="index.html">
+                        <img class="max-s-full" src="{{ asset('theme/magnews2/images/icons/logo-slogan-o-b.png') }}" alt="LOGO">
+                    </a>
+                </div>
+
+                <div>
+                    {#<p class="f1-s-1 cl11 p-b-16">#}
+                        {#Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur tempor magna eget elit efficitur, at accumsan sem placerat. Nulla tellus libero, mattis nec molestie at, facilisis ut turpis. Vestibulum dolor metus, tincidunt eget odio#}
+                    {#</p>#}
+
+                    <p class="f1-s-1 cl11 p-b-16">
+                        Vous avez des questions? Appelez-nous au <br>
+                        (+241) 66755160<br>
+                        (+241) 77 09 00 90<br>
+                        (+241) 66 43 11 79
+                    </p>
+
+                    <div class="p-t-15">
+                        <a href="#" class="fs-18 cl11 hov-cl10 trans-03 m-r-8">
+                            <span class="fab fa-facebook-f"></span>
+                        </a>
+
+                        <a href="#" class="fs-18 cl11 hov-cl10 trans-03 m-r-8">
+                            <span class="fab fa-twitter"></span>
+                        </a>
+
+                        <a href="#" class="fs-18 cl11 hov-cl10 trans-03 m-r-8">
+                            <span class="fab fa-pinterest-p"></span>
+                        </a>
+
+                        <a href="#" class="fs-18 cl11 hov-cl10 trans-03 m-r-8">
+                            <span class="fab fa-vimeo-v"></span>
+                        </a>
+
+                        <a href="#" class="fs-18 cl11 hov-cl10 trans-03 m-r-8">
+                            <span class="fab fa-youtube"></span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-sm-6 col-lg-4 p-b-20">
+                <div class="size-h-3 flex-s-c">
+                    <h5 class="f1-m-7 cl0">
+                        Articles populaires
+                    </h5>
+                </div>
+
+                <ul>
+                    {% for article in articles %}
+                    <li class="flex-wr-sb-s p-b-20">
+                        <a href="{{ path('article', {'article': article['article'].slug}) }}" class="size-w-4 wrap-pic-w hov1 trans-03">
+                            <img src="{{ asset('images/uploads/') }}{{ article['article'].image.imageName }}" alt="IMG">
+                        </a>
+
+                        <div class="size-w-5">
+                            <h6 class="p-b-5">
+                                <a href="{{ path('article', {'article': article['article'].slug}) }}" class="f1-s-5 cl11 hov-cl10 trans-03">
+                                    {{ article['article'].titre }}
+                                </a>
+                            </h6>
+
+                            <span class="f1-s-3 cl6">
+                                {{ article['article'].createdAt|date('M d, H:i') }}
+                            </span>
+                        </div>
+                    </li>
+                    {% endfor %}
+                </ul>
+            </div>
+
+            <div class="col-sm-6 col-lg-4 p-b-20">
+                <div class="size-h-3 flex-s-c">
+                    <h5 class="f1-m-7 cl0">
+                        Rubrique
+                    </h5>
+                </div>
+
+                <ul class="m-t--12">
+                    {% for rubrique in rubriques %}
+                    <li class="how-bor1 p-rl-5 p-tb-10">
+                        <a href="{{ path('rubrique', {'rubrique': rubrique.slug }) }}" class="f1-s-5 cl11 hov-cl10 trans-03 p-tb-8">
+                            {{ rubrique.titre }} ({{ rubrique.articles|length }})
+                        </a>
+                    </li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="bg11">
+    <div class="container size-h-4 flex-c-c p-tb-15">
+        <span class="f1-s-1 cl0 txt-center">
+            <a href="#" class="f1-s-1 cl10 hov-link1">
+                <small><!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+                Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved | This is made with <i class="fa fa-heart" aria-hidden="true"></i> by <a href="http://portail.neosystechnologie.ga" target="_blank">Neosys Technologie S.A.R.L
+                </small>
+            </a>
+<!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+        </span>
+    </div>
+</div>

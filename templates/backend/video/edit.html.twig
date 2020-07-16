@@ -1,0 +1,195 @@
+{# templates/backend/blog/edit.html.twig #}
+
+{% extends 'backend/layout.html.twig' %}
+
+{% block titre %}NeosysCMS - Admin - Modifier Blog{% endblock %}
+
+{% block main_content %}
+
+<div class="container">
+    <!-- Title -->  
+    <div class="row heading-bg">
+        <div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
+          <h5 class="txt-dark">Modifier blog[{{blog.id}}]</h5>
+        </div>
+        <!-- Breadcrumb -->
+        <div class="col-lg-9 col-sm-8 col-md-8 col-xs-12">
+          <ol class="breadcrumb">
+            <li><a href="{{ path('admin_dashboard') }}">Tableau de bord</a></li>
+            <li><a href="{{ path('admin_blog_index') }}">Blogs</a></li>
+            <li class="active"><span>Modifier Blog[{{blog.id}}]</span></li>
+          </ol>
+        </div>
+        <!-- /Breadcrumb -->
+    </div>
+    <!-- /Title -->
+
+    <!-- Row -->
+    <div class="row">
+    	<div class="col-md-12">
+    		<div class="well well-sm card-view">
+				<a href="{{ path('admin_blog_index') }}" class="btn btn-xs btn-icon left-icon btn-primary"><i class="fa fa-arrow-left"></i>Retour a la liste</a>
+			</div>
+    	</div>
+    </div>
+    <!-- ./Row -->
+
+	<!-- Row -->
+	<div class="row">
+		<div class="col-sm-12">
+			<div class="panel panel-default card-view">
+				<div class="panel-wrapper collapse in">
+					<div class="panel-body">
+						<div  class="tab-struct custom-tab-1 product-desc-tab">
+							<ul role="tablist" class="nav nav-tabs nav-tabs-responsive" id="myTabs_7">
+								<li class="{% if pan=='formulaire' %} active {% endif %}" role="presentation"><a aria-expanded="true" role="tab" id="descri_tab" href="?pan=formulaire"><span>Formulaire</span></a></li>
+								<li class="{% if pan=='commentaires' %} active {% endif %}" role="presentation" class="next"><a aria-expanded="true" role="tab" id="adi_info_tab" href="?pan=commentaires"><span>Commentaires ({{blog.commentaires|length}})</span></a></li>
+							</ul>
+							<div class="tab-content" id="myTabContent_7">
+								<div  id="formulaire" class="tab-pane fade {% if pan=='formulaire' %} active {% endif %} in pt-0" role="tabpanel">
+									<div class="row">
+								    	<div class="col-sm-12 col-xs-12 col-md-9 col-lg-9">
+								    		{% for message in app.flashes('succes') %}
+										    	<div class="alert alert-warning alert-dismissable">
+													<button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+													<i class="zmdi zmdi-alert-circle-o pr-15 pull-left"></i><p class="pull-left">{{ message }}.</p>
+													<div class="clearfix"></div>
+												</div>
+											{% endfor %}
+
+								    		<div class="well well-sm card-view">
+												<div class="form-wrap">
+													{{ include('backend/blog/_form.html.twig', {'button_label': 'Enregistrer', 'button_type': 'btn-warning'}) }}		
+												</div>
+											</div>
+								    	</div>
+
+								    	<div class="col-sm-12 col-xs-12 col-md-3 col-lg-3">
+								    		<div class="well well-sm card-view">
+												<label class="txt-dark">Image</label>
+												<p style="text-align:center">
+												{% if blog.image|default(null) %}
+								                <img src="{{ asset('images/uploads/') }}{{ blog.image.imageName }}" width="70%" height="auto">
+												{% else %}
+								                <img src="{{ asset('images/default.png') }}" width="70%" height="auto">												
+								                {% endif %}
+								                </p>
+								                <p>
+								                <label class="txt-dark">Cree par</label>
+								                </p>
+												<p>
+												{{ blog.createdBy.nom }} {{ blog.createdBy.prenom }}
+												</p>
+								                <p>
+								                <label class="txt-dark">Cree le</label>
+								                </p>
+												<p>
+												{{ blog.createdAt ? blog.createdAt|date('d/m/Y H:i:s') : '' }}
+												</p>
+								                <p>
+								                <label class="txt-dark">Modifie le</label>
+								                </p>
+												<p>
+												{{ blog.updatedAt ? blog.updatedAt|date('d/m/Y H:i:s') : '' }}
+												</p>
+								                <hr class="light-grey-hr">
+								                {{ include('backend/blog/_delete_form.html.twig') }}
+											</div>
+								    	</div>
+								    </div>
+									<!-- /Row -->
+								</div>
+								<div  id="commentaires" class="tab-pane fade {% if pan=='commentaires' %} active {% endif %} in pt-0" role="tabpanel">
+									<!-- Commenataires -->
+									<div id="liste-commentaires">
+										{% for commentaire in blog.commentaires %}
+										<!-- commentaire -->
+										<div class="commentaire mt-20" id="commentaire_{{commentaire.id}}">
+											<!-- row -->
+											<div class="row">
+												<div class="col-md-2">
+													<div class="item-big text-center">
+														{% if commentaire.type == 'externe' %}
+														<img class="img-circle" src="{{ asset('images/supports/avatar.png') }}" alt="First slide image" width="50" height="50">
+														{% else %}
+														<img class="img-circle" src="{{ asset('images/supports/helpdesk.png') }}" alt="First slide image" width="50" height="50">
+														{% endif %}
+													</div>
+												</div>
+
+												<div class="col-md-10">
+													<div class="product-detail-wrap">
+														<h6 class="weight-300">{{commentaire.nom}}</h6>
+														<div class="head-font mb-10">{{ commentaire.sendedAt ? commentaire.sendedAt|date('d/m/Y H:i:s') : '' }}</div>
+														<p class="mb-10">
+															{% autoescape %}
+															{{commentaire.message|raw}}
+															{% endautoescape %}
+														</p>
+														<p>
+															<a href="#commentaire_message" class='txt-success btn-repondre' onclick="" data-value="<a href='#commentaire_{{commentaire.id}}' class='commentaire-message' selected='commentaire_{{commentaire.id}}'>@{{commentaire.nom}}</a>"><b><i class="fa fa-mail-forward"></i> Repondre<b></a> &nbsp&nbsp&nbsp<a href="#commentaire_message" class='txt-danger'><b><i class="fa fa-remove"></i> Supprimer<b></a>
+														</p>
+													</div>
+												</div>
+											</div>
+											<!-- ./row -->
+										</div>
+										<!-- ./commentaire -->
+										{% endfor %}
+									</div>
+									<!-- ./liste-commentaires -->
+
+									<div id="commenter" class="mt-10">
+										{{ form_start(formCommentaire) }}
+											<div class="form-body">
+												<div class="row">
+													<div class="col-md-8">
+														<div class="form-group">
+															<label class="control-label mb-10">Commentaire</label>
+															{{ form_widget(formCommentaire.message, {'attr': {'class': 'form-control', 'rows':5}}) }}
+															<span class="help-block"> {{ form_errors(formCommentaire.message) }}</span> 
+														</div>
+													</div>
+												</div>
+											</div>
+											<div class="form-actions mt-10">
+												<button type="submit" class="btn btn-success  btn-icon left-iocn mr-10"><i class="fa fa-arrow-right"></i>{{ button_label|default('Envoyer') }}</button>
+												{# <button type="button" class="btn btn-default">Cancel</button> #}
+											</div>
+										{{ form_end(formCommentaire) }}
+									</div>
+								</div>
+							</div>
+						</div>
+					
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- /Row -->
+</div>
+{% endblock %}
+
+{% block javascript %}
+    {{ parent() }}
+    <script type="text/javascript">
+	    $(function() {
+	    	"use strict";
+	        $('textarea.ckeditor').ckeditor();
+			$('#blog_image_imageFile').removeAttr('required');
+
+	        $(".btn-repondre").click(function() {
+	        	$("#commentaire_message").val($( this ).attr("data-value"));
+	        	$('html, body').animate({scrollTop:$($( this ).attr("selected")).position().top - 50 }, 'slow');
+	        	//alert($( this ).attr("data-value"));
+	        });
+
+	    });
+
+	    /*function initComment(value){
+        	document.getElementById('commentaire_message').value = '<pre>'+value+'</pre>';
+        }*/
+	</script>
+{% endblock %}
+
